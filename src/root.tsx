@@ -8,9 +8,13 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
+import Header from "src/components/layout/Header";
+import Footer from "src/components/layout/Footer";
+import BackToTop from "src/components/layout/BackToTop";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
+  { rel: "shortcut icon", href: "/icon.svg", type: "image/svg+xml" },
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
     rel: "preconnect",
@@ -19,21 +23,33 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Rubik:wght@400;500;600;700&display=swap",
+  },
+];
+
+export const meta: Route.MetaFunction = ({}: Route.MetaArgs) => [
+  { title: "AguXpress | Logistics Made Easy" },
+  {
+    name: "description",
+    content:
+      "AguXpress delivers more than just packages — we deliver peace of mind.",
   },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
       </head>
-      <body>
-        {children}
+      <body className="text-ax-black-a bg-ax-white-a">
+        <Header />
+        <main>{children}</main>
+        <Footer />
+        <BackToTop />
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -41,7 +57,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default function App() {
+export default function Apps() {
   return <Outlet />;
 }
 
@@ -62,11 +78,11 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   }
 
   return (
-    <main className="pt-16 p-4 container mx-auto">
+    <main className="container mx-auto p-4 pt-16">
       <h1>{message}</h1>
       <p>{details}</p>
       {stack && (
-        <pre className="w-full p-4 overflow-x-auto">
+        <pre className="w-full overflow-x-auto p-4">
           <code>{stack}</code>
         </pre>
       )}
