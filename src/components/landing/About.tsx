@@ -13,8 +13,8 @@ const About = () => (
       >
         <img
           src={truck}
-          width="400"
-          height="720"
+          width={400}
+          height={720}
           loading="lazy"
           alt=""
           className="h-full w-full object-cover"
@@ -22,8 +22,8 @@ const About = () => (
 
         <img
           src={primaryLogo}
-          width="260"
-          height="170"
+          width={260}
+          height={170}
           loading="lazy"
           alt=""
           className="absolute right-0 bottom-10"
@@ -31,11 +31,9 @@ const About = () => (
 
         <img
           src={redSquare}
-          width="500"
-          height="500"
           loading="lazy"
           alt=""
-          className="hidden"
+          className="absolute bottom-0 left-[50px] -z-1 hidden w-[400px] sm:block"
         />
       </figure>
 

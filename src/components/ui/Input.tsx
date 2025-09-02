@@ -1,5 +1,5 @@
 import type { ComponentPropsWithoutRef } from "react";
-import { cn } from "src/utils/styling";
+import { cn } from "@utils/display.utils";
 
 type InputProps =
   | ({ variant: "textarea" } & ComponentPropsWithoutRef<"textarea">)

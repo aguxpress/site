@@ -15,6 +15,7 @@
     "rootDirs": [".", "./.react-router/types"],
     "baseUrl": ".",
     "paths": {
+      "@/types/*": ["src/types/*"],
       "@assets/*": ["src/assets/*"],
       "@logos/*": ["src/assets/logos/*"],
       "@images/*": ["src/assets/images/*"],

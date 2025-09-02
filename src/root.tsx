@@ -8,9 +8,9 @@ import {
 } from "react-router";
 
 import type { Route } from "./+types/root";
-import Header from "src/components/layout/Header";
-import Footer from "src/components/layout/Footer";
-import BackToTop from "src/components/layout/BackToTop";
+import Header from "@components/layout/Header";
+import Footer from "@components/layout/Footer";
+import BackToTop from "@components/layout/BackToTop";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [

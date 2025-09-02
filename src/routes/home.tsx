@@ -1,18 +1,24 @@
 import type { Route } from "./+types/home";
-import Hero from "src/components/landing/Hero";
-import About from "src/components/landing/About";
-import Services from "src/components/landing/Services";
+import Hero from "@components/landing/Hero";
+import About from "@components/landing/About";
+import Services from "@components/landing/Services";
 import HomeBlog from "@components/landing/HomeBlog";
-import Contact from "src/components/landing/Contact";
-import Subscribe from "src/components/landing/Subscribe";
+import Contact from "@components/landing/Contact";
+import Subscribe from "@components/landing/Subscribe";
+import { getAllArticles } from "@utils/graphql.server";
 
-export default function Home() {
+export async function loader({}: Route.LoaderArgs) {
+  const articles = await getAllArticles();
+  return { articles };
+}
+
+export default function Home({ loaderData }: Route.ComponentProps) {
   return (
     <article>
       <Hero />
       <About />
       <Services />
-      <HomeBlog />
+      <HomeBlog articles={loaderData.articles} />
       <Contact />
       <Subscribe />
     </article>

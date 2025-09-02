@@ -33,7 +33,7 @@
   /* Scrollbar Styles */
   /* prettier-ignore */
   html {
-    @apply 
+    @apply
     [&::-webkit-scrollbar]:w-3
     [&::-webkit-scrollbar-thumb]:bg-[hsl(0,0%,80%)]
     [&::-webkit-scrollbar-thumb]:[border:2px_solid_hsl(0,0%,95%)]
@@ -58,7 +58,7 @@
   label,
   span,
   img {
-    @apply block;
+    @apply block max-w-none;
   }
 }
 
