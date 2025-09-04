@@ -8,6 +8,8 @@ import {
 import type {
   GetArticlesQuery,
   GetArticlesQueryVariables,
+  GetArticleByIdQuery,
+  GetArticleByIdQueryVariables,
 } from "@/types/__generated__/graphql";
 import { env } from "./env.server";
 
@@ -20,8 +22,8 @@ const GET_ARTICLES: TypedDocumentNode<
   GetArticlesQuery,
   GetArticlesQueryVariables
 > = gql`
-  query GetArticles {
-    posts(last: 2, where: { status: PUBLISH }) {
+  query GetArticles($num: Int = 30) {
+    posts(last: $num, where: { status: PUBLISH }) {
       nodes {
         id
         title
@@ -39,10 +41,54 @@ const GET_ARTICLES: TypedDocumentNode<
   }
 `;
 
-async function getAllArticles() {
-  const { data } = await client.query({ query: GET_ARTICLES });
+const GET_ARTICLE_BY_ID: TypedDocumentNode<
+  GetArticleByIdQuery,
+  GetArticleByIdQueryVariables
+> = gql`
+  query GetArticleById($postId: ID!) {
+    post(id: $postId, idType: SLUG) {
+      id
+      slug
+      date
+      title
+      content
+      author {
+        node {
+          avatar {
+            url
+          }
+          description
+          slug
+          name
+          id
+        }
+      }
+      featuredImage {
+        node {
+          sourceUrl
+          altText
+          id
+        }
+      }
+    }
+  }
+`;
+
+async function getAllArticles(num?: number) {
+  const { data } = await client.query({
+    query: GET_ARTICLES,
+    variables: { num },
+  });
+  return data;
+}
+
+async function getArticleById(slug: string) {
+  const { data } = await client.query({
+    query: GET_ARTICLE_BY_ID,
+    variables: { postId: slug },
+  });
 
   return data;
 }
 
-export { getAllArticles };
+export { getAllArticles, getArticleById };

@@ -2,11 +2,11 @@ import { Link } from "react-router";
 import { IoChevronForward } from "react-icons/io5";
 import type { GetArticlesQuery } from "@/types/__generated__/graphql";
 
-interface HomeBlogProps {
+interface BlogItemProps {
   articles?: GetArticlesQuery;
 }
 
-const HomeBlog = ({ articles }: HomeBlogProps) => {
+const BlogItems = ({ articles }: BlogItemProps) => {
   const posts = articles?.posts?.nodes || [];
 
   return (
@@ -29,8 +29,6 @@ const HomeBlog = ({ articles }: HomeBlogProps) => {
                       src={
                         featuredImage?.node.sourceUrl || /* DEFAULT IMAGE */ ""
                       }
-                      width="770"
-                      height="500"
                       loading="lazy"
                       alt={
                         featuredImage?.node.sourceUrl ||
@@ -79,4 +77,4 @@ const HomeBlog = ({ articles }: HomeBlogProps) => {
   );
 };
 
-export default HomeBlog;
+export default BlogItems;

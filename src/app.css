@@ -3,6 +3,7 @@
 @theme {
   --default-font-family: "Rubik", "sans-serif";
   --font-oswald: "Oswald", "sans-serif";
+  --header-gap: 28;
 
   /* RED */
   --color-ax-red-a: #c80003;
@@ -85,7 +86,7 @@
 }
 
 * {
-  /* border: 1px solid red; */
+  border: 1px solid red;
 }
 
 .ion-icon path {

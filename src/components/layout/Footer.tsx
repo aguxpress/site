@@ -35,8 +35,8 @@ const footerLinks: FooterLinkSection[] = [
     links: [
       { name: "About" },
       { name: "Services" },
-      { name: "Shipping" },
-      { name: "Blog" },
+      { name: "Shipping", url: "/ship" },
+      { name: "Blog", url: "/blog" },
       { name: "Contact Us" },
     ],
   },
@@ -45,9 +45,10 @@ const footerLinks: FooterLinkSection[] = [
     links: [
       { name: "Haulage" },
       { name: "Dispatch" },
-      { name: "Pickup" },
+      { name: "Pickup", url: "/pickup" },
       { name: "Insurance Coverage" },
-      { name: "Escrow" },
+      { name: "Escrow", url: "/escrow" },
+      { name: "Quote", url: "/quote" },
     ],
   },
   {
@@ -95,7 +96,7 @@ const Footer = () => (
             <ul>
               {links.map(({ name, url }, index) => (
                 <li key={index}>
-                  <Link to={url ?? "#"} className="block py-1.5">
+                  <Link to={url ?? "/"} className="block py-1.5">
                     {name}
                   </Link>
                 </li>

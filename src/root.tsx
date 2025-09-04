@@ -47,7 +47,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       </head>
       <body className="text-ax-black-a bg-ax-white-a">
         <Header />
-        <main>{children}</main>
+        <main className="mt-[--spacing(var(--header-gap))]">{children}</main>
         <Footer />
         <BackToTop />
         <ScrollRestoration />

@@ -8,12 +8,12 @@ import {
 import primaryLogo from "@logos/primary.png";
 
 const Header = () => (
-  <header className="bg-ax-red-a fixed top-0 z-4 flex w-full items-center justify-between px-4 py-4">
-    <Link to="/">
+  <header className="bg-ax-red-a fixed top-0 z-4 flex h-[--spacing(var(--header-gap))] w-full items-center justify-between px-4 py-4">
+    <Link to="/" className="flex h-full">
       <img
         src={primaryLogo}
         loading="lazy"
-        className="drop-shadow-ax-black-d h-20 w-auto drop-shadow-xs"
+        className="drop-shadow-ax-black-d h-full w-auto drop-shadow-xs"
       />
     </Link>
 

@@ -3,12 +3,12 @@ import bannerBlur from "@images/banner-blur.png";
 
 const Hero = () => (
   <section
-    className="z-1 min-h-screen bg-cover bg-center bg-no-repeat pt-[--spacing(28)] text-white"
+    className="relative z-1 -mt-[--spacing(var(--header-gap))] grid min-h-screen place-content-center bg-cover bg-center bg-no-repeat pt-[calc(--spacing(var(--header-gap))+--spacing(5))] pb-10 text-white"
     aria-label="home"
     id="home"
     style={{ backgroundImage: `url(${bannerBlur})` }}
   >
-    <div className="px-4 py-6">
+    <div className="px-4">
       <div className="bg-ax-black-a/60 p-7.5 text-center">
         <h2 className="text-4xl leading-tight text-white uppercase">
           <span className="text-ax-yellow-a block text-[3rem] font-bold">

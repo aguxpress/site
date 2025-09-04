@@ -9565,7 +9565,16 @@ export type WritingSettings = {
   useSmilies: Maybe<Scalars['Boolean']['output']>;
 };
 
-export type GetArticlesQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetArticlesQueryVariables = Exact<{
+  num?: InputMaybe<Scalars['Int']['input']>;
+}>;
 
 
 export type GetArticlesQuery = { posts: { __typename: 'RootQueryToPostConnection', nodes: Array<{ __typename: 'Post', id: string, title: string | null, date: string | null, excerpt: string | null, slug: string | null, featuredImage: { __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename: 'MediaItem', sourceUrl: string | null, altText: string | null } } | null }> } | null };
+
+export type GetArticleByIdQueryVariables = Exact<{
+  postId: Scalars['ID']['input'];
+}>;
+
+
+export type GetArticleByIdQuery = { post: { __typename: 'Post', id: string, slug: string | null, date: string | null, title: string | null, content: string | null, author: { __typename: 'NodeWithAuthorToUserConnectionEdge', node: { __typename: 'User', description: string | null, slug: string | null, name: string | null, id: string, avatar: { __typename: 'Avatar', url: string | null } | null } } | null, featuredImage: { __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename: 'MediaItem', sourceUrl: string | null, altText: string | null, id: string } } | null } | null };
