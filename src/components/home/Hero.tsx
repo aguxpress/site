@@ -3,21 +3,21 @@ import bannerBlur from "@images/banner-blur.png";
 
 const Hero = () => (
   <section
-    className="relative z-1 -mt-[--spacing(var(--header-gap))] grid min-h-screen place-content-center bg-cover bg-center bg-no-repeat pt-[calc(--spacing(var(--header-gap))+--spacing(5))] pb-10 text-white"
+    className="relative z-1 -mt-[--spacing(var(--header-gap))] grid min-h-screen place-content-center bg-cover bg-center bg-no-repeat pt-[calc(--spacing(var(--header-gap))+--spacing(5))] pb-10 text-white sm:block sm:place-content-start"
     aria-label="home"
     id="home"
     style={{ backgroundImage: `url(${bannerBlur})` }}
   >
-    <div className="px-4">
-      <div className="bg-ax-black-a/60 p-7.5 text-center">
-        <h2 className="text-4xl leading-tight text-white uppercase">
-          <span className="text-ax-yellow-a block text-[3rem] font-bold">
+    <div className="container mx-0">
+      <div className="bg-ax-black-a/60 p-7.5 text-center sm:bg-transparent sm:text-start">
+        <h2 className="text-4xl text-white uppercase sm:text-start sm:text-5xl/[1.2] lg:text-6xl/[1.2]">
+          <span className="text-ax-yellow-a block text-[3rem] font-bold sm:text-6xl/[1.2] lg:text-7xl/[1.2]">
             Logistics Made Easy
           </span>
           Safe and Affordable
         </h2>
 
-        <p className="text-ax-white-a my-4">
+        <p className="text-ax-white-a my-4 max-w-lg">
           AguXpress delivers more than just packages — we deliver peace of mind.
           Whether you need fast dispatch, safe pickup, reliable haulage, secure
           escrow, or insurance for your goods in transit, we're here to help you

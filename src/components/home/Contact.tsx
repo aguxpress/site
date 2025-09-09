@@ -11,7 +11,7 @@ const Contact = () => (
       <form
         action="THIRD PARTY FORM ACTION LINK"
         method="post"
-        className="contact-form"
+        className="mx-auto max-w-2xl"
       >
         <label htmlFor="name" className="contact-label">
           Name

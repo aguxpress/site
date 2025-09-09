@@ -6,11 +6,12 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
+import { useState } from "react";
 import type { Route } from "./+types/root";
 import Header from "@components/layout/Header";
 import Footer from "@components/layout/Footer";
 import BackToTop from "@components/layout/BackToTop";
+import { ScrollContext } from "@utils/context.utils";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -37,6 +38,8 @@ export const meta: Route.MetaFunction = ({}: Route.MetaArgs) => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const [isPastTop, setIsPastTop] = useState(false);
+
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -46,10 +49,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="text-ax-black-a bg-ax-white-a">
-        <Header />
-        <main className="mt-[--spacing(var(--header-gap))]">{children}</main>
-        <Footer />
-        <BackToTop />
+        <ScrollContext value={{ isPastTop, setIsPastTop }}>
+          <Header />
+          <main className="mt-[--spacing(var(--header-gap))]">{children}</main>
+          <Footer />
+          <BackToTop />
+        </ScrollContext>
         <ScrollRestoration />
         <Scripts />
       </body>

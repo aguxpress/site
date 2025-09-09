@@ -65,7 +65,7 @@ const footerLinks: FooterLinkSection[] = [
 const Footer = () => (
   <footer>
     <div className="container">
-      <div className="grid gap-10 py-12.5">
+      <div className="grid gap-10 py-12.5 md:grid-cols-[1fr_1fr] lg:grid-cols-[repeat(4,1fr)] lg:py-30">
         <div className="">
           <Link to="#" className="block">
             <img src={alternateLogo} width="200" height="200" loading="lazy" />
@@ -106,7 +106,7 @@ const Footer = () => (
         ))}
       </div>
 
-      <div className="border-ax-black-a border-t py-10 text-sm">
+      <div className="border-ax-black-a border-t py-10 text-sm lg:text-center">
         <p>&copy; {new Date().getFullYear()} AguXpress. All Rights Reserved.</p>
       </div>
     </div>

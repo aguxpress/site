@@ -64,7 +64,7 @@ const Services = () => (
 
       <h2>Solutions That Move With You</h2>
 
-      <ul className="grid gap-7.5">
+      <ul className="grid gap-7.5 md:grid-cols-2 lg:grid-cols-3">
         {list.map(({ title, icon, imgAlt, description }, index) => (
           <li key={index}>
             <div className="border-[length:--spacing(5)] border-[hsl(0,0%,95%)] bg-white p-7.5">

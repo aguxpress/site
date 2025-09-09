@@ -1,6 +1,11 @@
 import Button from "src/components/ui/Button";
 import Input from "src/components/ui/Input";
 import Select from "src/components/ui/Select";
+import type { Route } from "./+types/pickup";
+
+export function clientLoader({}: Route.ClientLoaderArgs) {
+  return "hi";
+}
 
 export default function Pickup() {
   return (
@@ -8,7 +13,6 @@ export default function Pickup() {
       <div className="container">
         <p className="headline">Schedule a Pickup</p>
         <h2>Book a Pickup</h2>
-
         <form
           action="THIRD PARTY FORM ACTION LINK"
           method="post"

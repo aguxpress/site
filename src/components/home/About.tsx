@@ -6,7 +6,7 @@ import redSquare from "@images/red-square.jpg";
 
 const About = () => (
   <section id="about" aria-label="about">
-    <div className="container">
+    <div className="container lg:grid lg:grid-cols-2">
       <figure
         className="relative mb-15 aspect-[400/720] max-w-[300px] shadow-[0px_40px_60px_hsla(202,75%,47%,0.7)]"
         // style={{--width: 400 --height: 720}}
@@ -26,7 +26,7 @@ const About = () => (
           height={170}
           loading="lazy"
           alt=""
-          className="absolute right-0 bottom-10"
+          className="drop-shadow-ax-black-d absolute right-0 bottom-10 drop-shadow-sm sm:-right-[200px] lg:right-[-100px]"
         />
 
         <img

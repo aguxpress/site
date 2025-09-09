@@ -17,7 +17,7 @@ const BlogItems = ({ articles }: BlogItemProps) => {
         <h2>What's New in the World of Logistics</h2>
         <br />
 
-        <ul className="grid gap-7.5">
+        <ul className="grid gap-7.5 md:grid-cols-2">
           {posts.map(({ featuredImage, title, date, slug, excerpt }, key) => {
             const postDate = date ? new Date(date) : new Date();
 

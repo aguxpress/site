@@ -33,7 +33,7 @@
 @layer base {
   /* Scrollbar Styles */
   /* prettier-ignore */
-  html {
+  * {
     @apply
     [&::-webkit-scrollbar]:w-3
     [&::-webkit-scrollbar-thumb]:bg-[hsl(0,0%,80%)]
@@ -49,10 +49,10 @@
   }
 
   section {
-    @apply py-12;
+    @apply py-12 lg:py-30;
 
     & h2 {
-      @apply text-ax-black-d mb-5 text-center text-3xl;
+      @apply text-ax-black-d mb-5 text-center text-3xl lg:text-5xl;
     }
   }
 
@@ -65,11 +65,7 @@
 
 @layer components {
   .headline {
-    @apply text-ax-yellow-a font-oswald mb-2.5 text-center text-xl font-semibold tracking-[3px] uppercase;
-  }
-
-  .container {
-    @apply px-4;
+    @apply text-ax-yellow-a font-oswald mb-2.5 text-center text-xl font-semibold tracking-[3px] uppercase lg:text-3xl;
   }
 
   .contact-label {
@@ -81,12 +77,16 @@
   }
 
   .hero-btn {
-    @apply mx-auto block max-w-max border border-white px-5 py-2 text-sm font-medium uppercase;
+    @apply mx-auto block max-w-max border border-white px-5 py-2 text-sm font-medium uppercase sm:mx-0 md:px-10 md:py-4 md:text-base;
   }
 }
 
+@utility container {
+  @apply mx-auto w-full max-w-xl px-4 md:max-w-2xl lg:max-w-5xl;
+}
+
 * {
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 
 .ion-icon path {
