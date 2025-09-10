@@ -47,7 +47,20 @@ const headerMenu: HeaderMenu = [
 const Header = () => {
   const isHome = useLocation().pathname === "/";
   const context = useContext(ScrollContext);
+
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [openSubmenuIndex, setOpenSubmenuIndex] = useState<number | null>(null);
+
+  const closeMobileMenu = () => {
+    setIsMobileNavOpen(false);
+    setOpenSubmenuIndex(null);
+  };
+
+  const handleSubmenuClick = (index: number) => {
+    if (isMobileNavOpen) {
+      setOpenSubmenuIndex(openSubmenuIndex === index ? null : index);
+    }
+  };
 
   return (
     <header
@@ -82,7 +95,7 @@ const Header = () => {
           <button
             className="cursor-pointer text-2xl"
             aria-label="Close menu"
-            onClick={() => setIsMobileNavOpen(false)}
+            onClick={closeMobileMenu}
           >
             <IoCloseOutline />
           </button>
@@ -92,10 +105,11 @@ const Header = () => {
           {headerMenu.map(({ item, url, children }, index) => {
             return (
               <li
-                className="cursor-pointer not-last:border-b not-last:border-b-gray-200 lg:border-none lg:text-white"
+                className="not-last:border-b not-last:border-b-gray-200 lg:border-none lg:text-white"
                 key={index}
+                {...(children && { onClick: () => handleSubmenuClick(index) })}
               >
-                <span className="flex items-center justify-between">
+                <span className="flex cursor-pointer items-center justify-between">
                   {url ? (
                     <Link to={url} className="p-3.75">
                       {item}
@@ -103,14 +117,19 @@ const Header = () => {
                   ) : (
                     <>
                       <span className="p-3.75 lg:pe-0">{item}</span>
-                      <IoChevronDown className="lg:me-3.75" />
+                      <IoChevronDown className="me-3.75" />
                     </>
                   )}
                 </span>
                 {children && (
-                  <ul className="nav-children lg:text-ax-white-a lg:hidden">
-                    {children.map(({ item }, index) => (
-                      <li key={index} className="py-1.25 ps-7.5">
+                  <ul
+                    className={cn([
+                      "lg:text-ax-white-a lg:hidden",
+                      openSubmenuIndex === index ? "block" : "hidden",
+                    ])}
+                  >
+                    {children.map(({ item }, id) => (
+                      <li key={id} className="py-1.25 ps-7.5">
                         {item}
                       </li>
                     ))}
@@ -152,7 +171,7 @@ const Header = () => {
           "bg-ax-black-d fixed inset-0 z-2 opacity-60",
           isMobileNavOpen ? "visible" : "invisible",
         ])}
-        onClick={() => setIsMobileNavOpen(false)}
+        onClick={closeMobileMenu}
       />
     </header>
   );
