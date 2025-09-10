@@ -105,11 +105,14 @@ const Header = () => {
           {headerMenu.map(({ item, url, children }, index) => {
             return (
               <li
-                className="not-last:border-b not-last:border-b-gray-200 lg:border-none lg:text-white"
+                className="group relative text-nowrap not-last:border-b not-last:border-b-gray-200 lg:border-none lg:text-white"
                 key={index}
                 {...(children && { onClick: () => handleSubmenuClick(index) })}
               >
-                <span className="flex cursor-pointer items-center justify-between">
+                <span
+                  className="flex cursor-pointer items-center justify-between"
+                  {...(children && { tabIndex: 0 })}
+                >
                   {url ? (
                     <Link to={url} className="p-3.75" onClick={closeMobileMenu}>
                       {item}
@@ -124,12 +127,15 @@ const Header = () => {
                 {children && (
                   <ul
                     className={cn([
-                      "lg:text-ax-white-a lg:hidden",
+                      "lg:text-ax-black-d text-center lg:absolute lg:left-1/2 lg:hidden lg:-translate-x-1/2 lg:rounded-sm lg:bg-white lg:text-shadow-none lg:group-focus-within:block lg:group-hover:block",
                       openSubmenuIndex === index ? "block" : "hidden",
                     ])}
                   >
                     {children.map(({ item }, id) => (
-                      <li key={id} className="py-1.25 ps-7.5">
+                      <li
+                        key={id}
+                        className="lg:border-ax-black-d/10 py-1.25 ps-7.5 not-last:border-b lg:px-4 lg:py-2.25"
+                      >
                         {item}
                       </li>
                     ))}
@@ -147,7 +153,7 @@ const Header = () => {
 
           <a
             href="tel:+2347087673400"
-            className="text-xl leading-[1.2] font-semibold tracking-[1px] lg:text-3xl"
+            className="text-xl leading-[1.2] font-semibold tracking-[1px] xl:text-3xl"
           >
             0708 767 3400
           </a>
