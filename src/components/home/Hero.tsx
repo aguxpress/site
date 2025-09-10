@@ -3,7 +3,7 @@ import bannerBlur from "@images/banner-blur.png";
 
 const Hero = () => (
   <section
-    className="relative z-1 -mt-[--spacing(var(--header-gap))] grid min-h-screen place-content-center bg-cover bg-center bg-no-repeat pt-[calc(--spacing(var(--header-gap))+--spacing(5))] pb-10 text-white sm:block sm:place-content-start"
+    className="bg-ax-red-a relative z-1 -mt-[--spacing(var(--header-gap))] grid min-h-screen place-content-center bg-cover bg-center bg-no-repeat pt-[calc(--spacing(var(--header-gap))+--spacing(5))] pb-10 text-white sm:block sm:place-content-start"
     aria-label="home"
     id="home"
     style={{ backgroundImage: `url(${bannerBlur})` }}

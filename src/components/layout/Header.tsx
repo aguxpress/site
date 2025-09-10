@@ -127,14 +127,14 @@ const Header = () => {
                 {children && (
                   <ul
                     className={cn([
-                      "lg:text-ax-black-d text-center lg:absolute lg:left-1/2 lg:hidden lg:-translate-x-1/2 lg:rounded-sm lg:bg-white lg:text-shadow-none lg:group-focus-within:block lg:group-hover:block",
+                      "lg:text-ax-black-d lg:absolute lg:left-1/2 lg:hidden lg:-translate-x-1/2 lg:rounded-sm lg:bg-white lg:text-center lg:text-shadow-none lg:group-focus-within:block lg:group-hover:block",
                       openSubmenuIndex === index ? "block" : "hidden",
                     ])}
                   >
                     {children.map(({ item }, id) => (
                       <li
                         key={id}
-                        className="lg:border-ax-black-d/10 py-1.25 ps-7.5 not-last:border-b lg:px-4 lg:py-2.25"
+                        className="lg:border-ax-black-d/10 py-1.25 ps-7.5 lg:px-4 lg:py-2.25 lg:not-last:border-b"
                       >
                         {item}
                       </li>
