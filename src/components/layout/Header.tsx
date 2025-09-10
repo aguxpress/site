@@ -52,9 +52,8 @@ const Header = () => {
   return (
     <header
       className={cn([
-        "lg:text-shadow-ax-black-d/40 fixed top-0 z-4 flex h-[--spacing(var(--header-gap))] w-full items-center justify-between gap-7.5 px-4 py-4",
+        "fixed top-0 z-4 flex h-[--spacing(var(--header-gap))] w-full items-center justify-between gap-7.5 px-4 py-4",
         isHome && !context?.isPastTop ? "bg-transparent" : "bg-ax-red-a",
-        !context?.isPastTop ? "lg:text-shadow-lg" : "lg:text-shadow-none",
       ])}
     >
       <Link to="/" className="flex h-full">
@@ -70,8 +69,9 @@ const Header = () => {
 
       <nav
         className={cn([
-          "bg-ax-white-a text-ax-black-d fixed top-0 left-0 z-3 h-full w-full max-w-[300px] overflow-y-auto lg:visible lg:[all:unset]",
+          "bg-ax-white-a text-ax-black-d lg:text-shadow-ax-black-d/40 fixed top-0 left-0 z-3 h-full w-full max-w-[300px] overflow-y-auto lg:visible lg:[all:unset]",
           isMobileNavOpen ? "visible" : "invisible",
+          !context?.isPastTop ? "lg:text-shadow-lg" : "lg:text-shadow-none",
         ])}
       >
         <div className="align-center flex justify-between border-b border-b-gray-200 px-5 py-7.5 lg:hidden">
@@ -122,7 +122,7 @@ const Header = () => {
         </ul>
       </nav>
 
-      <div className="text-ax-yellow-a lg:text-shadow-ax-black-d/90 ms-auto hidden items-center gap-5 text-right sm:flex lg:ms-0">
+      <div className="text-ax-yellow-a lg:text-shadow-ax-black-d/50 ms-auto hidden items-center gap-5 text-right sm:flex lg:ms-0 lg:text-shadow-2xs">
         <div>
           <p className="text-sm leading-[1.2] uppercase">Reach Out Now</p>
 

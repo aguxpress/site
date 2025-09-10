@@ -8,7 +8,7 @@ const Hero = () => (
     id="home"
     style={{ backgroundImage: `url(${bannerBlur})` }}
   >
-    <div className="container mx-0">
+    <div className="container not-lg:mx-0">
       <div className="bg-ax-black-a/60 p-7.5 text-center sm:bg-transparent sm:text-start">
         <h2 className="text-4xl text-white uppercase sm:text-start sm:text-5xl/[1.2] lg:text-6xl/[1.2]">
           <span className="text-ax-yellow-a block text-[3rem] font-bold sm:text-6xl/[1.2] lg:text-7xl/[1.2]">
