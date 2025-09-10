@@ -111,7 +111,7 @@ const Header = () => {
               >
                 <span className="flex cursor-pointer items-center justify-between">
                   {url ? (
-                    <Link to={url} className="p-3.75">
+                    <Link to={url} className="p-3.75" onClick={closeMobileMenu}>
                       {item}
                     </Link>
                   ) : (
