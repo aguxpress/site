@@ -26,9 +26,9 @@ const headerMenu: HeaderMenu = [
     children: [
       { item: "Haulage" },
       { item: "Dispatch" },
-      { item: "Pickup" },
+      { item: "Pickup", url: "/pickup" },
       { item: "Insurance Coverage" },
-      { item: "Escrow" },
+      { item: "Escrow", url: "/escrow" },
     ],
   },
   {
@@ -84,7 +84,9 @@ const Header = () => {
         className={cn([
           "bg-ax-white-a text-ax-black-d lg:text-shadow-ax-black-d/40 fixed top-0 left-0 z-3 h-full w-full max-w-[300px] overflow-y-auto lg:visible lg:[all:unset]",
           isMobileNavOpen ? "visible" : "invisible",
-          !context?.isPastTop ? "lg:text-shadow-lg" : "lg:text-shadow-none",
+          !context?.isPastTop && isHome
+            ? "lg:text-shadow-lg"
+            : "lg:text-shadow-none",
         ])}
       >
         <div className="align-center flex justify-between border-b border-b-gray-200 px-5 py-7.5 lg:hidden">
@@ -131,12 +133,14 @@ const Header = () => {
                       openSubmenuIndex === index ? "block" : "hidden",
                     ])}
                   >
-                    {children.map(({ item }, id) => (
-                      <li
-                        key={id}
-                        className="lg:border-ax-black-d/10 py-1.25 ps-7.5 lg:px-4 lg:py-2.25 lg:not-last:border-b"
-                      >
-                        {item}
+                    {children.map(({ item, url }, id) => (
+                      <li key={id}>
+                        <Link
+                          className="lg:border-ax-black-d/10 block py-1.25 ps-7.5 lg:px-4 lg:py-2.25 lg:not-last:border-b"
+                          to={url || "#"}
+                        >
+                          {item}
+                        </Link>
                       </li>
                     ))}
                   </ul>

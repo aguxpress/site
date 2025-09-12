@@ -1,11 +1,6 @@
 import Button from "src/components/ui/Button";
 import Input from "src/components/ui/Input";
 import Select from "src/components/ui/Select";
-import type { Route } from "./+types/pickup";
-
-export function clientLoader({}: Route.ClientLoaderArgs) {
-  return "hi";
-}
 
 export default function Pickup() {
   return (
@@ -27,22 +22,22 @@ export default function Pickup() {
             ]}
           />
 
-          <label htmlFor="contactName">Contact Name</label>
-          <Input id="contactName" type="text" required />
+          <label htmlFor="contact_name">Contact Name</label>
+          <Input id="contact_name" type="text" required />
 
-          <label htmlFor="contactNumber">Contact Number</label>
-          <Input id="contactNumber" type="tel" required />
+          <label htmlFor="contact_number">Contact Number</label>
+          <Input id="contact_number" type="tel" required />
 
-          <label htmlFor="pickupAddress">Pickup Address/Location</label>
-          <Input id="pickupAddress" type="text" required />
+          <label htmlFor="pickup_address">Pickup Address/Location</label>
+          <Input id="pickup_address" type="text" required />
 
-          <label htmlFor="preferredDateTime">Preferred Pickup Date/Time</label>
-          <Input id="preferredDateTime" type="datetime-local" required />
+          <label htmlFor="date_time">Preferred Pickup Date/Time</label>
+          <Input id="date_time" type="datetime-local" required />
 
-          <label htmlFor="packageType">
+          <label htmlFor="package_type">
             Type of Package / Item Description
           </label>
-          <Input id="packageType" type="text" required />
+          <Input id="package_type" type="text" required />
 
           <label htmlFor="destination">
             Destination Address (if not AguXpress dropoff point)
@@ -61,12 +56,12 @@ export default function Pickup() {
             ]}
           />
 
-          <label htmlFor="additionalInstructions">
+          <label htmlFor="instructions">
             Additional Instructions / Special Needs (Optional)
           </label>
           <Input
             variant="textarea"
-            id="additionalInstructions"
+            id="instructions"
             rows={4}
             placeholder="E.g., I need a covered vehicle, I need offloaders/labourers, etc."
           />
