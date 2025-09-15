@@ -18,8 +18,10 @@ export default function Post({
   return (
     <article>
       <div className="container">
-        <h1 className="my-3 text-3xl">{articleProps?.title}</h1>
-        <div className="text-sm">
+        <h1 className="my-3 text-3xl md:my-7 lg:text-5xl">
+          {articleProps?.title}
+        </h1>
+        <div className="text-sm lg:text-base">
           By{" "}
           <span className="inline font-semibold">
             {articleProps?.author?.node.name}
@@ -33,7 +35,7 @@ export default function Post({
             })}
           </time>
         </div>
-        <figure className="shadow-ax-black-d/20 mt-3 mb-12 -ml-[3%] aspect-[16/10] w-[106%] lg:-ml-[1%] lg:w-[102%]">
+        <figure className="shadow-ax-black-d/20 mt-3 mb-12 -ml-[3%] aspect-[16/10] w-[106%] md:mt-7 lg:-ml-[1%] lg:w-[102%]">
           <img
             src={articleProps?.featuredImage?.node.sourceUrl || ""}
             alt={articleProps?.featuredImage?.node.altText || ""}
