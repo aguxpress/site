@@ -1,8 +1,9 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
   --default-font-family: "Rubik", "sans-serif";
-  --font-oswald: "Oswald", "sans-serif";
+  --font-oswald: "Oswald", Arial, "sans-serif";
   --header-gap: 28;
 
   /* RED */

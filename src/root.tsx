@@ -51,7 +51,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="text-ax-black-a bg-ax-white-a">
         <ScrollContext value={{ isPastTop, setIsPastTop }}>
           <Header />
-          <main className="mt-[--spacing(var(--header-gap))]">{children}</main>
+          <main className="pt-[--spacing(var(--header-gap))]">{children}</main>
           <Footer />
           <BackToTop />
         </ScrollContext>

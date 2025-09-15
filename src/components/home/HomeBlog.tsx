@@ -2,11 +2,11 @@ import { Link } from "react-router";
 import { IoChevronForward } from "react-icons/io5";
 import type { GetArticlesQuery } from "@/types/__generated__/graphql";
 
-interface BlogItemProps {
+interface HomeBlogProps {
   articles?: GetArticlesQuery;
 }
 
-const BlogItems = ({ articles }: BlogItemProps) => {
+const HomeBlog = ({ articles }: HomeBlogProps) => {
   const posts = articles?.posts?.nodes || [];
 
   return (
@@ -77,4 +77,4 @@ const BlogItems = ({ articles }: BlogItemProps) => {
   );
 };
 
-export default BlogItems;
+export default HomeBlog;

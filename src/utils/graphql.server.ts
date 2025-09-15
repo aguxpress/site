@@ -22,7 +22,7 @@ const GET_ARTICLES: TypedDocumentNode<
   GetArticlesQuery,
   GetArticlesQueryVariables
 > = gql`
-  query GetArticles($num: Int = 30) {
+  query GetArticles($num: Int = 36) {
     posts(last: $num, where: { status: PUBLISH }) {
       nodes {
         id
@@ -30,6 +30,12 @@ const GET_ARTICLES: TypedDocumentNode<
         date
         excerpt
         slug
+        author {
+          node {
+            name
+            id
+          }
+        }
         featuredImage {
           node {
             sourceUrl

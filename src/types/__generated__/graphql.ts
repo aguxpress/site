@@ -14,6 +14,24 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+/** A Field Group managed by ACF */
+export type AcfFieldGroup = {
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName: Maybe<Scalars['String']['output']>;
+};
+
+/** Fields associated with an ACF Field Group */
+export type AcfFieldGroupFields = {
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName: Maybe<Scalars['String']['output']>;
+};
+
 /** Avatars are profile images for users. WordPress by default uses the Gravatar service to host and fetch avatars from. */
 export type Avatar = {
   __typename: 'Avatar';
@@ -1295,6 +1313,8 @@ export enum ContentTypeEnum {
   /** The Type of Content object */
   Page = 'PAGE',
   /** The Type of Content object */
+  Pickup = 'PICKUP',
+  /** The Type of Content object */
   Post = 'POST'
 }
 
@@ -1568,6 +1588,33 @@ export type CreatePagePayload = {
   clientMutationId: Maybe<Scalars['String']['output']>;
   /** The Post object mutation type. */
   page: Maybe<Page>;
+};
+
+/** Input for the createPickup mutation. */
+export type CreatePickupInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']['input']>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']['input']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the createPickup mutation. */
+export type CreatePickupPayload = {
+  __typename: 'CreatePickupPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId: Maybe<Scalars['String']['output']>;
+  /** The Post object mutation type. */
+  pickup: Maybe<Pickup>;
 };
 
 /** Input for the createPostFormat mutation. */
@@ -1847,6 +1894,29 @@ export type DeletePagePayload = {
   deletedId: Maybe<Scalars['ID']['output']>;
   /** The object before it was deleted */
   page: Maybe<Page>;
+};
+
+/** Input for the deletePickup mutation. */
+export type DeletePickupInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** Whether the object should be force deleted instead of being moved to the trash */
+  forceDelete?: InputMaybe<Scalars['Boolean']['input']>;
+  /** The ID of the pickup to delete */
+  id: Scalars['ID']['input'];
+  /** Override the edit lock when another user is editing the post */
+  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+/** The payload for the deletePickup mutation. */
+export type DeletePickupPayload = {
+  __typename: 'DeletePickupPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId: Maybe<Scalars['String']['output']>;
+  /** The ID of the deleted object */
+  deletedId: Maybe<Scalars['ID']['output']>;
+  /** The object before it was deleted */
+  pickup: Maybe<Pickup>;
 };
 
 /** Input for the deletePostFormat mutation. */
@@ -3149,7 +3219,7 @@ export enum MenuItemNodeIdTypeEnum {
 }
 
 /** Deprecated in favor of MenuItemLinkable Interface */
-export type MenuItemObjectUnion = Category | Page | Post | PostFormat | Tag;
+export type MenuItemObjectUnion = Category | Page | Pickup | Post | PostFormat | Tag;
 
 /** Connection between the MenuItem type and the Menu type */
 export type MenuItemToMenuConnectionEdge = Edge & MenuConnectionEdge & OneToOneConnection & {
@@ -4053,6 +4123,252 @@ export type PageToRevisionConnectionWhereArgs = {
   title?: InputMaybe<Scalars['String']['input']>;
 };
 
+/** For storing pickup requests in the AguXpress Website */
+export type Pickup = ContentNode & DatabaseIdentifier & MenuItemLinkable & Node & NodeWithTemplate & NodeWithTitle & Previewable & UniformResourceIdentifiable & WithAcfPickupRequestFields & {
+  __typename: 'Pickup';
+  /**
+   * The ancestors of the content node.
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  ancestors: Maybe<PickupToPickupConnection>;
+  /** Connection between the ContentNode type and the ContentType type */
+  contentType: Maybe<ContentNodeToContentTypeConnectionEdge>;
+  /** The name of the Content Type the node belongs to */
+  contentTypeName: Scalars['String']['output'];
+  /** The unique identifier stored in the database */
+  databaseId: Scalars['Int']['output'];
+  /** Post publishing date. */
+  date: Maybe<Scalars['String']['output']>;
+  /** The publishing date set in GMT. */
+  dateGmt: Maybe<Scalars['String']['output']>;
+  /** The desired slug of the post */
+  desiredSlug: Maybe<Scalars['String']['output']>;
+  /** If a user has edited the node within the past 15 seconds, this will return the user that last edited. Null if the edit lock doesn&#039;t exist or is greater than 15 seconds */
+  editingLockedBy: Maybe<ContentNodeToEditLockConnectionEdge>;
+  /** The RSS enclosure for the object */
+  enclosure: Maybe<Scalars['String']['output']>;
+  /** Connection between the ContentNode type and the EnqueuedScript type */
+  enqueuedScripts: Maybe<ContentNodeToEnqueuedScriptConnection>;
+  /** Connection between the ContentNode type and the EnqueuedStylesheet type */
+  enqueuedStylesheets: Maybe<ContentNodeToEnqueuedStylesheetConnection>;
+  /** The global unique identifier for this post. This currently matches the value stored in WP_Post-&gt;guid and the guid column in the &quot;post_objects&quot; database table. */
+  guid: Maybe<Scalars['String']['output']>;
+  /** Whether the pickup object is password protected. */
+  hasPassword: Maybe<Scalars['Boolean']['output']>;
+  /** The globally unique identifier of the pickup object. */
+  id: Scalars['ID']['output'];
+  /** Whether the node is a Comment */
+  isComment: Scalars['Boolean']['output'];
+  /** Whether the node is a Content Node */
+  isContentNode: Scalars['Boolean']['output'];
+  /** Whether the node represents the front page. */
+  isFrontPage: Scalars['Boolean']['output'];
+  /** Whether  the node represents the blog page. */
+  isPostsPage: Scalars['Boolean']['output'];
+  /** Whether the object is a node in the preview state */
+  isPreview: Maybe<Scalars['Boolean']['output']>;
+  /** Whether the object is restricted from the current viewer */
+  isRestricted: Maybe<Scalars['Boolean']['output']>;
+  /** Whether the node is a Term */
+  isTermNode: Scalars['Boolean']['output'];
+  /** The user that most recently edited the node */
+  lastEditedBy: Maybe<ContentNodeToEditLastConnectionEdge>;
+  /** The permalink of the post */
+  link: Maybe<Scalars['String']['output']>;
+  /** The local modified time for a post. If a post was recently updated the modified field will change to match the corresponding time. */
+  modified: Maybe<Scalars['String']['output']>;
+  /** The GMT modified time for a post. If a post was recently updated the modified field will change to match the corresponding time in GMT. */
+  modifiedGmt: Maybe<Scalars['String']['output']>;
+  /**
+   * The parent of the content node.
+   * @deprecated This content type is not hierarchical and typically will not have a parent
+   */
+  parent: Maybe<PickupToParentConnectionEdge>;
+  /** The password for the pickup object. */
+  password: Maybe<Scalars['String']['output']>;
+  /**
+   * The id field matches the WP_Post-&gt;ID field.
+   * @deprecated Deprecated in favor of the databaseId field
+   */
+  pickupId: Scalars['Int']['output'];
+  /** Fields of the PickupRequestFields ACF Field Group */
+  pickupRequestFields: Maybe<PickupRequestFields>;
+  /** Connection between the pickup type and the pickup type */
+  preview: Maybe<PickupToPreviewConnectionEdge>;
+  /** The database id of the preview node */
+  previewRevisionDatabaseId: Maybe<Scalars['Int']['output']>;
+  /** Whether the object is a node in the preview state */
+  previewRevisionId: Maybe<Scalars['ID']['output']>;
+  /** The uri slug for the post. This is equivalent to the WP_Post-&gt;post_name field and the post_name column in the database for the &quot;post_objects&quot; table. */
+  slug: Maybe<Scalars['String']['output']>;
+  /** The current status of the object */
+  status: Maybe<Scalars['String']['output']>;
+  /** The template assigned to the node */
+  template: Maybe<ContentTemplate>;
+  /** The title of the post. This is currently just the raw title. An amendment to support rendered title needs to be made. */
+  title: Maybe<Scalars['String']['output']>;
+  /** The unique resource identifier path */
+  uri: Maybe<Scalars['String']['output']>;
+};
+
+
+/** For storing pickup requests in the AguXpress Website */
+export type PickupAncestorsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** For storing pickup requests in the AguXpress Website */
+export type PickupEnqueuedScriptsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** For storing pickup requests in the AguXpress Website */
+export type PickupEnqueuedStylesheetsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+};
+
+
+/** For storing pickup requests in the AguXpress Website */
+export type PickupTitleArgs = {
+  format?: InputMaybe<PostObjectFieldFormatEnum>;
+};
+
+/** A paginated collection of pickup Nodes, Supports cursor-based pagination and filtering to efficiently retrieve sets of pickup Nodes */
+export type PickupConnection = {
+  /** A list of edges (relational context) between RootQuery and connected pickup Nodes */
+  edges: Array<PickupConnectionEdge>;
+  /** A list of connected pickup Nodes */
+  nodes: Array<Pickup>;
+  /** Information about pagination in a connection. */
+  pageInfo: PickupConnectionPageInfo;
+};
+
+/** Represents a connection to a pickup. Contains both the pickup Node and metadata about the relationship. */
+export type PickupConnectionEdge = {
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The connected pickup Node */
+  node: Pickup;
+};
+
+/** Pagination metadata specific to &quot;PickupConnectionEdge&quot; collections. Provides cursors and flags for navigating through sets of &quot;PickupConnectionEdge&quot; Nodes. */
+export type PickupConnectionPageInfo = {
+  /** When paginating forwards, the cursor to continue. */
+  endCursor: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, the cursor to continue. */
+  startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Identifier types for retrieving a specific Pickup. Specifies which unique attribute is used to find an exact Pickup. */
+export enum PickupIdType {
+  /** Identify a resource by the Database ID. */
+  DatabaseId = 'DATABASE_ID',
+  /** Identify a resource by the (hashed) Global ID. */
+  Id = 'ID',
+  /** Identify a resource by the slug. Available to non-hierarchcial Types where the slug is a unique identifier. */
+  Slug = 'SLUG',
+  /** Identify a resource by the URI. */
+  Uri = 'URI'
+}
+
+/** The &quot;PickupRequestFields&quot; Field Group. Added to the Schema by &quot;WPGraphQL for ACF&quot;. */
+export type PickupRequestFields = AcfFieldGroup & AcfFieldGroupFields & PickupRequestFields_Fields & {
+  __typename: 'PickupRequestFields';
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;PickupRequestFields&quot; Field Group */
+  contactname: Scalars['String']['output'];
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName: Maybe<Scalars['String']['output']>;
+};
+
+/** Interface representing fields of the ACF &quot;PickupRequestFields&quot; Field Group */
+export type PickupRequestFields_Fields = {
+  /** Field of the &quot;text&quot; Field Type added to the schema as part of the &quot;PickupRequestFields&quot; Field Group */
+  contactname: Scalars['String']['output'];
+  /**
+   * The name of the field group
+   * @deprecated Use __typename instead
+   */
+  fieldGroupName: Maybe<Scalars['String']['output']>;
+};
+
+/** Connection between the pickup type and the pickup type */
+export type PickupToParentConnectionEdge = Edge & OneToOneConnection & PickupConnectionEdge & {
+  __typename: 'PickupToParentConnectionEdge';
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor: Maybe<Scalars['String']['output']>;
+  /**
+   * The node of the connection, without the edges
+   * @deprecated This content type is not hierarchical and typically will not have a parent
+   */
+  node: Pickup;
+};
+
+/** Connection between the pickup type and the pickup type */
+export type PickupToPickupConnection = Connection & PickupConnection & {
+  __typename: 'PickupToPickupConnection';
+  /** Edges for the PickupToPickupConnection connection */
+  edges: Array<PickupToPickupConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Pickup>;
+  /** Information about pagination in a connection. */
+  pageInfo: PickupToPickupConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type PickupToPickupConnectionEdge = Edge & PickupConnectionEdge & {
+  __typename: 'PickupToPickupConnectionEdge';
+  /**
+   * A cursor for use in pagination
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  cursor: Maybe<Scalars['String']['output']>;
+  /**
+   * The item at the end of the edge
+   * @deprecated This content type is not hierarchical and typically will not have ancestors
+   */
+  node: Pickup;
+};
+
+/** Pagination metadata specific to &quot;PickupToPickupConnection&quot; collections. Provides cursors and flags for navigating through sets of PickupToPickupConnection Nodes. */
+export type PickupToPickupConnectionPageInfo = PageInfo & PickupConnectionPageInfo & WpPageInfo & {
+  __typename: 'PickupToPickupConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, the cursor to continue. */
+  startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Connection between the pickup type and the pickup type */
+export type PickupToPreviewConnectionEdge = Edge & OneToOneConnection & PickupConnectionEdge & {
+  __typename: 'PickupToPreviewConnectionEdge';
+  /** Opaque reference to the nodes position in the connection. Value can be used with pagination args. */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The node of the connection, without the edges */
+  node: Pickup;
+};
+
 /** An plugin object */
 export type Plugin = Node & {
   __typename: 'Plugin';
@@ -4808,6 +5124,8 @@ export type PostPostFormatsNodeInput = {
 
 /** Publishing status that controls the visibility and editorial state of content. Determines whether content is published, pending review, in draft state, or private. */
 export enum PostStatusEnum {
+  /** Objects with the acf-disabled status */
+  AcfDisabled = 'ACF_DISABLED',
   /** Automatically saved content that has not been manually saved */
   AutoDraft = 'AUTO_DRAFT',
   /** Content that is saved but not yet published or visible to the public */
@@ -5602,6 +5920,8 @@ export type RootMutation = {
   createMediaItem: Maybe<CreateMediaItemPayload>;
   /** The createPage mutation */
   createPage: Maybe<CreatePagePayload>;
+  /** The createPickup mutation */
+  createPickup: Maybe<CreatePickupPayload>;
   /** The createPost mutation */
   createPost: Maybe<CreatePostPayload>;
   /** The createPostFormat mutation */
@@ -5618,6 +5938,8 @@ export type RootMutation = {
   deleteMediaItem: Maybe<DeleteMediaItemPayload>;
   /** The deletePage mutation */
   deletePage: Maybe<DeletePagePayload>;
+  /** The deletePickup mutation */
+  deletePickup: Maybe<DeletePickupPayload>;
   /** The deletePost mutation */
   deletePost: Maybe<DeletePostPayload>;
   /** The deletePostFormat mutation */
@@ -5644,6 +5966,8 @@ export type RootMutation = {
   updateMediaItem: Maybe<UpdateMediaItemPayload>;
   /** The updatePage mutation */
   updatePage: Maybe<UpdatePagePayload>;
+  /** The updatePickup mutation */
+  updatePickup: Maybe<UpdatePickupPayload>;
   /** The updatePost mutation */
   updatePost: Maybe<UpdatePostPayload>;
   /** The updatePostFormat mutation */
@@ -5678,6 +6002,12 @@ export type RootMutationCreateMediaItemArgs = {
 /** The root mutation */
 export type RootMutationCreatePageArgs = {
   input: CreatePageInput;
+};
+
+
+/** The root mutation */
+export type RootMutationCreatePickupArgs = {
+  input: CreatePickupInput;
 };
 
 
@@ -5726,6 +6056,12 @@ export type RootMutationDeleteMediaItemArgs = {
 /** The root mutation */
 export type RootMutationDeletePageArgs = {
   input: DeletePageInput;
+};
+
+
+/** The root mutation */
+export type RootMutationDeletePickupArgs = {
+  input: DeletePickupInput;
 };
 
 
@@ -5804,6 +6140,12 @@ export type RootMutationUpdateMediaItemArgs = {
 /** The root mutation */
 export type RootMutationUpdatePageArgs = {
   input: UpdatePageInput;
+};
+
+
+/** The root mutation */
+export type RootMutationUpdatePickupArgs = {
+  input: UpdatePickupInput;
 };
 
 
@@ -5891,6 +6233,15 @@ export type RootQuery = {
   pageBy: Maybe<Page>;
   /** Connection between the RootQuery type and the page type */
   pages: Maybe<RootQueryToPageConnection>;
+  /** An object of the pickup Type. For storing pickup requests in the AguXpress Website */
+  pickup: Maybe<Pickup>;
+  /**
+   * A pickup object
+   * @deprecated Deprecated in favor of using the single entry point for this type with ID and IDType fields. For example, instead of postBy( id: &quot;&quot; ), use post(id: &quot;&quot; idType: &quot;&quot;)
+   */
+  pickupBy: Maybe<Pickup>;
+  /** Connection between the RootQuery type and the pickup type */
+  pickups: Maybe<RootQueryToPickupConnection>;
   /** A WordPress plugin */
   plugin: Maybe<Plugin>;
   /** Connection between the RootQuery type and the Plugin type */
@@ -6112,6 +6463,33 @@ export type RootQueryPagesArgs = {
   first?: InputMaybe<Scalars['Int']['input']>;
   last?: InputMaybe<Scalars['Int']['input']>;
   where?: InputMaybe<RootQueryToPageConnectionWhereArgs>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryPickupArgs = {
+  asPreview?: InputMaybe<Scalars['Boolean']['input']>;
+  id: Scalars['ID']['input'];
+  idType?: InputMaybe<PickupIdType>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryPickupByArgs = {
+  id?: InputMaybe<Scalars['ID']['input']>;
+  pickupId?: InputMaybe<Scalars['Int']['input']>;
+  slug?: InputMaybe<Scalars['String']['input']>;
+  uri?: InputMaybe<Scalars['String']['input']>;
+};
+
+
+/** The root entry point into the Graph */
+export type RootQueryPickupsArgs = {
+  after?: InputMaybe<Scalars['String']['input']>;
+  before?: InputMaybe<Scalars['String']['input']>;
+  first?: InputMaybe<Scalars['Int']['input']>;
+  last?: InputMaybe<Scalars['Int']['input']>;
+  where?: InputMaybe<RootQueryToPickupConnectionWhereArgs>;
 };
 
 
@@ -6854,6 +7232,77 @@ export type RootQueryToPageConnectionWhereArgs = {
   authorName?: InputMaybe<Scalars['String']['input']>;
   /** Find objects NOT connected to author(s) in the array of author's userIds */
   authorNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Filter the connection based on dates */
+  dateQuery?: InputMaybe<DateQueryInput>;
+  /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
+  hasPassword?: InputMaybe<Scalars['Boolean']['input']>;
+  /** Specific database ID of the object */
+  id?: InputMaybe<Scalars['Int']['input']>;
+  /** Array of IDs for the objects to retrieve */
+  in?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Get objects with a specific mimeType property */
+  mimeType?: InputMaybe<MimeTypeEnum>;
+  /** Slug / post_name of the object */
+  name?: InputMaybe<Scalars['String']['input']>;
+  /** Specify objects to retrieve. Use slugs */
+  nameIn?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  /** Specify IDs NOT to retrieve. If this is used in the same query as "in", it will be ignored */
+  notIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** What parameter to use to order the objects by. */
+  orderby?: InputMaybe<Array<InputMaybe<PostObjectsConnectionOrderbyInput>>>;
+  /** Use ID to return only children. Use 0 to return only top-level items */
+  parent?: InputMaybe<Scalars['ID']['input']>;
+  /** Specify objects whose parent is in an array */
+  parentIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Specify posts whose parent is not in an array */
+  parentNotIn?: InputMaybe<Array<InputMaybe<Scalars['ID']['input']>>>;
+  /** Show posts with a specific password. */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** Show Posts based on a keyword search */
+  search?: InputMaybe<Scalars['String']['input']>;
+  /** Retrieve posts where post status is in an array. */
+  stati?: InputMaybe<Array<InputMaybe<PostStatusEnum>>>;
+  /** Show posts with a specific status. */
+  status?: InputMaybe<PostStatusEnum>;
+  /** Title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** Connection between the RootQuery type and the pickup type */
+export type RootQueryToPickupConnection = Connection & PickupConnection & {
+  __typename: 'RootQueryToPickupConnection';
+  /** Edges for the RootQueryToPickupConnection connection */
+  edges: Array<RootQueryToPickupConnectionEdge>;
+  /** The nodes of the connection, without the edges */
+  nodes: Array<Pickup>;
+  /** Information about pagination in a connection. */
+  pageInfo: RootQueryToPickupConnectionPageInfo;
+};
+
+/** An edge in a connection */
+export type RootQueryToPickupConnectionEdge = Edge & PickupConnectionEdge & {
+  __typename: 'RootQueryToPickupConnectionEdge';
+  /** A cursor for use in pagination */
+  cursor: Maybe<Scalars['String']['output']>;
+  /** The item at the end of the edge */
+  node: Pickup;
+};
+
+/** Pagination metadata specific to &quot;RootQueryToPickupConnection&quot; collections. Provides cursors and flags for navigating through sets of RootQueryToPickupConnection Nodes. */
+export type RootQueryToPickupConnectionPageInfo = PageInfo & PickupConnectionPageInfo & WpPageInfo & {
+  __typename: 'RootQueryToPickupConnectionPageInfo';
+  /** When paginating forwards, the cursor to continue. */
+  endCursor: Maybe<Scalars['String']['output']>;
+  /** When paginating forwards, are there more items? */
+  hasNextPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, are there more items? */
+  hasPreviousPage: Scalars['Boolean']['output'];
+  /** When paginating backwards, the cursor to continue. */
+  startCursor: Maybe<Scalars['String']['output']>;
+};
+
+/** Arguments for filtering the RootQueryToPickupConnection connection */
+export type RootQueryToPickupConnectionWhereArgs = {
   /** Filter the connection based on dates */
   dateQuery?: InputMaybe<DateQueryInput>;
   /** True for objects with passwords; False for objects without passwords; null for all objects with or without passwords */
@@ -8499,6 +8948,37 @@ export type UpdatePagePayload = {
   page: Maybe<Page>;
 };
 
+/** Input for the updatePickup mutation. */
+export type UpdatePickupInput = {
+  /** This is an ID that can be passed to a mutation by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId?: InputMaybe<Scalars['String']['input']>;
+  /** The date of the object. Preferable to enter as year/month/day (e.g. 01/31/2017) as it will rearrange date as fit if it is not specified. Incomplete dates may have unintended results for example, "2017" as the input will use current date with timestamp 20:17  */
+  date?: InputMaybe<Scalars['String']['input']>;
+  /** The ID of the pickup object */
+  id: Scalars['ID']['input'];
+  /** Override the edit lock when another user is editing the post */
+  ignoreEditLock?: InputMaybe<Scalars['Boolean']['input']>;
+  /** A field used for ordering posts. This is typically used with nav menu items or for special ordering of hierarchical content types. */
+  menuOrder?: InputMaybe<Scalars['Int']['input']>;
+  /** The password used to protect the content of the object */
+  password?: InputMaybe<Scalars['String']['input']>;
+  /** The slug of the object */
+  slug?: InputMaybe<Scalars['String']['input']>;
+  /** The status of the object */
+  status?: InputMaybe<PostStatusEnum>;
+  /** The title of the object */
+  title?: InputMaybe<Scalars['String']['input']>;
+};
+
+/** The payload for the updatePickup mutation. */
+export type UpdatePickupPayload = {
+  __typename: 'UpdatePickupPayload';
+  /** If a &#039;clientMutationId&#039; input is provided to the mutation, it will be returned as output on the mutation. This ID can be used by the client to track the progress of mutations and catch possible duplicate mutation submissions. */
+  clientMutationId: Maybe<Scalars['String']['output']>;
+  /** The Post object mutation type. */
+  pickup: Maybe<Pickup>;
+};
+
 /** Input for the updatePostFormat mutation. */
 export type UpdatePostFormatInput = {
   /** The slug that the post_format will be an alias of */
@@ -9554,6 +10034,12 @@ export type WpPageInfo = {
   startCursor: Maybe<Scalars['String']['output']>;
 };
 
+/** Provides access to fields of the &quot;PickupRequestFields&quot; ACF Field Group via the &quot;pickupRequestFields&quot; field */
+export type WithAcfPickupRequestFields = {
+  /** Fields of the PickupRequestFields ACF Field Group */
+  pickupRequestFields: Maybe<PickupRequestFields>;
+};
+
 /** The writing setting type */
 export type WritingSettings = {
   __typename: 'WritingSettings';
@@ -9570,7 +10056,7 @@ export type GetArticlesQueryVariables = Exact<{
 }>;
 
 
-export type GetArticlesQuery = { posts: { __typename: 'RootQueryToPostConnection', nodes: Array<{ __typename: 'Post', id: string, title: string | null, date: string | null, excerpt: string | null, slug: string | null, featuredImage: { __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename: 'MediaItem', sourceUrl: string | null, altText: string | null } } | null }> } | null };
+export type GetArticlesQuery = { posts: { __typename: 'RootQueryToPostConnection', nodes: Array<{ __typename: 'Post', id: string, title: string | null, date: string | null, excerpt: string | null, slug: string | null, author: { __typename: 'NodeWithAuthorToUserConnectionEdge', node: { __typename: 'User', name: string | null, id: string } } | null, featuredImage: { __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename: 'MediaItem', sourceUrl: string | null, altText: string | null } } | null }> } | null };
 
 export type GetArticleByIdQueryVariables = Exact<{
   postId: Scalars['ID']['input'];

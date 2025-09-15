@@ -11,22 +11,39 @@ export async function loader({ params }: Route.LoaderArgs) {
 export default function Post({
   loaderData: { articleProps },
 }: Route.ComponentProps) {
+  const postDate = articleProps?.date
+    ? new Date(articleProps.date)
+    : new Date();
+
   return (
     <article>
-      <figure className="aspect-[16/10]">
-        <img
-          src={articleProps?.featuredImage?.node.sourceUrl || ""}
-          alt={articleProps?.featuredImage?.node.altText || ""}
-          className="h-full w-full object-cover"
-        />
-      </figure>
       <div className="container">
-        <h1 className="text-3xl">{articleProps?.title}</h1>
-        <section>
-          <div
-            dangerouslySetInnerHTML={{ __html: articleProps?.content || "" }}
+        <h1 className="my-3 text-3xl">{articleProps?.title}</h1>
+        <div className="text-sm">
+          By{" "}
+          <span className="inline font-semibold">
+            {articleProps?.author?.node.name}
+          </span>{" "}
+          —{" "}
+          <time dateTime={postDate.toISOString().split("T")[0]}>
+            {postDate.toLocaleString("en-GB", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
+          </time>
+        </div>
+        <figure className="shadow-ax-black-d/20 mt-3 mb-12 -ml-[3%] aspect-[16/10] w-[106%] lg:-ml-[1%] lg:w-[102%]">
+          <img
+            src={articleProps?.featuredImage?.node.sourceUrl || ""}
+            alt={articleProps?.featuredImage?.node.altText || ""}
+            className="bg-ax-yellow-d h-full w-full rounded-md object-cover shadow-sm"
           />
-        </section>
+        </figure>
+        <div
+          className="prose prose-stone mb-12 max-w-none"
+          dangerouslySetInnerHTML={{ __html: articleProps?.content || "" }}
+        />
       </div>
     </article>
   );

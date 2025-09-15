@@ -2,7 +2,7 @@ import type { Route } from "./+types/home";
 import Hero from "@components/home/Hero";
 import About from "@components/home/About";
 import Services from "@components/home/Services";
-import BlogItems from "@components/blog/BlogItems";
+import HomeBlog from "@components/home/HomeBlog";
 import Contact from "@components/home/Contact";
 import Subscribe from "@components/home/Subscribe";
 import { getAllArticles } from "@utils/graphql.server";
@@ -18,7 +18,7 @@ export default function Home({ loaderData }: Route.ComponentProps) {
       <Hero />
       <About />
       <Services />
-      <BlogItems articles={loaderData.articles} />
+      <HomeBlog articles={loaderData.articles} />
       <Contact />
       <Subscribe />
     </article>

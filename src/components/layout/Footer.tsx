@@ -76,7 +76,7 @@ const Footer = () => (
             with fast, secure, and insured logistics across Nigeria.
           </p>
 
-          <ul className="flex gap-2.5">
+          <ul className="flex flex-wrap gap-2.5 md:flex-nowrap">
             {socials.map(({ url, icon: IoIcon }, index) => (
               <li key={index}>
                 <a
