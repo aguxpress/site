@@ -8,7 +8,7 @@ import {
   IoLogoLinkedin,
   IoLogoWhatsapp,
 } from "react-icons/io5";
-import alternateLogo from "@logos/alternate.png";
+import primaryLogo from "@logos/primary.svg";
 
 interface Handle {
   url: string;
@@ -63,12 +63,12 @@ const footerLinks: FooterLinkSection[] = [
 ];
 
 const Footer = () => (
-  <footer>
+  <footer className="bg-ax-black-d text-ax-white-a">
     <div className="container">
       <div className="grid gap-10 py-12.5 md:grid-cols-[1fr_1fr] lg:grid-cols-[repeat(4,1fr)] lg:py-30">
         <div className="">
           <Link to="#" className="block">
-            <img src={alternateLogo} width="200" height="200" loading="lazy" />
+            <img src={primaryLogo} width="200" height="200" loading="lazy" />
           </Link>
 
           <p className="mt-2.5 mb-7.5 leading-[1.7]">
@@ -106,7 +106,7 @@ const Footer = () => (
         ))}
       </div>
 
-      <div className="border-ax-black-a border-t py-10 text-sm lg:text-center">
+      <div className="border-ax-white-a border-t py-10 text-sm lg:text-center">
         <p>&copy; {new Date().getFullYear()} AguXpress. All Rights Reserved.</p>
       </div>
     </div>

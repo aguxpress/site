@@ -47,6 +47,7 @@ const headerMenu: HeaderMenu = [
 const Header = () => {
   const isHome = useLocation().pathname === "/";
   const context = useContext(ScrollContext);
+  const isShadow = !context?.isPastTop && isHome;
 
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const [openSubmenuIndex, setOpenSubmenuIndex] = useState<number | null>(null);
@@ -65,17 +66,17 @@ const Header = () => {
   return (
     <header
       className={cn([
-        "fixed top-0 z-4 flex h-[--spacing(var(--header-gap))] w-full items-center justify-between gap-7.5 px-4 py-4",
-        isHome && !context?.isPastTop ? "bg-transparent" : "bg-ax-red-a",
+        "drop-shadow-ax-black-d fixed top-0 z-4 flex h-[--spacing(var(--header-gap))] w-full items-center justify-between gap-7.5 px-4 py-4 transition-colors duration-300",
+        isShadow ? "bg-transparent" : "bg-ax-red-a",
       ])}
     >
-      <Link to="/" className="flex h-full">
+      <Link to="/" className="flex h-full drop-shadow-inherit">
         <img
           src={primaryLogo}
           loading="lazy"
           className={cn([
-            "drop-shadow-ax-black-d h-full w-auto",
-            context?.isPastTop ? "drop-shadow-none" : "drop-shadow-xs",
+            "h-full w-auto drop-shadow-inherit",
+            isShadow ? "drop-shadow-xs" : "drop-shadow-none",
           ])}
         />
       </Link>
@@ -84,9 +85,7 @@ const Header = () => {
         className={cn([
           "bg-ax-white-a text-ax-black-d lg:text-shadow-ax-black-d/40 fixed top-0 left-0 z-3 h-full w-full max-w-[300px] overflow-y-auto lg:visible lg:[all:unset]",
           isMobileNavOpen ? "visible" : "invisible",
-          !context?.isPastTop && isHome
-            ? "lg:text-shadow-lg"
-            : "lg:text-shadow-none",
+          isShadow ? "lg:text-shadow-lg" : "lg:text-shadow-none",
         ])}
       >
         <div className="align-center flex justify-between border-b border-b-gray-200 px-5 py-7.5 lg:hidden">
@@ -122,7 +121,14 @@ const Header = () => {
                   ) : (
                     <>
                       <span className="p-3.75 lg:pe-0">{item}</span>
-                      <IoChevronDown className="me-3.75" />
+                      <IoChevronDown
+                        className={cn([
+                          "lg:drop-shadow-ax-black-d/40 me-3.75",
+                          isShadow
+                            ? "lg:drop-shadow-lg"
+                            : "lg:drop-shadow-none",
+                        ])}
+                      />
                     </>
                   )}
                 </span>
@@ -134,9 +140,12 @@ const Header = () => {
                     ])}
                   >
                     {children.map(({ item, url }, id) => (
-                      <li key={id}>
+                      <li
+                        key={id}
+                        className="lg:border-ax-black-d/10 hover:bg-gray-100 lg:not-last:border-b"
+                      >
                         <Link
-                          className="lg:border-ax-black-d/10 block py-1.25 ps-7.5 lg:px-4 lg:py-2.25 lg:not-last:border-b"
+                          className="block py-1.25 ps-7.5 lg:px-4 lg:py-2.25"
                           to={url || "#"}
                         >
                           {item}
@@ -151,7 +160,12 @@ const Header = () => {
         </ul>
       </nav>
 
-      <div className="text-ax-yellow-a lg:text-shadow-ax-black-d/50 ms-auto hidden items-center gap-5 text-right sm:flex lg:ms-0 lg:text-shadow-2xs">
+      <div
+        className={cn([
+          "text-ax-yellow-a lg:text-shadow-ax-black-d/50 ms-auto hidden items-center gap-5 text-right sm:flex lg:ms-0",
+          isShadow ? "lg:text-shadow-2xs" : "lg:text-shadow-none",
+        ])}
+      >
         <div>
           <p className="text-sm leading-[1.2] uppercase">Reach Out Now</p>
 
@@ -169,11 +183,16 @@ const Header = () => {
       </div>
 
       <button
-        className="text-ax-white-a cursor-pointer text-4xl lg:hidden"
+        className="text-ax-white-a cursor-pointer text-4xl drop-shadow-inherit lg:hidden"
         onClick={() => setIsMobileNavOpen(true)}
         aria-label="Open menu"
       >
-        <IoMenuOutline className="ion-icon" />
+        <IoMenuOutline
+          className={cn([
+            "ion-icon drop-shadow-inherit",
+            isShadow ? "drop-shadow-xs" : "drop-shadow-none",
+          ])}
+        />
       </button>
 
       <div

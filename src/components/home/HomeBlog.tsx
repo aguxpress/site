@@ -55,7 +55,7 @@ const HomeBlog = ({ articles }: HomeBlogProps) => {
                       </Link>
                     </h3>
                     <div
-                      className="my-6 text-[hsl(0,0%,24%)]"
+                      className="my-6 line-clamp-4 text-[hsl(0,0%,24%)]"
                       dangerouslySetInnerHTML={{ __html: excerpt || "" }}
                     />
 
