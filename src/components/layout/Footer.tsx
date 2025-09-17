@@ -3,25 +3,51 @@ import type { IconType } from "react-icons";
 import {
   IoLogoFacebook,
   IoLogoInstagram,
-  IoLogoTwitter,
   IoLogoTiktok,
   IoLogoLinkedin,
   IoLogoWhatsapp,
 } from "react-icons/io5";
+import { RiTwitterXFill } from "react-icons/ri";
 import primaryLogo from "@logos/primary.svg";
+import { cn } from "@utils/display.utils";
 
 interface Handle {
   url: string;
   icon: IconType;
+  theme: `hover:bg-[#${string}]`;
 }
 
 const socials: Handle[] = [
-  { url: "https://www.facebook.com/aguxpress", icon: IoLogoFacebook },
-  { url: "https://instagram.com/aguxpress", icon: IoLogoInstagram },
-  { url: "https://x.com/aguxpress", icon: IoLogoTwitter },
-  { url: "https://tiktok.com/@aguxpress", icon: IoLogoTiktok },
-  { url: "https://www.linkedin.com/company/aguxpress/", icon: IoLogoLinkedin },
-  { url: "https://wa.me/+2347087673400", icon: IoLogoWhatsapp },
+  {
+    url: "https://www.facebook.com/aguxpress",
+    icon: IoLogoFacebook,
+    theme: "hover:bg-[#1877F2]",
+  },
+  {
+    url: "https://instagram.com/aguxpress",
+    icon: IoLogoInstagram,
+    theme: "hover:bg-[#833AB4]",
+  },
+  {
+    url: "https://x.com/aguxpress",
+    icon: RiTwitterXFill,
+    theme: "hover:bg-[#000]",
+  },
+  {
+    url: "https://tiktok.com/@aguxpress",
+    icon: IoLogoTiktok,
+    theme: "hover:bg-[#00f2ea]",
+  },
+  {
+    url: "https://www.linkedin.com/company/aguxpress/",
+    icon: IoLogoLinkedin,
+    theme: "hover:bg-[#0072b1]",
+  },
+  {
+    url: "https://wa.me/+2347087673400",
+    icon: IoLogoWhatsapp,
+    theme: "hover:bg-[#00B09C]",
+  },
 ];
 
 interface FooterLinkSection {
@@ -77,11 +103,14 @@ const Footer = () => (
           </p>
 
           <ul className="flex flex-wrap gap-2.5 md:flex-nowrap">
-            {socials.map(({ url, icon: IoIcon }, index) => (
+            {socials.map(({ url, icon: IoIcon, theme }, index) => (
               <li key={index}>
                 <a
                   href={url}
-                  className="bg-ax-red-a block p-3 text-xl text-white"
+                  className={cn([
+                    "bg-ax-red-a block p-3 text-xl text-white transition-colors duration-500",
+                    theme,
+                  ])}
                 >
                   <IoIcon />
                 </a>

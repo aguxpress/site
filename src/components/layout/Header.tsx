@@ -83,8 +83,10 @@ const Header = () => {
 
       <nav
         className={cn([
-          "bg-ax-white-a text-ax-black-d lg:text-shadow-ax-black-d/40 fixed top-0 left-0 z-3 h-full w-full max-w-[300px] overflow-y-auto lg:visible lg:[all:unset]",
-          isMobileNavOpen ? "visible" : "invisible",
+          "bg-ax-white-a text-ax-black-d lg:text-shadow-ax-black-d/40 fixed top-0 -left-[300px] z-3 h-full w-full max-w-[300px] overflow-y-auto duration-500 ease-[cubic-bezier(0.33,0.85,0.4,0.96)] lg:visible lg:[all:unset]",
+          isMobileNavOpen
+            ? "visible translate-x-[300px]"
+            : "invisible translate-x-0",
           isShadow ? "lg:text-shadow-lg" : "lg:text-shadow-none",
         ])}
       >
@@ -111,11 +113,18 @@ const Header = () => {
                 {...(children && { onClick: () => handleSubmenuClick(index) })}
               >
                 <span
-                  className="flex cursor-pointer items-center justify-between"
+                  className={cn([
+                    "cursor-pointer items-center justify-between hover:bg-gray-200 lg:hover:bg-[unset]",
+                    children ? "flex" : "block",
+                  ])}
                   {...(children && { tabIndex: 0 })}
                 >
                   {url ? (
-                    <Link to={url} className="p-3.75" onClick={closeMobileMenu}>
+                    <Link
+                      to={url}
+                      className="block p-3.75"
+                      onClick={closeMobileMenu}
+                    >
                       {item}
                     </Link>
                   ) : (
@@ -135,18 +144,23 @@ const Header = () => {
                 {children && (
                   <ul
                     className={cn([
-                      "lg:text-ax-black-d lg:absolute lg:left-1/2 lg:hidden lg:-translate-x-1/2 lg:rounded-sm lg:bg-white lg:text-center lg:text-shadow-none lg:group-focus-within:block lg:group-hover:block",
-                      openSubmenuIndex === index ? "block" : "hidden",
+                      "lg:text-ax-black-d overflow-hidden duration-250 lg:absolute lg:left-1/2 lg:hidden lg:max-h-[unset] lg:-translate-x-1/2 lg:rounded-sm lg:bg-white lg:text-center lg:text-shadow-none lg:group-focus-within:block lg:group-hover:block",
+                      openSubmenuIndex === index
+                        ? children.length <= 4
+                          ? "max-h-40"
+                          : "max-h-52"
+                        : "max-h-0",
                     ])}
                   >
                     {children.map(({ item, url }, id) => (
                       <li
                         key={id}
-                        className="lg:border-ax-black-d/10 hover:bg-gray-100 lg:not-last:border-b"
+                        className="lg:border-ax-black-d/10 hover:bg-gray-200 lg:not-last:border-b"
                       >
                         <Link
                           className="block py-1.25 ps-7.5 lg:px-4 lg:py-2.25"
                           to={url || "#"}
+                          onClick={closeMobileMenu}
                         >
                           {item}
                         </Link>
@@ -197,8 +211,8 @@ const Header = () => {
 
       <div
         className={cn([
-          "bg-ax-black-d fixed inset-0 z-2 opacity-60",
-          isMobileNavOpen ? "visible" : "invisible",
+          "bg-ax-black-d fixed inset-0 z-2 duration-250 lg:invisible",
+          isMobileNavOpen ? "visible opacity-60" : "invisible opacity-0",
         ])}
         onClick={closeMobileMenu}
       />

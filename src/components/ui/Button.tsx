@@ -7,7 +7,7 @@ const Button = ({ className, ...otherProps }: ButtonProps) => {
   return (
     <button
       className={cn(
-        "btn font-oswald px-5 py-2 text-2xl font-bold lg:px-7.5 lg:py-2.5",
+        "btn font-oswald cursor-pointer px-5 py-2 text-2xl font-bold shadow-[0px_2px_2px_hsla(0,0%,0%,0.1)] transition-shadow hover:shadow-[0px_2px_7px_hsla(0,0%,0%,0.3)] lg:px-7.5 lg:py-2.5",
         className,
       )}
       {...otherProps}

@@ -29,6 +29,16 @@
   --color-ax-black-b: #171717;
   --color-ax-black-c: #1c1c1c;
   --color-ax-black-d: #212121;
+
+  --animate-float: float 2s ease-in-out alternate infinite;
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    100% {
+      transform: translateY(20px);
+    }
+  }
 }
 
 @layer base {
@@ -78,7 +88,7 @@
   }
 
   .hero-btn {
-    @apply mx-auto block max-w-max border border-white px-5 py-2 text-sm font-medium uppercase sm:mx-0 md:px-10 md:py-4 md:text-base;
+    @apply sm:drop-shadow-ax-black-d hover:bg-ax-yellow-a hover:border-ax-yellow-a mx-auto block max-w-max border border-white px-5 py-2 text-sm font-medium uppercase transition-colors duration-400 hover:drop-shadow-none sm:mx-0 sm:drop-shadow-[0_0_4px] md:px-10 md:py-4 md:text-base;
   }
 }
 

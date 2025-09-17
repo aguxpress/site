@@ -26,7 +26,7 @@ const About = () => (
           height={170}
           loading="lazy"
           alt=""
-          className="drop-shadow-ax-black-d absolute right-0 bottom-10 drop-shadow-sm sm:-right-[200px] lg:right-[-100px]"
+          className="drop-shadow-ax-black-d animate-float absolute right-0 bottom-10 drop-shadow-sm sm:-right-[200px] lg:right-[-100px]"
         />
 
         <img

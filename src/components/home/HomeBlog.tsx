@@ -24,7 +24,7 @@ const HomeBlog = ({ articles }: HomeBlogProps) => {
             return (
               <li key={key}>
                 <div>
-                  <figure className="aspect-[770/500]">
+                  <figure className="bg-ax-yellow-d aspect-[770/500]">
                     <img
                       src={
                         featuredImage?.node.sourceUrl || /* DEFAULT IMAGE */ ""
@@ -61,9 +61,12 @@ const HomeBlog = ({ articles }: HomeBlogProps) => {
 
                     <Link
                       to={`/blog/${slug}`}
-                      className="text-ax-yellow-a flex items-center gap-1.5 overflow-hidden text-lg uppercase"
+                      className="text-ax-yellow-a flex items-center gap-1.5 overflow-hidden text-lg uppercase [&>*]:-translate-x-5.5 [&>*]:transition-transform [&>*]:duration-250 hover:[&>*]:translate-x-0"
                     >
-                      <IoChevronForward aria-hidden />
+                      <IoChevronForward
+                        aria-hidden
+                        className="delay-100 duration-150"
+                      />
                       <span className="span">Read More</span>
                     </Link>
                   </div>

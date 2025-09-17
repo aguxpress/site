@@ -26,7 +26,7 @@ export default function Blog({
               return (
                 <li key={key} className="group">
                   <Link to={`/blog/${slug}`} className="block">
-                    <figure className="shadow-ax-black-d/20 aspect-[770/500] shadow-sm group-hover:scale-102 group-active:scale-102">
+                    <figure className="shadow-ax-black-d/20 aspect-[770/500] shadow-sm duration-150 group-hover:scale-102 group-active:scale-102">
                       <img
                         src={
                           featuredImage?.node.sourceUrl ||
