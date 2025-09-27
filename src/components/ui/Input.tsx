@@ -7,7 +7,7 @@ type InputProps =
 
 function Input({ className, ...props }: InputProps) {
   const classes = cn(
-    "bg-white shadow-[0px_2px_2px_hsla(0,0%,0%,0.1)] my-5 px-5 py-3 block outline-none w-full",
+    "bg-white shadow-[0px_2px_2px_hsla(0,0%,0%,0.1)] focus:shadow-[0px_2px_2px_hsla(0,0%,0%,0.3)] my-5 px-5 py-3 block outline-none w-full",
     className,
   );
 

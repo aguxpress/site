@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 import { useState } from "react";
+import { Toaster } from "react-hot-toast";
 import type { Route } from "./+types/root";
 import Header from "@components/layout/Header";
 import Footer from "@components/layout/Footer";
@@ -51,6 +52,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <body className="text-ax-black-a bg-ax-white-a">
         <ScrollContext value={{ isPastTop, setIsPastTop }}>
           <Header />
+          <Toaster />
           <main className="pt-[--spacing(var(--header-gap))]">{children}</main>
           <Footer />
           <BackToTop />

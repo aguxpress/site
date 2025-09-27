@@ -61,6 +61,7 @@ const HomeBlog = ({ articles }: HomeBlogProps) => {
 
                     <Link
                       to={`/blog/${slug}`}
+                      prefetch="viewport"
                       className="text-ax-yellow-a flex items-center gap-1.5 overflow-hidden text-lg uppercase [&>*]:-translate-x-5.5 [&>*]:transition-transform [&>*]:duration-250 hover:[&>*]:translate-x-0"
                     >
                       <IoChevronForward

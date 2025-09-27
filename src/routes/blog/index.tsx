@@ -25,7 +25,11 @@ export default function Blog({
 
               return (
                 <li key={key} className="group">
-                  <Link to={`/blog/${slug}`} className="block">
+                  <Link
+                    to={`/blog/${slug}`}
+                    className="block"
+                    prefetch="viewport"
+                  >
                     <figure className="shadow-ax-black-d/20 aspect-[770/500] shadow-sm duration-150 group-hover:scale-102 group-active:scale-102">
                       <img
                         src={

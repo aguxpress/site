@@ -124,6 +124,7 @@ const Header = () => {
                       to={url}
                       className="block p-3.75"
                       onClick={closeMobileMenu}
+                      prefetch="viewport"
                     >
                       {item}
                     </Link>
@@ -185,9 +186,9 @@ const Header = () => {
 
           <a
             href="tel:+2347087673400"
-            className="text-xl leading-[1.2] font-semibold tracking-[1px] xl:text-3xl"
+            className="text-xl leading-[1.2] font-semibold tracking-[1px] text-nowrap xl:text-3xl"
           >
-            0708 767 3400
+            +234 708 767 3400
           </a>
         </div>
         <div className="flex text-[35px] opacity-75 lg:text-5xl">

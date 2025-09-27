@@ -72,6 +72,10 @@
   img {
     @apply block max-w-none;
   }
+
+  footer a:not(:has(img)) {
+    @apply hover:text-ax-yellow-a transition;
+  }
 }
 
 @layer components {

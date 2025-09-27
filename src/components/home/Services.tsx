@@ -67,7 +67,7 @@ const Services = () => (
       <ul className="grid gap-7.5 md:grid-cols-2 lg:grid-cols-3">
         {list.map(({ title, icon, imgAlt, description }, index) => (
           <li key={index}>
-            <div className="hover:border-ax-yellow-a border-[length:--spacing(5)] border-[hsl(0,0%,95%)] bg-white p-7.5 duration-250">
+            <div className="hover:border-ax-yellow-a h-full border-[length:--spacing(5)] border-[hsl(0,0%,95%)] bg-white p-7.5 duration-250">
               <div className="mb-7.5">
                 <img width={70} loading="lazy" src={icon} alt={imgAlt} />
               </div>

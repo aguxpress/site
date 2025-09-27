@@ -36,7 +36,7 @@ const socials: Handle[] = [
   {
     url: "https://tiktok.com/@aguxpress",
     icon: IoLogoTiktok,
-    theme: "hover:bg-[#00f2ea]",
+    theme: "hover:bg-[#010101]",
   },
   {
     url: "https://www.linkedin.com/company/aguxpress/",
@@ -46,7 +46,7 @@ const socials: Handle[] = [
   {
     url: "https://wa.me/+2347087673400",
     icon: IoLogoWhatsapp,
-    theme: "hover:bg-[#00B09C]",
+    theme: "hover:bg-[#4FCE5D]",
   },
 ];
 
@@ -97,10 +97,15 @@ const Footer = () => (
             <img src={primaryLogo} width="200" height="200" loading="lazy" />
           </Link>
 
-          <p className="mt-2.5 mb-7.5 leading-[1.7]">
-            AguXpress delivers more than packages — we deliver peace of mind
-            with fast, secure, and insured logistics across Nigeria.
-          </p>
+          <address className="mt-2.5 mb-7.5 leading-[1.7] not-italic">
+            Ozoagu Plaza, Aroma Junction (Enugu-Onitsha Expressway), <br />
+            Awka, Anambra State, Nigeria
+            <br />
+            {/* Reserved for official contact email */}
+            {/* <a href="">contact@aguxpress.com</a>
+            <br /> */}
+            <a href="tel:+2347087673400">+234 708 767 3400</a>
+          </address>
 
           <ul className="flex flex-wrap gap-2.5 md:flex-nowrap">
             {socials.map(({ url, icon: IoIcon, theme }, index) => (
