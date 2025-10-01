@@ -29,7 +29,8 @@ function Contact() {
 
         <h2>Let's Get Things Moving</h2>
 
-        <form
+        {/* {fetcher.data} */}
+        <fetcher.Form
           method="post"
           className="mx-auto max-w-2xl"
           key={fk}
@@ -104,7 +105,7 @@ function Contact() {
           >
             {fetcher.state === "idle" ? "Submit" : "Submitting ..."}
           </Button>
-        </form>
+        </fetcher.Form>
       </div>
     </section>
   );
