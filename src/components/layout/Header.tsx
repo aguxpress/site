@@ -20,7 +20,7 @@ type HeaderMenu = Array<
 
 const headerMenu: HeaderMenu = [
   { item: "Home", url: "/#home" },
-  { item: "About", url: "/#about" },
+  { item: "Start", url: "/start" },
   {
     item: "Services",
     children: [
@@ -29,15 +29,6 @@ const headerMenu: HeaderMenu = [
       { item: "Pickup", url: "/pickup" },
       { item: "Insurance Coverage" },
       { item: "Escrow", url: "/escrow" },
-    ],
-  },
-  {
-    item: "Shipping",
-    children: [
-      { item: "Ship a Package" },
-      { item: "Get a Quote" },
-      { item: "Schedule a Pickup" },
-      { item: "Shipping History" },
     ],
   },
   { item: "Contact", url: "/#contact" },
@@ -186,7 +177,7 @@ const Header = () => {
 
           <a
             href="tel:+2347087673400"
-            className="text-xl leading-[1.2] font-semibold tracking-[1px] text-nowrap xl:text-3xl"
+            className="text-xl leading-[1.2] font-semibold tracking-[1px] text-nowrap"
           >
             +234 708 767 3400
           </a>

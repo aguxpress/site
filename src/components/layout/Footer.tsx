@@ -112,6 +112,7 @@ const Footer = () => (
               <li key={index}>
                 <a
                   href={url}
+                  target="_blank"
                   className={cn([
                     "bg-ax-red-a block p-3 text-xl text-white transition-colors duration-500",
                     theme,

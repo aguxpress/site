@@ -4,7 +4,8 @@
 @theme {
   --default-font-family: "Rubik", "sans-serif";
   --font-oswald: "Oswald", Arial, "sans-serif";
-  --header-gap: 28;
+  --font-rubik: var(--default-font-family);
+  --header-gap: 22;
 
   /* RED */
   --color-ax-red-a: #c80003;
@@ -56,7 +57,7 @@
   h1,
   h2,
   h3 {
-    @apply font-oswald leading-[1.2] font-semibold;
+    @apply font-oswald leading-[1.2] font-semibold capitalize;
   }
 
   section {
@@ -83,10 +84,6 @@
     @apply text-ax-yellow-a font-oswald mb-2.5 text-center text-xl font-semibold tracking-[3px] uppercase lg:text-3xl;
   }
 
-  .contact-label {
-    @apply font-oswald text-2xl leading-[1.2] font-semibold;
-  }
-
   .btn {
     @apply bg-ax-red-a text-ax-white-a block max-w-max px-5 py-4;
   }
@@ -94,14 +91,18 @@
   .hero-btn {
     @apply sm:drop-shadow-ax-black-d hover:bg-ax-yellow-a hover:border-ax-yellow-a mx-auto block max-w-max border border-white px-5 py-2 text-sm font-medium uppercase transition-colors duration-400 hover:drop-shadow-none sm:mx-0 sm:drop-shadow-[0_0_4px] md:px-10 md:py-4 md:text-base;
   }
+
+  .input-shadow {
+    @apply shadow-[0px_2px_2px_hsla(0,0%,0%,0.1)] focus:shadow-[0px_2px_2px_hsla(0,0%,0%,0.3)];
+  }
 }
 
 @utility container {
-  @apply mx-auto w-full max-w-xl px-4 md:max-w-2xl lg:max-w-5xl [&>form]:mx-auto [&>form]:max-w-2xl;
+  @apply mx-auto w-full max-w-xl px-4 md:max-w-2xl lg:max-w-5xl [&_form]:mx-auto [&_form]:max-w-2xl;
 }
 
 * {
-  /* border: 1px solid red; */
+  border: 1px solid red;
 }
 
 .ion-icon path {

@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
 import toast from "react-hot-toast";
-import Button from "src/components/ui/Button";
-import Input from "src/components/ui/Input";
+import Button from "@components/ui/Button";
+import Input from "@components/ui/Input";
+import Label from "@components/ui/Label";
 
 function Contact() {
   const fetcher = useFetcher();
@@ -45,9 +46,7 @@ function Contact() {
             }
           }}
         >
-          <label htmlFor="name" className="contact-label">
-            Name
-          </label>
+          <Label htmlFor="name">Name</Label>
           <Input
             name="name"
             id="name"
@@ -59,9 +58,7 @@ function Contact() {
           />
           <span className="gap-5 md:grid md:grid-cols-2">
             <span>
-              <label htmlFor="email" className="contact-label">
-                Email
-              </label>
+              <Label htmlFor="email">Email</Label>
               <Input
                 name="email"
                 type="email"
@@ -72,9 +69,7 @@ function Contact() {
               />
             </span>
             <span>
-              <label htmlFor="phone" className="contact-label">
-                Phone Number
-              </label>
+              <Label htmlFor="phone">Phone Number</Label>
               <Input
                 name="phone"
                 type="tel"
@@ -85,9 +80,7 @@ function Contact() {
               />
             </span>
           </span>
-          <label htmlFor="message" className="contact-label">
-            Message
-          </label>
+          <Label htmlFor="message">Message</Label>
           <Input
             variant="textarea"
             name="message"
@@ -98,11 +91,7 @@ function Contact() {
             rows={4}
             required
           />
-          <Button
-            type="submit"
-            disabled={fetcher.state !== "idle"}
-            className="disabled:bg-gray-500"
-          >
+          <Button type="submit" disabled={fetcher.state !== "idle"}>
             {fetcher.state === "idle" ? "Submit" : "Submitting ..."}
           </Button>
         </fetcher.Form>

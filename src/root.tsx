@@ -39,8 +39,6 @@ export const meta: Route.MetaFunction = ({}: Route.MetaArgs) => [
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
-  const [isPastTop, setIsPastTop] = useState(false);
-
   return (
     <html lang="en" className="scroll-smooth">
       <head>
@@ -50,13 +48,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="text-ax-black-a bg-ax-white-a">
-        <ScrollContext value={{ isPastTop, setIsPastTop }}>
-          <Header />
-          <Toaster />
-          <main className="pt-[--spacing(var(--header-gap))]">{children}</main>
-          <Footer />
-          <BackToTop />
-        </ScrollContext>
+        {children}
         <ScrollRestoration />
         <Scripts />
       </body>
@@ -65,7 +57,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 export default function Apps() {
-  return <Outlet />;
+  const [isPastTop, setIsPastTop] = useState(false);
+
+  return (
+    <ScrollContext value={{ isPastTop, setIsPastTop }}>
+      <Header />
+      <Toaster />
+      <main className="pt-[--spacing(var(--header-gap))]">
+        <Outlet />
+      </main>
+      <Footer />
+      <BackToTop />
+    </ScrollContext>
+  );
 }
 
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
