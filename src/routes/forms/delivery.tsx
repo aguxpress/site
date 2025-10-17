@@ -1,61 +1,71 @@
-import { TfiPackage } from "react-icons/tfi";
-import { FiTruck } from "react-icons/fi";
-import { RiShoppingBagLine } from "react-icons/ri";
+import { useState } from "react";
 import WizardLayout from "@components/ui/WizardLayout";
-import Button from "@components/ui/Button";
-import Input from "@components/ui/Input";
-import Select from "@components/ui/Select";
-import Label from "@components/ui/Label";
-import Choices from "@components/ui/Choices";
 import PersonData from "@components/forms/PersonData";
 import SinglePackage from "@components/forms/SinglePackage";
 import Destination from "@components/forms/Destination";
-import Pickup from "@components/forms/Pickup";
+import Addons from "@components/forms/Addons";
 
 export default function Delivery() {
+  const [delivery, setDelivery] = useState({
+    fullname: "",
+    email: "",
+    phone: "",
+    state: "",
+    city: "",
+    category: "",
+    weight: 0,
+    pickup: false,
+    pickup_address: "",
+    insurance: false,
+    recipient_fullname: "",
+    recipient_email: "",
+    recipient_phone: "",
+    destination_city: "",
+    delivery_address: "",
+  });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.currentTarget;
+    return setDelivery((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+    console.log(delivery);
+  };
+
   return (
     <section aria-label="delivery" id="delivery">
       <div className="container">
         <p className="headline">Send Request</p>
         <h2>Book a delivery</h2>
-        <form method="post">
+        <form method="post" onSubmit={handleSubmit}>
           <WizardLayout
             steps={[
-              { title: "Personal Details", subsection: <PersonData /> },
+              {
+                title: "Personal Details",
+                subsection: <PersonData onChange={handleChange} />,
+              },
               {
                 title: "Package",
                 subsection: (
                   <>
-                    <SinglePackage />
-                    <Pickup />
+                    <SinglePackage onChange={handleChange} />
+                    <Addons onChange={handleChange} />
                   </>
                 ),
               },
               {
                 title: "Destination",
-                subsection: <Destination />,
-              },
-              {
-                title: "Recipient",
-                subsection: <PersonData type="recipient" />,
+                subsection: (
+                  <>
+                    <PersonData type="recipient" onChange={handleChange} />
+                    <Destination onChange={handleChange} />
+                  </>
+                ),
               },
             ]}
-          >
-            {/*
-
-            <Label>Recipient Full Name</Label>
-            <Input />
-            <div className="gap-5 md:grid md:grid-cols-2">
-              <span>
-                <Label>Recipient Email</Label>
-                <Input />
-              </span>
-              <span>
-                <Label>Recipient Phone Number</Label>
-                <Input />
-              </span>
-            </div> */}
-          </WizardLayout>
+          />
         </form>
       </div>
     </section>

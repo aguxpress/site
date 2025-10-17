@@ -20,6 +20,7 @@ export default function Wizard({ steps }: WizardProps) {
   };
 
   const displaySteps = [...steps, finalStep];
+  const lastFormStep = phase === displaySteps.length - 2;
 
   return (
     <div className="pt-8">
@@ -60,14 +61,16 @@ export default function Wizard({ steps }: WizardProps) {
           Previous
         </Button>
         <Button
-          type="button"
+          type={lastFormStep ? "submit" : "button"}
           onClick={() => {
-            navigate("#");
-            setPhase((value) => Math.min(displaySteps.length - 1, value + 1));
+            if (!lastFormStep) {
+              navigate("#");
+              setPhase((value) => Math.min(displaySteps.length - 1, value + 1));
+            }
           }}
           className={cn([phase === displaySteps.length - 1 && "invisible"])}
         >
-          {phase === displaySteps.length - 2 ? "Finish" : "Next"}
+          {lastFormStep ? "Finish" : "Next"}
         </Button>
       </div>
     </div>

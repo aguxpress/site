@@ -7,7 +7,7 @@ type SelectProps = Omit<ComponentPropsWithoutRef<"select">, "children"> & {
 
 function Select({ className, options, ...props }: SelectProps) {
   const classes = cn(
-    "bg-white shadow-[0px_2px_2px_hsla(0,0%,0%,0.1)] my-5 px-5 py-2.5 block outline-none w-full",
+    "bg-white input-shadow my-5 px-5 py-3 block outline-none w-full appearance-none",
     className,
   );
 

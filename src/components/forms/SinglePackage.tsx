@@ -2,18 +2,22 @@ import Label from "@components/ui/Label";
 import Select from "@components/ui/Select";
 import Input from "@components/ui/Input";
 
-export default function SinglePackage() {
+export default function SinglePackage({
+  onChange,
+}: {
+  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
+}) {
   return (
     <>
       <Label
-        htmlFor="package-type"
+        htmlFor="category"
         info="AguXpress is not liable for any damage to very fragile items like glass. If shipping this, we recommend the additional insurance option below."
       >
-        Package Type
+        Package Category
       </Label>
       <Select
-        name="package-type"
-        id="package-type"
+        name="category"
+        id="category"
         options={[
           { label: "Documents", value: "documents" },
           { label: "Electronic Gadgets", value: "electronic-gadgets" },
