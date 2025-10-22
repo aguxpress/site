@@ -1,3 +1,4 @@
+import { env } from "./env.server";
 import {
   ApolloClient,
   HttpLink,
@@ -11,7 +12,6 @@ import type {
   GetArticleByIdQuery,
   GetArticleByIdQueryVariables,
 } from "@/types/__generated__/graphql";
-import { env } from "./env.server";
 
 const client = new ApolloClient({
   link: new HttpLink({ uri: env.WP_GRAPHQL_URI }),
