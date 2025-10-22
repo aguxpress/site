@@ -12,7 +12,7 @@ const Label = ({ className, info, children, ...otherProps }: LabelProps) => {
     <span className="flex items-baseline">
       <label
         className={cn(
-          "font-oswald text-2xl leading-[1.2] font-semibold",
+          "font-oswald text-2xl leading-[1.2] font-semibold capitalize",
           className,
         )}
         {...otherProps}

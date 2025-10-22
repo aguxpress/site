@@ -46,7 +46,7 @@ const HomeBlog = ({ articles }: HomeBlogProps) => {
                       <span className="text-ax-yellow-a text-4xl leading-[0.75] font-bold">
                         {postDate.getDate().toString().padStart(2, "0")}
                       </span>
-                      {postDate.toLocaleString("en-US", { month: "long" })}
+                      {postDate.toLocaleString("en-GB", { month: "long" })}
                     </time>
 
                     <h3 className="text-[1.375rem]">

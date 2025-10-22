@@ -20,7 +20,8 @@
       "@logos/*": ["src/assets/logos/*"],
       "@images/*": ["src/assets/images/*"],
       "@components/*": ["src/components/*"],
-      "@utils/*": ["src/utils/*"]
+      "@utils/*": ["src/utils/*"],
+      "@hooks/*": ["src/hooks/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,

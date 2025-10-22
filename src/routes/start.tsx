@@ -19,24 +19,24 @@ const services: Service[] = [
     icon: FaTruckFast,
     url: "delivery",
   },
-  {
-    title: "Relocation",
-    description: "Secure relocation for homes",
-    icon: FaHome,
-    url: "relocation",
-  },
-  {
-    title: "Quotes",
-    description: "Get instant price estimates tailored to your needs",
-    icon: FaFileInvoice,
-    url: "quote",
-  },
-  {
-    title: "Business",
-    description: "Partner solutions and logistics support for businesses",
-    icon: FaBriefcase,
-    url: "business",
-  },
+  // {
+  //   title: "Relocation",
+  //   description: "Secure relocation for homes",
+  //   icon: FaHome,
+  //   url: "relocation",
+  // },
+  // {
+  //   title: "Quotes",
+  //   description: "Get instant price estimates tailored to your needs",
+  //   icon: FaFileInvoice,
+  //   url: "quote",
+  // },
+  // {
+  //   title: "Business",
+  //   description: "Partner solutions and logistics support for businesses",
+  //   icon: FaBriefcase,
+  //   url: "business",
+  // },
 ];
 
 export default function Start({}: Route.ComponentProps) {

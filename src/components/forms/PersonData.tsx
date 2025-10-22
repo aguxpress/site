@@ -1,128 +1,145 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Label from "@components/ui/Label";
 import Input from "@components/ui/Input";
 import Select from "@components/ui/Select";
 
+interface UserProps {
+  fullname: string;
+  email: string;
+  phone: string;
+  state: string;
+  city: string;
+}
+
+interface RecipientProps {
+  recipient_fullname?: string;
+  recipient_email?: string;
+  recipient_phone?: string;
+}
+
+export type PersonDataOpts = UserProps & RecipientProps;
+
 interface Location {
-  label: string;
-  value: string;
-  cities: { label: string; value: string }[];
+  state: string;
+  cities: string[];
 }
 
 const locations: Location[] = [
-  {
-    label: "Anambra",
-    value: "anambra",
-    cities: [
-      { label: "Awka", value: "awka" },
-      { label: "Onitsha", value: "onitsha" },
-      { label: "Nnewi", value: "nnewi" },
-    ],
-  },
-  {
-    label: "Enugu",
-    value: "enugu",
-    cities: [{ label: "Enugu", value: "enugu" }],
-  },
-  {
-    label: "Lagos",
-    value: "lagos",
-    cities: [
-      {
-        label: "Lagos",
-        value: "lagos",
-      },
-    ],
-  },
-  {
-    label: "FCT",
-    value: "fct",
-    cities: [{ label: "Abuja", value: "abuja" }],
-  },
-  {
-    label: "Delta",
-    value: "delta",
-    cities: [{ label: "Asaba", value: "asaba" }],
-  },
-  {
-    label: "Akwa Ibom",
-    value: "akwa_ibom",
-    cities: [
-      { label: "Uyo", value: "uyo" },
-      { label: "Ikot Ekpene", value: "ikot_ekpene" },
-    ],
-  },
+  { state: "Anambra", cities: ["Awka", "Onitsha", "Nnewi"] },
+  { state: "Enugu", cities: ["Enugu"] },
+  { state: "Lagos", cities: ["Lagos"] },
+  { state: "FCT", cities: ["Abuja"] },
+  { state: "Delta", cities: ["Asaba"] },
+  { state: "Akwa Ibom", cities: ["Uyo", "Ikot Ekpene"] },
 ];
 
 export default function PersonData({
-  type,
+  value,
   onChange,
 }: {
-  type?: "user" | "recipient";
+  value:
+    | ({ type: "recipient" } & RecipientProps)
+    | ({ type: "user" } & UserProps);
   onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ): void;
 }) {
-  const prefix = type === "recipient" ? "Recipient" : "";
-  const idPrefix = prefix ? prefix + "-" : "";
+  const isRecipient = value.type === "recipient";
+  const prefix = isRecipient ? `${value.type}_` : "";
   const [stateIndex, setStateIndex] = useState(0);
+
+  const findStateIndex = (state: string) => {
+    const index = locations.findIndex((item) => item.state === state);
+    return Math.max(index, 0);
+  };
+
+  const stateValue = !isRecipient ? value.state : "";
+
+  useEffect(() => {
+    if (!isRecipient) {
+      onChange({
+        currentTarget: {
+          name: "city",
+          value: locations[findStateIndex(value.state)].cities.includes(
+            value.city,
+          )
+            ? value.city
+            : locations[stateIndex].cities[0],
+        },
+      } as React.ChangeEvent<HTMLSelectElement>);
+    }
+  }, [stateIndex, stateValue]);
 
   return (
     <>
-      <Label htmlFor={`${idPrefix}fullname`}>{prefix} Full Name</Label>
+      <Label htmlFor={`${prefix}fullname`}>
+        {prefix.slice(0, -1)} Full Name
+      </Label>
       <Input
-        id={`${idPrefix}fullname`}
-        name={`${idPrefix}fullname`}
+        id={`${prefix}fullname`}
+        name={`${prefix}fullname`}
+        value={isRecipient ? value.recipient_fullname : value.fullname}
         type="text"
         onChange={onChange}
-        required
+        // required
       />
       <div className="gap-5 md:grid md:grid-cols-2">
         <span>
-          <Label htmlFor={`${idPrefix}email`}>{prefix} Email</Label>
+          <Label htmlFor={`${prefix}email`}>{prefix.slice(0, -1)} Email</Label>
           <Input
-            id={`${idPrefix}email`}
-            name={`${idPrefix}email`}
+            id={`${prefix}email`}
+            name={`${prefix}email`}
+            value={isRecipient ? value.recipient_email : value.email}
             type="email"
             onChange={onChange}
-            required
+            // required
           />
         </span>
         <span>
-          <Label info="WhatsApp Preferred" htmlFor={`${idPrefix}phone`}>
-            {prefix} Phone Number
+          <Label info="WhatsApp Preferred" htmlFor={`${prefix}phone`}>
+            {prefix.slice(0, -1)} Phone Number
           </Label>
           <Input
-            id={`${idPrefix}phone`}
-            name={`${idPrefix}phone`}
+            id={`${prefix}phone`}
+            name={`${prefix}phone`}
+            value={isRecipient ? value.recipient_phone : value.phone}
             type="tel"
             onChange={onChange}
-            required
+            // required
           />
         </span>
       </div>
 
-      {!prefix && (
+      {!isRecipient && (
         <div className="gap-5 md:grid md:grid-cols-2">
           <span>
-            <Label>State</Label>
+            <Label htmlFor="state">State</Label>
             <Select
-              options={locations}
+              id="state"
+              name="state"
+              value={value.state}
+              options={locations.map(({ state }) => ({
+                label: state,
+                value: state,
+              }))}
               onChange={(event) => {
-                setStateIndex(
-                  locations.findIndex(
-                    ({ value }) => value === event.currentTarget.value || 0,
-                  ),
-                );
+                setStateIndex(findStateIndex(event.currentTarget.value));
                 onChange(event);
               }}
             />
           </span>
           <span>
-            <Label>City</Label>
-            {/* If Nigeria display Options */}
+            <Label htmlFor="city">City</Label>
             <Select
-              options={locations[stateIndex].cities}
+              id="city"
+              name="city"
+              value={value.city}
+              options={locations[
+                stateIndex || findStateIndex(value.state)
+              ].cities.map((city) => ({
+                label: city,
+                value: city,
+              }))}
               onChange={onChange}
             />
           </span>
