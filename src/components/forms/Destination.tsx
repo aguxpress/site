@@ -21,7 +21,7 @@ export default function Destination({
     <>
       <Label
         htmlFor="destination_city"
-        info="AguXpress can only go to other states if shipping from Awka"
+        info="AguXpress can only deliver to other states if pickup is from Awka"
       >
         Destination City
       </Label>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import type { Fetcher } from "react-router";
+import { Link, type Fetcher } from "react-router";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { cn } from "@utils/display.utils";
@@ -33,10 +33,22 @@ export default function Wizard<T>({
 }: WizardProps<T>) {
   const [phase, setPhase] = useState(0);
   const navigate = useNavigate();
-
   const finalStep: ReturnType<WizardProps<T>["steps"]>[number] = {
     title: "Finish",
-    subsection: <h2>Completed. We will contact you shortly.</h2>,
+    subsection: (
+      <div className="bg-ax-white-d rounded-sm py-10 shadow-md">
+        <div className="mb-12 flex flex-col items-center">
+          <h3 className="text-4xl text-gray-600">Completed.</h3>
+          <span className="my-2">We will contact you shortly.</span>
+        </div>
+        <Link
+          to="/start"
+          className="hero-btn border-ax-yellow-a hover:text-ax-black-d mx-auto block w-fit text-gray-600 drop-shadow-none"
+        >
+          Back to Menu
+        </Link>
+      </div>
+    ),
   };
 
   const isSubmitting = fetcher.state === "submitting";
@@ -57,7 +69,7 @@ export default function Wizard<T>({
         setPhase((prev) => prev + 1);
       }
     }
-  }, [isError]);
+  }, [isError, isSubmitting]);
 
   return (
     <form>
@@ -87,7 +99,12 @@ export default function Wizard<T>({
           </div>
         </div>
         {displaySteps[phase].subsection}
-        <div className="mx-auto mt-10 flex w-4/5 justify-between">
+        <div
+          className={cn([
+            "mx-auto mt-10 flex w-4/5 justify-between",
+            displaySteps.length - 1 === phase ? "hidden" : "",
+          ])}
+        >
           <Button
             type="button"
             onClick={() => {
