@@ -6,7 +6,7 @@ import { ServerRouter } from "react-router";
 import { isbot } from "isbot";
 import type { RenderToPipeableStreamOptions } from "react-dom/server";
 import { renderToPipeableStream } from "react-dom/server";
-import "@utils/env.server";
+import { env } from "@utils/env.server";
 
 export const streamTimeout = 5_000;
 
