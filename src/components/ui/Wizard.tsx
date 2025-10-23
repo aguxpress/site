@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, type Fetcher } from "react-router";
+import { Link, type FetcherWithComponents } from "react-router";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { cn } from "@utils/display.utils";
@@ -12,9 +12,8 @@ interface FetcherData {
 
 interface WizardProps<T> {
   formState: T;
-  fetcher: Fetcher<FetcherData>;
-  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
-  onSubmit(formState: T): void;
+  setFormState: React.Dispatch<React.SetStateAction<T>>;
+  fetcher: FetcherWithComponents<FetcherData>;
   steps: (
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
     formState: T,
@@ -25,15 +24,35 @@ interface WizardProps<T> {
 }
 
 export default function Wizard<T>({
-  steps,
-  onChange,
-  onSubmit,
   formState,
+  setFormState,
   fetcher,
+  steps,
 }: WizardProps<T>) {
   const [phase, setPhase] = useState(0);
   const navigate = useNavigate();
-  const finalStep: ReturnType<WizardProps<T>["steps"]>[number] = {
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = event.currentTarget;
+    const finalValue =
+      type === "checkbox" ? checked : type === "number" ? Number(value) : value;
+    return setFormState((prev) => ({
+      ...prev,
+      [name]: finalValue,
+    }));
+  };
+
+  async function handleSubmit(formState: T) {
+    await fetcher.submit(
+      formState as Record<string, string | boolean | number>,
+      {
+        method: "post",
+        encType: "application/json",
+      },
+    );
+  }
+
+  const finalStep = {
     title: "Finish",
     subsection: (
       <div className="bg-ax-white-d rounded-sm py-10 shadow-md">
@@ -54,10 +73,10 @@ export default function Wizard<T>({
   const isSubmitting = fetcher.state === "submitting";
   const isError = Boolean(fetcher.data?.error);
 
-  const displaySteps = [...steps(onChange, formState), finalStep];
+  const displaySteps = [...steps(handleChange, formState), finalStep];
   const isLastFormStep = phase === displaySteps.length - 2;
 
-  console.log(fetcher.data);
+  // console.log(fetcher.data);
   useEffect(() => {
     if (isLastFormStep && !isSubmitting) {
       if (isError) {
@@ -126,7 +145,7 @@ export default function Wizard<T>({
                 );
               }
               toast.loading("Submitting Request");
-              return onSubmit(formState);
+              return handleSubmit(formState);
             }}
             className={cn([phase === displaySteps.length - 1 && "invisible"])}
           >

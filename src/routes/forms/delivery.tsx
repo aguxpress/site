@@ -35,6 +35,7 @@ export async function action({ request }: Route.ActionArgs) {
 }
 
 export default function Delivery({ actionData }: Route.ComponentProps) {
+  // Done here for typechecking purposes
   const fetcher = useFetcher<typeof actionData>();
   const [delivery, setDelivery] = useState<DeliveryData>({
     fullname: "",
@@ -54,35 +55,14 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
     delivery_address: "",
   });
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = event.currentTarget;
-    const finalValue =
-      type === "checkbox" ? checked : type === "number" ? Number(value) : value;
-    return setDelivery((prev) => ({
-      ...prev,
-      [name]: finalValue,
-    }));
-  };
-
-  async function handleSubmit(formState: DeliveryData) {
-    await fetcher.submit(
-      { ...formState },
-      {
-        method: "post",
-        encType: "application/json",
-      },
-    );
-  }
-
   return (
     <section aria-label="delivery" id="delivery">
       <div className="container">
         <p className="headline">Send Request</p>
         <h2>Book a delivery</h2>
         <Wizard
-          onChange={handleChange}
-          onSubmit={handleSubmit}
           formState={delivery}
+          setFormState={setDelivery}
           fetcher={fetcher}
           steps={(handleChange, formState) => {
             const {
