@@ -1,5 +1,6 @@
 import { env } from "./env.server";
 import nodemailer from "nodemailer";
+// import type { AXService } from "@/types/index";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -49,11 +50,12 @@ interface ApiResponse<Data> {
 }
 
 const basicAuth = `Basic ${btoa(`${env.WP_USERNAME}:${env.WP_PASSWORD}`)}`;
-type AXRequest = "delivery";
+
+type AXService = "delivery" | "business";
 
 export async function handleUserData<
   T extends { fullname: string; email: string },
->(service: AXRequest, userData: T, title: string): Promise<ApiResponse<T>> {
+>(service: AXService, userData: T, title: string): Promise<ApiResponse<T>> {
   try {
     const wpData = {
       title,

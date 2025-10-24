@@ -11,6 +11,7 @@ export default [
   ...prefix("start", [
     index("routes/start.tsx"),
     route("delivery", "routes/forms/delivery.tsx"),
+    route("business", "routes/forms/business.tsx"),
   ]),
 
   ...prefix("blog", [
@@ -18,11 +19,11 @@ export default [
     route(":postSlug", "routes/blog/post.tsx"),
   ]),
 
-  ...prefix("", [
-    route("ship", "routes/forms/ship.tsx"),
-    route("quote", "routes/forms/quote.tsx"),
-    route("escrow", "routes/forms/escrow.tsx"),
-  ]),
+  // ...prefix("", [
+  //   route("ship", "routes/forms/ship.tsx"),
+  //   route("quote", "routes/forms/quote.tsx"),
+  //   route("escrow", "routes/forms/escrow.tsx"),
+  // ]),
 
   ...prefix("api", [route("contact", "routes/api/contact.ts")]),
 ] satisfies RouteConfig;
