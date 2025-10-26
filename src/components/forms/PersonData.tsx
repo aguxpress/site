@@ -17,6 +17,15 @@ interface RecipientProps {
   recipient_phone?: string;
 }
 
+interface BusinessContactProps {
+  contact_fullname: string;
+  contact_email: string;
+  contact_phone: string;
+  business_state: string;
+  business_city: string;
+}
+
+// So that the delivery state can contain all values
 export type PersonDataOpts = UserProps & RecipientProps;
 
 interface Location {
@@ -39,13 +48,18 @@ export default function PersonData({
 }: {
   value:
     | ({ type: "recipient" } & RecipientProps)
-    | ({ type: "user" } & UserProps);
+    | ({ type: "user" } & UserProps)
+    | ({ type: "business" } & BusinessContactProps);
   onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ): void;
 }) {
-  const isRecipient = value.type === "recipient";
-  const prefix = isRecipient ? `${value.type}_` : "";
+  const prefix =
+    value.type === "user"
+      ? ""
+      : value.type === "business"
+        ? "contact_"
+        : `${value.type}_`;
   const [stateIndex, setStateIndex] = useState(0);
 
   const findStateIndex = (state: string) => {
@@ -53,7 +67,7 @@ export default function PersonData({
     return Math.max(index, 0);
   };
 
-  const stateValue = !isRecipient ? value.state : "";
+  const stateValue = isUser ? value.state : "";
 
   useEffect(() => {
     if (!isRecipient) {
@@ -78,7 +92,13 @@ export default function PersonData({
       <Input
         id={`${prefix}fullname`}
         name={`${prefix}fullname`}
-        value={isRecipient ? value.recipient_fullname : value.fullname}
+        value={
+          value.type === "user"
+            ? value.fullname
+            : value.type === "business"
+              ? value.contact_fullname
+              : value.recipient_fullname
+        }
         type="text"
         onChange={onChange}
         // required
