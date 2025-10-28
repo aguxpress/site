@@ -1,7 +1,10 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
-import Wizard from "@components/ui/Wizard";
-import PersonData, { type PersonDataOpts } from "@components/forms/PersonData";
+import Wizard from "@components/forms/Wizard";
+import PersonData, {
+  type UserProps,
+  type RecipientProps,
+} from "@components/forms/PersonData";
 import SinglePackage, {
   type SinglePackageOpts,
 } from "@components/forms/SinglePackage";
@@ -12,7 +15,8 @@ import Addons, { type AddonsOpts } from "@components/forms/Addons";
 import type { Route } from "./+types/delivery";
 import { handleUserData } from "@utils/forms.server";
 
-type DeliveryData = PersonDataOpts &
+type DeliveryData = UserProps &
+  RecipientProps &
   SinglePackageOpts &
   AddonsOpts &
   DestinationOpts;
@@ -21,7 +25,7 @@ export async function action({ request }: Route.ActionArgs) {
   const data: DeliveryData = await request.json();
   const result = await handleUserData(
     "delivery",
-    data,
+    { ...data, type: "user" },
     `Delivery Request from ${data.fullname} on ${new Date().toLocaleDateString(
       "en-GB",
       {

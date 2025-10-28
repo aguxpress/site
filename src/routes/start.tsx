@@ -31,12 +31,12 @@ const services: Service[] = [
   //   icon: FaFileInvoice,
   //   url: "quote",
   // },
-  // {
-  //   title: "Business",
-  //   description: "Partner solutions and logistics support for businesses",
-  //   icon: FaBriefcase,
-  //   url: "business",
-  // },
+  {
+    title: "Business",
+    description: "Partner solutions and logistics support for businesses",
+    icon: FaBriefcase,
+    url: "business",
+  },
 ];
 
 export default function Start({}: Route.ComponentProps) {
