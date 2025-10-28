@@ -52,15 +52,22 @@ interface ApiResponse<Data> {
 const basicAuth = `Basic ${btoa(`${env.WP_USERNAME}:${env.WP_PASSWORD}`)}`;
 
 type AXService = "delivery" | "business";
+type BaseUserData =
+  | { type: "user"; fullname: string; email: string }
+  | { type: "business"; contact_fullname: string; contact_email: string };
 
-export async function handleUserData<
-  T extends { fullname: string; email: string },
->(service: AXService, userData: T, title: string): Promise<ApiResponse<T>> {
+export async function handleUserData<T extends BaseUserData>(
+  service: AXService,
+  userData: T,
+  title: string,
+): Promise<ApiResponse<T>> {
+  const { type, ...acfData } = userData;
+
   try {
     const wpData = {
       title,
       status: "publish",
-      acf: userData,
+      acf: acfData,
     };
 
     const response = await fetch(`${env.WP_REST_URI}/${service}`, {
@@ -73,17 +80,21 @@ export async function handleUserData<
     });
     if (!response.ok) throw new Error(response.statusText);
 
+    const isUser = type === "user";
+    const fullname = isUser ? userData.fullname : userData.contact_fullname;
+    const email = isUser ? userData.email : userData.contact_email;
+
     await transporter.sendMail({
-      from: `"From: ${userData.fullname}" <${userData.email}>`,
-      replyTo: userData.email,
+      from: `"From: ${fullname}" <${email}>`,
+      replyTo: email,
       to: env.APP_EMAIL,
       subject: title,
       text: JSON.stringify(userData).replace(/[{}"]/g, "").replace(/,/g, "\n"),
     });
 
-    const result: WPResponse<T> = await response.json();
+    const data: WPResponse<T> = await response.json();
     return {
-      data: result,
+      data,
       message: "Successfully Created Request!",
       status: response.status,
     };

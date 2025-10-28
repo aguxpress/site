@@ -3,7 +3,7 @@ import { Link, type FetcherWithComponents } from "react-router";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { cn } from "@utils/display.utils";
-import Button from "./Button";
+import Button from "../ui/Button";
 // import useShow from "@hooks/useShow";
 
 interface FetcherData {
@@ -15,7 +15,7 @@ interface WizardProps<T> {
   setFormState: React.Dispatch<React.SetStateAction<T>>;
   fetcher: FetcherWithComponents<FetcherData>;
   steps: (
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    handleChange: (event: React.ChangeEvent<HTMLInputElement>) => void,
     formState: T,
   ) => {
     title: string;
@@ -76,7 +76,6 @@ export default function Wizard<T>({
   const displaySteps = [...steps(handleChange, formState), finalStep];
   const isLastFormStep = phase === displaySteps.length - 2;
 
-  // console.log(fetcher.data);
   useEffect(() => {
     if (isLastFormStep && !isSubmitting) {
       if (isError) {

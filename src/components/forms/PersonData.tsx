@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import Label from "@components/ui/Label";
 import Input from "@components/ui/Input";
 import Select from "@components/ui/Select";
 
-interface UserProps {
+export interface UserProps {
   fullname: string;
   email: string;
   phone: string;
@@ -11,13 +11,13 @@ interface UserProps {
   city: string;
 }
 
-interface RecipientProps {
-  recipient_fullname?: string;
-  recipient_email?: string;
-  recipient_phone?: string;
+export interface RecipientProps {
+  recipient_fullname: string;
+  recipient_email: string;
+  recipient_phone: string;
 }
 
-interface BusinessContactProps {
+export interface BusinessContactProps {
   contact_fullname: string;
   contact_email: string;
   contact_phone: string;
@@ -26,7 +26,6 @@ interface BusinessContactProps {
 }
 
 // So that the delivery state can contain all values
-export type PersonDataOpts = UserProps & RecipientProps;
 
 interface Location {
   state: string;
@@ -54,12 +53,12 @@ export default function PersonData({
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ): void;
 }) {
-  const prefix =
-    value.type === "user"
-      ? ""
-      : value.type === "business"
-        ? "contact_"
-        : `${value.type}_`;
+  const isUpdated = useRef(false);
+  const isRecipient = value.type === "recipient";
+  const isBusiness = value.type === "business";
+
+  const prefix = isRecipient ? `${value.type}_` : isBusiness ? "contact_" : "";
+  const businessPrefix = isBusiness ? "business_" : "";
   const [stateIndex, setStateIndex] = useState(0);
 
   const findStateIndex = (state: string) => {
@@ -67,22 +66,16 @@ export default function PersonData({
     return Math.max(index, 0);
   };
 
-  const stateValue = isUser ? value.state : "";
+  const stateValue = isBusiness
+    ? value.business_state
+    : !isRecipient
+      ? value.state
+      : "";
 
-  useEffect(() => {
-    if (!isRecipient) {
-      onChange({
-        currentTarget: {
-          name: "city",
-          value: locations[findStateIndex(value.state)].cities.includes(
-            value.city,
-          )
-            ? value.city
-            : locations[stateIndex].cities[0],
-        },
-      } as React.ChangeEvent<HTMLSelectElement>);
-    }
-  }, [stateIndex, stateValue]);
+  if (!isRecipient && !isUpdated.current && stateValue) {
+    setStateIndex(findStateIndex(stateValue));
+    isUpdated.current = true;
+  }
 
   return (
     <>
@@ -93,11 +86,11 @@ export default function PersonData({
         id={`${prefix}fullname`}
         name={`${prefix}fullname`}
         value={
-          value.type === "user"
-            ? value.fullname
-            : value.type === "business"
+          isRecipient
+            ? value.recipient_fullname
+            : isBusiness
               ? value.contact_fullname
-              : value.recipient_fullname
+              : value.fullname
         }
         type="text"
         onChange={onChange}
@@ -109,7 +102,13 @@ export default function PersonData({
           <Input
             id={`${prefix}email`}
             name={`${prefix}email`}
-            value={isRecipient ? value.recipient_email : value.email}
+            value={
+              isRecipient
+                ? value.recipient_email
+                : isBusiness
+                  ? value.contact_email
+                  : value.email
+            }
             type="email"
             onChange={onChange}
             // required
@@ -122,7 +121,13 @@ export default function PersonData({
           <Input
             id={`${prefix}phone`}
             name={`${prefix}phone`}
-            value={isRecipient ? value.recipient_phone : value.phone}
+            value={
+              isRecipient
+                ? value.recipient_phone
+                : isBusiness
+                  ? value.contact_phone
+                  : value.phone
+            }
             type="tel"
             onChange={onChange}
             // required
@@ -133,30 +138,47 @@ export default function PersonData({
       {!isRecipient && (
         <div className="gap-5 md:grid md:grid-cols-2">
           <span>
-            <Label htmlFor="state">State</Label>
+            <Label
+              htmlFor={`${businessPrefix}state`}
+              {...(isBusiness ? { info: "Location of the business" } : {})}
+            >
+              State
+            </Label>
             <Select
-              id="state"
-              name="state"
-              value={value.state}
+              id={`${businessPrefix}state`}
+              name={`${businessPrefix}state`}
+              value={stateValue}
               options={locations.map(({ state }) => ({
                 label: state,
                 value: state,
               }))}
               onChange={(event) => {
-                setStateIndex(findStateIndex(event.currentTarget.value));
+                const index = event.currentTarget.selectedIndex ?? 0;
+                setStateIndex(index);
                 onChange(event);
+                onChange({
+                  currentTarget: {
+                    name: `${businessPrefix}city`,
+                    value: locations[index].cities[0],
+                  },
+                } as React.ChangeEvent<HTMLSelectElement>);
               }}
             />
           </span>
           <span>
-            <Label htmlFor="city">City</Label>
+            <Label
+              htmlFor={`${businessPrefix}city`}
+              {...(isBusiness
+                ? { info: "City where the business is located" }
+                : {})}
+            >
+              City
+            </Label>
             <Select
-              id="city"
-              name="city"
-              value={value.city}
-              options={locations[
-                stateIndex || findStateIndex(value.state)
-              ].cities.map((city) => ({
+              id={`${businessPrefix}city`}
+              name={`${businessPrefix}city`}
+              value={isBusiness ? value.business_city : value.city}
+              options={locations[stateIndex].cities.map((city) => ({
                 label: city,
                 value: city,
               }))}
