@@ -8,7 +8,7 @@ const About = () => (
   <section id="about" aria-label="about">
     <div className="container lg:grid lg:grid-cols-2">
       <figure
-        className="relative mb-15 aspect-[400/720] max-w-[300px] shadow-[0px_40px_60px_hsla(202,75%,47%,0.7)]"
+        className="relative mb-15 aspect-400/720 max-w-[300px] shadow-[0px_40px_60px_hsla(202,75%,47%,0.7)]"
         // style={{--width: 400 --height: 720}}
       >
         <img
@@ -76,7 +76,7 @@ const About = () => (
           </li>
         </ul>
 
-        <Link to="#" className="btn text-ax-yellow-a px-[15px_50px] py-[10px]">
+        <Link to="#" className="btn text-ax-yellow-a px-[15px_50px] py-2.5">
           Learn More
         </Link>
       </div>

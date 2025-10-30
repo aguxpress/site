@@ -6,7 +6,23 @@ import { cn } from "@utils/display.utils";
 import Button from "../ui/Button";
 // import useShow from "@hooks/useShow";
 
+const FinalStep = () => (
+  <div className="bg-ax-white-d rounded-sm py-10 shadow-md">
+    <div className="mb-12 flex flex-col items-center">
+      <h3 className="text-4xl text-gray-600">Completed.</h3>
+      <span className="my-2">We will contact you shortly.</span>
+    </div>
+    <Link
+      to="/start"
+      className="hero-btn border-ax-yellow-a hover:text-ax-black-d mx-auto block w-fit text-gray-600 drop-shadow-none"
+    >
+      Back to Menu
+    </Link>
+  </div>
+);
+
 interface FetcherData {
+  data?: { id: number };
   error?: string;
 }
 
@@ -52,28 +68,13 @@ export default function Wizard<T>({
     );
   }
 
-  const finalStep = {
-    title: "Finish",
-    subsection: (
-      <div className="bg-ax-white-d rounded-sm py-10 shadow-md">
-        <div className="mb-12 flex flex-col items-center">
-          <h3 className="text-4xl text-gray-600">Completed.</h3>
-          <span className="my-2">We will contact you shortly.</span>
-        </div>
-        <Link
-          to="/start"
-          className="hero-btn border-ax-yellow-a hover:text-ax-black-d mx-auto block w-fit text-gray-600 drop-shadow-none"
-        >
-          Back to Menu
-        </Link>
-      </div>
-    ),
-  };
-
   const isSubmitting = fetcher.state === "submitting";
   const isError = Boolean(fetcher.data?.error);
 
-  const displaySteps = [...steps(handleChange, formState), finalStep];
+  const displaySteps = [
+    ...steps(handleChange, formState),
+    { title: "Finish", subsection: <FinalStep /> },
+  ];
   const isLastFormStep = phase === displaySteps.length - 2;
 
   useEffect(() => {
@@ -81,7 +82,7 @@ export default function Wizard<T>({
       if (isError) {
         toast.dismiss();
         toast.error("Something went wrong, Try again");
-      } else {
+      } else if (fetcher.data?.data?.id) {
         toast.dismiss();
         toast.success("Submitted!");
         setPhase((prev) => prev + 1);

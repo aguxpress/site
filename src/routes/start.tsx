@@ -25,12 +25,12 @@ const services: Service[] = [
   //   icon: FaHome,
   //   url: "relocation",
   // },
-  // {
-  //   title: "Quotes",
-  //   description: "Get instant price estimates tailored to your needs",
-  //   icon: FaFileInvoice,
-  //   url: "quote",
-  // },
+  {
+    title: "Quotes",
+    description: "Get instant price estimates tailored to your needs",
+    icon: FaFileInvoice,
+    url: "quote",
+  },
   {
     title: "Business",
     description: "Partner solutions and logistics support for businesses",
