@@ -51,7 +51,7 @@ interface ApiResponse<Data> {
 
 const basicAuth = `Basic ${btoa(`${env.WP_USERNAME}:${env.WP_PASSWORD}`)}`;
 
-type AXService = "delivery" | "business";
+type AXService = "delivery" | "business" | "quote";
 type BaseUserData =
   | { type: "user"; fullname: string; email: string }
   | { type: "business"; contact_fullname: string; contact_email: string };

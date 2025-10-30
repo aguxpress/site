@@ -1,47 +1,33 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
+import type { Route } from "./+types/quote";
 import Wizard from "@components/forms/Wizard";
-import PersonData, {
-  type UserProps,
-  type RecipientProps,
-} from "@components/forms/PersonData";
+import { handleUserData } from "@utils/forms.server";
+import PersonData, { type UserProps } from "@components/forms/PersonData";
 import SinglePackage, {
   type SinglePackageOpts,
 } from "@components/forms/SinglePackage";
+import Addons, { type AddonsOpts } from "@components/forms/Addons";
 import Destination, {
   type DestinationOpts,
 } from "@components/forms/Destination";
-import Addons, { type AddonsOpts } from "@components/forms/Addons";
-import type { Route } from "./+types/delivery";
-import { handleUserData } from "@utils/forms.server";
 
-type DeliveryData = UserProps &
-  RecipientProps &
-  SinglePackageOpts &
-  AddonsOpts &
-  DestinationOpts;
+type QuoteData = UserProps & SinglePackageOpts & AddonsOpts & DestinationOpts;
 
 export async function action({ request }: Route.ActionArgs) {
-  const data: DeliveryData = await request.json();
+  const data: QuoteData = await request.json();
   const result = await handleUserData(
-    "delivery",
+    "quote",
     { ...data, type: "user" },
-    `Delivery Request from ${data.fullname} on ${new Date().toLocaleDateString(
-      "en-GB",
-      {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      },
-    )}`,
+    "Quote Request",
   );
+
   return result;
 }
 
-export default function Delivery({ actionData }: Route.ComponentProps) {
-  // Done here for typechecking purposes
+export default function Quote({ actionData }: Route.ComponentProps) {
   const fetcher = useFetcher<typeof actionData>();
-  const [delivery, setDelivery] = useState<DeliveryData>({
+  const [quoteData, setQuoteData] = useState<QuoteData>({
     fullname: "",
     email: "",
     phone: "",
@@ -52,22 +38,19 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
     pickup: false,
     pickup_address: "",
     insurance: false,
-    recipient_fullname: "",
-    recipient_email: "",
-    recipient_phone: "",
     destination_state: "",
     destination_city: "",
     street_address: "",
   });
 
   return (
-    <section aria-label="delivery" id="delivery">
+    <section aria-label="quote" id="quote">
       <div className="container">
         <p className="headline">Send Request</p>
-        <h2>Book a delivery</h2>
+        <h2>Get A Quote</h2>
         <Wizard
-          formState={delivery}
-          setFormState={setDelivery}
+          formState={quoteData}
+          setFormState={setQuoteData}
           fetcher={fetcher}
           steps={(handleChange, formState) => {
             const {
@@ -81,9 +64,6 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
               pickup,
               pickup_address,
               insurance,
-              recipient_fullname,
-              recipient_email,
-              recipient_phone,
               destination_state,
               destination_city,
               street_address,
@@ -92,18 +72,17 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
             return [
               {
                 title: "Personal Details",
-                // To validate, give each forms-component a validation function, import and pass it into the steps that the button eventually calls. Use toaster to tell user problems arising
                 subsection: (
                   <PersonData
-                    onChange={handleChange}
                     value={{
                       type: "user",
                       fullname,
                       email,
                       phone,
-                      state,
                       city,
+                      state,
                     }}
+                    onChange={handleChange}
                   />
                 ),
               },
@@ -117,7 +96,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
                     />
                     <Addons
                       onChange={handleChange}
-                      value={{ pickup, city, pickup_address, insurance }}
+                      value={{ pickup, pickup_address, insurance, city }}
                     />
                   </>
                 ),
@@ -125,27 +104,16 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
               {
                 title: "Destination",
                 subsection: (
-                  <>
-                    <PersonData
-                      value={{
-                        type: "recipient",
-                        recipient_fullname,
-                        recipient_email,
-                        recipient_phone,
-                      }}
-                      onChange={handleChange}
-                    />
-                    <Destination
-                      onChange={handleChange}
-                      value={{
-                        destination_state,
-                        destination_city,
-                        street_address,
-                        city,
-                        state,
-                      }}
-                    />
-                  </>
+                  <Destination
+                    onChange={handleChange}
+                    value={{
+                      destination_state,
+                      destination_city,
+                      street_address,
+                      city,
+                      state,
+                    }}
+                  />
                 ),
               },
             ];
