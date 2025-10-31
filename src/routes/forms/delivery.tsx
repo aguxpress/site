@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
+import type { Route } from "./+types/delivery";
 import Wizard from "@components/forms/Wizard";
 import PersonData, {
   type UserProps,
@@ -12,7 +13,6 @@ import Destination, {
   type DestinationOpts,
 } from "@components/forms/Destination";
 import Addons, { type AddonsOpts } from "@components/forms/Addons";
-import type { Route } from "./+types/delivery";
 import { handleUserData } from "@utils/forms.server";
 
 type DeliveryData = UserProps &

@@ -51,7 +51,7 @@ interface ApiResponse<Data> {
 
 const basicAuth = `Basic ${btoa(`${env.WP_USERNAME}:${env.WP_PASSWORD}`)}`;
 
-type AXService = "delivery" | "business" | "quote";
+type AXService = "delivery" | "business" | "quote" | "relocation";
 type BaseUserData =
   | { type: "user"; fullname: string; email: string }
   | { type: "business"; contact_fullname: string; contact_email: string };
@@ -89,7 +89,7 @@ export async function handleUserData<T extends BaseUserData>(
       replyTo: email,
       to: env.APP_EMAIL,
       subject: title,
-      text: JSON.stringify(userData).replace(/[{}"]/g, "").replace(/,/g, "\n"),
+      text: JSON.stringify(acfData).replace(/[{}"]/g, "").replace(/,/g, "\n"),
     });
 
     const data: WPResponse<T> = await response.json();

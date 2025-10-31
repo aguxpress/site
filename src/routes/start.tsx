@@ -3,7 +3,6 @@ import type { Route } from "./+types/start";
 import type { IconType } from "react-icons";
 import { FaTruckFast, FaFileInvoice, FaBriefcase } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
-import { MdDashboardCustomize } from "react-icons/md";
 
 interface Service {
   title: string;
@@ -19,12 +18,12 @@ const services: Service[] = [
     icon: FaTruckFast,
     url: "delivery",
   },
-  // {
-  //   title: "Relocation",
-  //   description: "Secure relocation for homes",
-  //   icon: FaHome,
-  //   url: "relocation",
-  // },
+  {
+    title: "Relocation",
+    description: "Secure relocation for homes",
+    icon: FaHome,
+    url: "relocation",
+  },
   {
     title: "Quotes",
     description: "Get instant price estimates tailored to your needs",
