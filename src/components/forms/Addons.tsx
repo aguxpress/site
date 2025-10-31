@@ -17,25 +17,31 @@ interface ToggleProps {
   info?: string;
   id: string;
   isOpen: boolean;
-  onChange(event: React.ChangeEvent<HTMLInputElement>): void;
+  setOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+  onChange?(event: React.ChangeEvent<HTMLInputElement>): void;
+  readOnly?: boolean;
 }
 
-const Toggle = ({
+export const Toggle = ({
   children,
   name,
   info,
   id,
   isOpen,
+  setOpen,
   onChange,
+  readOnly = false,
 }: ToggleProps) => {
   return (
     <div className="mb-5 bg-gray-300 shadow-sm">
       <span
         className="flex cursor-pointer justify-between rounded-md p-4"
         onClick={() => {
-          onChange({
-            currentTarget: { name: id, type: "checkbox", checked: !isOpen },
-          } as React.ChangeEvent<HTMLInputElement>);
+          onChange
+            ? onChange({
+                currentTarget: { name: id, type: "checkbox", checked: !isOpen },
+              } as React.ChangeEvent<HTMLInputElement>)
+            : setOpen?.(!isOpen);
         }}
       >
         <span className="flex gap-2">
@@ -45,7 +51,9 @@ const Toggle = ({
             name={id}
             checked={isOpen}
             className="w-6 cursor-pointer"
-            onChange={onChange}
+            {...(readOnly
+              ? { readOnly }
+              : { onChange: onChange ?? (() => setOpen?.(!isOpen)) })}
           />
           <span className="inline" onClick={(event) => event.stopPropagation()}>
             <Label info={info} htmlFor={id} className="cursor-pointer">

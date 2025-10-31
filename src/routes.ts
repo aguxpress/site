@@ -11,6 +11,7 @@ export default [
   ...prefix("start", [
     index("routes/start.tsx"),
     route("delivery", "routes/forms/delivery.tsx"),
+    route("relocation", "routes/forms/relocation.tsx"),
     route("business", "routes/forms/business.tsx"),
     route("quote", "routes/forms/quote.tsx"),
   ]),
