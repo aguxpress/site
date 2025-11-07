@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router";
 import {
   IoCloseOutline,
   IoChevronDown,
-  IoCallOutline,
   IoMenuOutline,
   IoLogoWhatsapp,
 } from "react-icons/io5";
@@ -24,11 +23,11 @@ const headerMenu: HeaderMenu = [
   {
     item: "Services",
     children: [
-      { item: "Haulage" },
-      { item: "Dispatch" },
-      { item: "Pickup", url: "/pickup" },
-      { item: "Insurance Coverage" },
-      { item: "Escrow", url: "/escrow" },
+      // Fix with the four services the website actually offers for now
+      { item: "Delivery", url: "/start/delivery" },
+      { item: "Get Quotes", url: "/start/quote" },
+      { item: "Relocation", url: "/start/relocation" },
+      { item: "For Businesses", url: "/start/business" },
     ],
   },
   { item: "Contact", url: "/#contact" },
