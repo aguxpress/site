@@ -56,6 +56,7 @@ export default function SinglePackage({
         min={0}
         id="weight"
         name="weight"
+        value={value.weight}
         onChange={onChange}
       />
     </>

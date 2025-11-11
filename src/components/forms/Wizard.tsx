@@ -52,6 +52,7 @@ export default function Wizard<T>({
     const { name, value, type, checked } = event.currentTarget;
     const finalValue =
       type === "checkbox" ? checked : type === "number" ? Number(value) : value;
+    console.log(finalValue, name);
     return setFormState((prev) => ({
       ...prev,
       [name]: finalValue,

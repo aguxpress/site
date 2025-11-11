@@ -5,6 +5,7 @@ import {
   IoChevronDown,
   IoMenuOutline,
   IoLogoWhatsapp,
+  // IoCallOutline,
 } from "react-icons/io5";
 import primaryLogo from "@logos/primary.png";
 import { cn } from "@utils/display.utils";
@@ -167,11 +168,13 @@ const Header = () => {
 
       <div
         className={cn([
-          "text-ax-yellow-a lg:text-shadow-ax-black-d/50 ms-auto hidden items-center gap-5 text-right sm:flex lg:ms-0",
-          isShadow ? "lg:text-shadow-2xs" : "lg:text-shadow-none",
+          "lg:text-shadow-ax-black-d/50 ms-auto hidden items-center gap-5 text-right sm:flex lg:ms-0",
+          isShadow
+            ? "text-white lg:text-shadow-2xs"
+            : "text-ax-yellow-a lg:text-shadow-none",
         ])}
       >
-        <div>
+        <div className="flex flex-col justify-center">
           <p className="text-sm leading-[1.2] uppercase">Reach Out Now</p>
 
           <a
@@ -179,12 +182,20 @@ const Header = () => {
             className="text-xl leading-[1.2] font-semibold tracking-[1px] text-nowrap"
           >
             +234 708 767 3400
+            {/* <IoCallOutline className="inline" /> */}
           </a>
         </div>
-        <div className="flex text-[35px] opacity-75 lg:text-5xl">
+        <a
+          href="https://wa.me/2347087673400"
+          target="_blank"
+          className={cn([
+            "block p-0 text-[35px] duration-200 lg:text-4xl",
+            isShadow &&
+              "rounded-md bg-[#4FCE5D] p-1.5 shadow-xs hover:bg-[#128C7E]",
+          ])}
+        >
           <IoLogoWhatsapp />
-          {/* <IoCallOutline /> */}
-        </div>
+        </a>
       </div>
 
       <button
