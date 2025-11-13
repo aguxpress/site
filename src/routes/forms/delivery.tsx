@@ -1,18 +1,18 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
 import type { Route } from "./+types/delivery";
-import Wizard from "@components/forms/Wizard";
+import Wizard from "@components/ui/Wizard";
 import PersonData, {
   type UserProps,
   type RecipientProps,
-} from "@components/forms/PersonData";
+} from "@components/formParts/PersonData";
 import SinglePackage, {
   type SinglePackageOpts,
-} from "@components/forms/SinglePackage";
+} from "@components/formParts/PackageInfo";
 import Destination, {
   type DestinationOpts,
-} from "@components/forms/Destination";
-import Addons, { type AddonsOpts } from "@components/forms/Addons";
+} from "@components/formParts/Destination";
+import Addons, { type AddonsOpts } from "@components/formParts/Addons";
 import { handleUserData } from "@utils/forms.server";
 
 type DeliveryData = UserProps &
@@ -49,6 +49,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
     city: "",
     category: "",
     weight: 0,
+    size: "Parcel",
     pickup: false,
     pickup_address: "",
     insurance: false,
@@ -78,6 +79,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
               city,
               category,
               weight,
+              size,
               pickup,
               pickup_address,
               insurance,
@@ -113,7 +115,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
                   <>
                     <SinglePackage
                       onChange={handleChange}
-                      value={{ category, weight }}
+                      value={{ category, weight, size }}
                     />
                     <Addons
                       onChange={handleChange}
@@ -143,6 +145,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
                         street_address,
                         city,
                         state,
+                        size,
                       }}
                     />
                   </>

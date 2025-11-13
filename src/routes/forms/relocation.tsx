@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
 import type { Route } from "./+types/relocation";
-import Wizard from "@components/forms/Wizard";
-import PersonData, { type UserProps } from "@components/forms/PersonData";
-import HomeInfo, { type HomeInfoOpts } from "@components/forms/HomeInfo";
-import HomeItems, { type HomeItemsOpts } from "@components/forms/HomeItems";
+import Wizard from "@components/ui/Wizard";
+import PersonData, { type UserProps } from "@components/formParts/PersonData";
+import HomeInfo, { type HomeInfoOpts } from "@components/formParts/HomeInfo";
+import HomeItems, { type HomeItemsOpts } from "@components/formParts/HomeItems";
 import MovingInstructions, {
   type MovingInstructionsOpts,
-} from "@components/forms/MovingInstructions";
+} from "@components/formParts/MovingInstructions";
 import Destination, {
   type DestinationOpts,
-} from "@components/forms/Destination";
+} from "@components/formParts/Destination";
 import { handleUserData } from "@utils/forms.server";
 
 type Relocation = DestinationOpts &

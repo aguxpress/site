@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
 import type { Route } from "./+types/quote";
-import Wizard from "@components/forms/Wizard";
+import Wizard from "@components/ui/Wizard";
 import { handleUserData } from "@utils/forms.server";
-import PersonData, { type UserProps } from "@components/forms/PersonData";
+import PersonData, { type UserProps } from "@components/formParts/PersonData";
 import SinglePackage, {
   type SinglePackageOpts,
-} from "@components/forms/SinglePackage";
-import Addons, { type AddonsOpts } from "@components/forms/Addons";
+} from "@components/formParts/PackageInfo";
+import Addons, { type AddonsOpts } from "@components/formParts/Addons";
 import Destination, {
   type DestinationOpts,
-} from "@components/forms/Destination";
+} from "@components/formParts/Destination";
 
 type QuoteData = UserProps & SinglePackageOpts & AddonsOpts & DestinationOpts;
 
@@ -35,6 +35,7 @@ export default function Quote({ actionData }: Route.ComponentProps) {
     city: "",
     category: "",
     weight: 0,
+    size: "Parcel",
     pickup: false,
     pickup_address: "",
     insurance: false,
@@ -61,6 +62,7 @@ export default function Quote({ actionData }: Route.ComponentProps) {
               city,
               category,
               weight,
+              size,
               pickup,
               pickup_address,
               insurance,
@@ -92,7 +94,7 @@ export default function Quote({ actionData }: Route.ComponentProps) {
                   <>
                     <SinglePackage
                       onChange={handleChange}
-                      value={{ category, weight }}
+                      value={{ category, weight, size }}
                     />
                     <Addons
                       onChange={handleChange}

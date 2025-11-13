@@ -3,7 +3,7 @@ import { Link, type FetcherWithComponents } from "react-router";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { cn } from "@utils/display.utils";
-import Button from "../ui/Button";
+import Button from "./Button";
 // import useShow from "@hooks/useShow";
 
 const FinalStep = () => (
@@ -52,7 +52,6 @@ export default function Wizard<T>({
     const { name, value, type, checked } = event.currentTarget;
     const finalValue =
       type === "checkbox" ? checked : type === "number" ? Number(value) : value;
-    console.log(finalValue, name);
     return setFormState((prev) => ({
       ...prev,
       [name]: finalValue,

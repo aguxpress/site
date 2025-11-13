@@ -7,32 +7,42 @@ export interface DestinationOpts {
   destination_state: string;
   destination_city: string;
   street_address: string;
+  size?: "Haulage" | "Parcel";
 }
 
 export default function Destination({
   onChange,
-  value,
+  value: {
+    city,
+    destination_city,
+    destination_state,
+    size,
+    state,
+    street_address,
+  },
 }: {
   onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ): void;
   value: DestinationOpts;
 }) {
+  const isHaulage = size === "Haulage";
+
   return (
     <>
       <div className="gap-5 md:grid md:grid-cols-2">
         <span>
           <Label
             htmlFor="destination_state"
-            info="AguXpress can only deliver to other states if pickup is from Awka"
+            info="Interstate deliveries only apply to Haulage"
           >
             Destination State
           </Label>
           <Input
             id="destination_state"
             name="destination_state"
-            // Validation needed here to ensure instruction
-            value={value.destination_state}
+            disabled={!!size && !isHaulage}
+            value={isHaulage || !size ? destination_state : state}
             onChange={onChange}
             // placeholder={
             //   value.city === "Awka"
@@ -47,7 +57,7 @@ export default function Destination({
           <Input
             name="destination_city"
             id="destination_city"
-            value={value.destination_city}
+            value={destination_city}
             onChange={onChange}
           />
         </span>
@@ -58,7 +68,7 @@ export default function Destination({
         variant="textarea"
         id="street_address"
         name="street_address"
-        value={value.street_address}
+        value={street_address}
         onChange={onChange}
       />
 

@@ -1,6 +1,5 @@
 import { env } from "./env.server";
 import nodemailer from "nodemailer";
-// import type { AXService } from "@/types/index";
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -69,7 +68,6 @@ export async function handleUserData<T extends BaseUserData>(
       status: "publish",
       acf: acfData,
     };
-
     const response = await fetch(`${env.WP_REST_URI}/${service}`, {
       method: "POST",
       headers: {
@@ -89,7 +87,7 @@ export async function handleUserData<T extends BaseUserData>(
       replyTo: email,
       to: env.APP_EMAIL,
       subject: title,
-      text: JSON.stringify(acfData).replace(/[{}"]/g, "").replace(/,/g, "\n"),
+      text: `The user ${fullname} just made a ${service} request. Please check the ${service} section on the WordPress dashboard to get the full details.\nHere is an admin login link: https://blog.aguxpress.com/wp-admin`,
     });
 
     const data: WPResponse<T> = await response.json();

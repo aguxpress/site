@@ -39,6 +39,9 @@ const locations: Location[] = [
   { state: "FCT", cities: ["Abuja"] },
   { state: "Delta", cities: ["Asaba"] },
   { state: "Akwa Ibom", cities: ["Uyo", "Ikot Ekpene"] },
+  { state: "Rivers", cities: ["Port Harcourt"] },
+  { state: "Kano", cities: ["Kano"] },
+  { state: "Abia", cities: ["Aba", "Umuahia"] },
 ];
 
 export default function PersonData({

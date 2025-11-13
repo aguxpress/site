@@ -14,7 +14,7 @@ interface Service {
 const services: Service[] = [
   {
     title: "Delivery",
-    description: "Fast and reliable package delivery to any location",
+    description: "Fast and reliable parcel/haulage delivery to any location",
     icon: FaTruckFast,
     url: "delivery",
   },
@@ -51,7 +51,7 @@ export default function Start({}: Route.ComponentProps) {
               className="group rounded-lg bg-white px-4 py-8 shadow transition hover:scale-102 hover:shadow-lg"
               key={index}
             >
-              <IoIcon className="group-hover:text-ax-yellow-a mx-auto text-7xl text-gray-300 transition" />
+              <IoIcon className="group-hover:text-ax-yellow-a mx-auto text-5xl text-gray-300 transition sm:text-7xl" />
               <h3 className="font-rubik text-ax-black-d my-3 text-center text-lg">
                 {title}
               </h3>
