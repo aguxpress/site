@@ -1,16 +1,16 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
 import type { Route } from "./+types/business";
-import Wizard from "@components/forms/Wizard";
+import Wizard from "@components/ui/Wizard";
 import PersonData, {
   type BusinessContactProps,
-} from "@components/forms/PersonData";
+} from "@components/formParts/PersonData";
 import BusinessInfo, {
   type BusinessInfoOpts,
-} from "@components/forms/BusinessInfo";
+} from "@components/formParts/BusinessInfo";
 import BusinessRequest, {
   type BusinessRequestOpts,
-} from "@components/forms/BusinessRequest";
+} from "@components/formParts/BusinessRequest";
 import { handleUserData } from "@utils/forms.server";
 
 type BusinessData = BusinessContactProps &

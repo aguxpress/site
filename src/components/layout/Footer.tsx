@@ -83,7 +83,7 @@ const footerLinks: FooterLinkSection[] = [
       { name: "FAQ" },
       { name: "Testimonials" },
       { name: "Privacy Policy" },
-      { name: "Terms & Condition" },
+      { name: "Terms & Conditions" },
     ],
   },
 ];
