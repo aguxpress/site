@@ -3,6 +3,7 @@ import "dotenv/config";
 
 const envSchema = z.object({
   WP_BASE_URI: z.string(),
+  CAPTCHA_SECRET: z.string(),
   WP_USERNAME: z.string(),
   WP_PASSWORD: z.string(),
   APP_EMAIL: z.string(),

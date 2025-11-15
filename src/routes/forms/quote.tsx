@@ -112,7 +112,6 @@ export default function Quote({ actionData }: Route.ComponentProps) {
                       destination_state,
                       destination_city,
                       street_address,
-                      city,
                       state,
                     }}
                   />

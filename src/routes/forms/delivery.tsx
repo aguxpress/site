@@ -143,7 +143,6 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
                         destination_state,
                         destination_city,
                         street_address,
-                        city,
                         state,
                         size,
                       }}

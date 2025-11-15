@@ -2,7 +2,6 @@ import Label from "@components/ui/Label";
 import Input from "@components/ui/Input";
 
 export interface DestinationOpts {
-  city: string;
   state: string;
   destination_state: string;
   destination_city: string;
@@ -12,21 +11,14 @@ export interface DestinationOpts {
 
 export default function Destination({
   onChange,
-  value: {
-    city,
-    destination_city,
-    destination_state,
-    size,
-    state,
-    street_address,
-  },
+  value: { destination_city, destination_state, size, state, street_address },
 }: {
   onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ): void;
   value: DestinationOpts;
 }) {
-  const isHaulage = size === "Haulage";
+  const isParcel = size === "Parcel";
 
   return (
     <>
@@ -34,21 +26,18 @@ export default function Destination({
         <span>
           <Label
             htmlFor="destination_state"
-            info="Interstate deliveries only apply to Haulage"
+            {...(isParcel
+              ? { info: "Interstate deliveries only apply to haulage" }
+              : null)}
           >
             Destination State
           </Label>
           <Input
             id="destination_state"
             name="destination_state"
-            disabled={!!size && !isHaulage}
-            value={isHaulage || !size ? destination_state : state}
+            disabled={isParcel}
+            value={isParcel ? state : destination_state}
             onChange={onChange}
-            // placeholder={
-            //   value.city === "Awka"
-            //     ? "Anywhere in Nigeria"
-            //     : `Anywhere in ${value.state} State`
-            // }
           />
         </span>
 
@@ -71,11 +60,6 @@ export default function Destination({
         value={street_address}
         onChange={onChange}
       />
-
-      {/* <Label>Destination ZIP Code</Label>
-      <Input type="number" />
-      <Label>Destination Address</Label>
-      <Input variant="textarea" /> */}
     </>
   );
 }

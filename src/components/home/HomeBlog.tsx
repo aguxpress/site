@@ -1,12 +1,9 @@
-import { Link } from "react-router";
+import { Link, useLoaderData } from "react-router";
 import { IoChevronForward } from "react-icons/io5";
 import type { GetArticlesQuery } from "@/types/__generated__/graphql";
 
-interface HomeBlogProps {
-  articles?: GetArticlesQuery;
-}
-
-const HomeBlog = ({ articles }: HomeBlogProps) => {
+const HomeBlog = () => {
+  const articles: GetArticlesQuery = useLoaderData();
   const posts = articles?.posts?.nodes || [];
 
   return (
@@ -24,7 +21,7 @@ const HomeBlog = ({ articles }: HomeBlogProps) => {
             return (
               <li key={key}>
                 <div>
-                  <figure className="bg-ax-yellow-d aspect-[770/500]">
+                  <figure className="bg-ax-yellow-d aspect-770/500">
                     <img
                       src={
                         featuredImage?.node.sourceUrl || /* DEFAULT IMAGE */ ""
@@ -62,7 +59,7 @@ const HomeBlog = ({ articles }: HomeBlogProps) => {
                     <Link
                       to={`/blog/${slug}`}
                       prefetch="viewport"
-                      className="text-ax-yellow-a flex items-center gap-1.5 overflow-hidden text-lg uppercase [&>*]:-translate-x-5.5 [&>*]:transition-transform [&>*]:duration-250 hover:[&>*]:translate-x-0"
+                      className="text-ax-yellow-a flex items-center gap-1.5 overflow-hidden text-lg uppercase *:-translate-x-5.5 *:transition-transform *:duration-250 hover:*:translate-x-0"
                     >
                       <IoChevronForward
                         aria-hidden
