@@ -46,6 +46,11 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <Meta />
         <Links />
+        <script
+          async
+          defer
+          src="https://www.google.com/recaptcha/api.js?render=6Lc6Ww0sAAAAAHJkl4w6EUBB_4FZ9ks9yC6SzPvM"
+        />
       </head>
       <body className="text-ax-black-a bg-ax-white-a">
         {children}
@@ -67,7 +72,7 @@ export default function Apps() {
         <Outlet />
       </main>
       <Footer />
-      <BackToTop />
+      {/* <BackToTop /> */}
     </ScrollContext>
   );
 }

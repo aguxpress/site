@@ -108,3 +108,7 @@
 .ion-icon path {
   stroke-width: 40;
 }
+
+.grecaptcha-badge {
+  @apply hidden;
+}

@@ -1,13 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useFetcher } from "react-router";
 import toast from "react-hot-toast";
+import ReCaptcha, { getReCaptchaToken } from "@components/formParts/ReCaptcha";
 import Button from "@components/ui/Button";
 import Input from "@components/ui/Input";
 import Label from "@components/ui/Label";
 
 function Contact() {
-  const fetcher = useFetcher();
+  const fetcher = useFetcher<{ success: boolean; message: string }>();
   const [fk, setFk] = useState(0);
+
+  useEffect(() => {
+    if (fetcher.state === "idle" && fetcher.data) {
+      if (fetcher.data.success) {
+        toast.success("Message sent successfully");
+        setFk((fk) => ++fk);
+      } else if (!fetcher.data.success) {
+        toast.error("Something went wrong, try again");
+      }
+    }
+  }, [fetcher.data, fetcher.state]);
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    try {
+      const token = await getReCaptchaToken();
+      const formData = new FormData(event.target as HTMLFormElement);
+      formData.append("recaptcha_token", token ?? "");
+      await fetcher.submit(formData, { method: "POST" });
+    } catch (err) {
+      toast.error("Something went wrong, try again");
+    }
+  };
 
   // const [formValues, setFormValues] = useState({
   //   name: "",
@@ -30,21 +55,11 @@ function Contact() {
 
         <h2>Let's Get Things Moving</h2>
 
-        {/* {fetcher.data} */}
         <fetcher.Form
           method="post"
           className="mx-auto max-w-2xl"
           key={fk}
-          onSubmit={async (event) => {
-            event.preventDefault();
-            try {
-              await fetcher.submit(event.currentTarget);
-              toast.success("Message sent successfully");
-              setFk((fk) => ++fk);
-            } catch (err) {
-              toast.error("Something went wrong, try again");
-            }
-          }}
+          onSubmit={handleSubmit}
         >
           <Label htmlFor="name">Name</Label>
           <Input
@@ -91,9 +106,12 @@ function Contact() {
             rows={4}
             required
           />
-          <Button type="submit" disabled={fetcher.state !== "idle"}>
-            {fetcher.state === "idle" ? "Submit" : "Submitting ..."}
-          </Button>
+          <div className="flex justify-between sm:justify-start sm:gap-10">
+            <Button type="submit" disabled={fetcher.state !== "idle"}>
+              {fetcher.state === "idle" ? "Submit" : "Submitting ..."}
+            </Button>
+            <ReCaptcha />
+          </div>
         </fetcher.Form>
       </div>
     </section>
