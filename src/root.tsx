@@ -72,7 +72,7 @@ export default function Apps() {
         <Outlet />
       </main>
       <Footer />
-      {/* <BackToTop /> */}
+      <BackToTop />
     </ScrollContext>
   );
 }
