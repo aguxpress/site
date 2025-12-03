@@ -9,7 +9,7 @@ const BackToTop = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      window.scrollY >= 100
+      window.scrollY >= 20
         ? context?.setIsPastTop(true)
         : context?.setIsPastTop(false);
     };
