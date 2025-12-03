@@ -12,7 +12,7 @@ import { getAllArticles } from "@utils/graphql.server";
 
 export async function loader({}: Route.LoaderArgs) {
   const articles = await getAllArticles(2);
-  return { articles };
+  return articles;
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -57,7 +57,7 @@ export async function action({ request }: Route.ActionArgs) {
   }
 }
 
-export default function Home({}: Route.ComponentProps) {
+export default function Home() {
   return (
     <article>
       <Hero />

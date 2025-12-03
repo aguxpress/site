@@ -8,7 +8,7 @@ const Hero = () => (
     id="home"
   >
     <div
-      className="absolute inset-0 -z-1 bg-cover bg-center bg-no-repeat sm:brightness-70"
+      className="absolute inset-0 -z-1 bg-cover bg-center bg-no-repeat sm:brightness-65"
       style={{ backgroundImage: `url(${bannerBlur})` }}
     />
     <div className="container not-lg:mx-0">

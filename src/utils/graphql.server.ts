@@ -23,7 +23,7 @@ const GET_ARTICLES: TypedDocumentNode<
   GetArticlesQueryVariables
 > = gql`
   query GetArticles($num: Int = 36) {
-    posts(last: $num, where: { status: PUBLISH }) {
+    posts(first: $num, where: { status: PUBLISH }) {
       nodes {
         id
         title
