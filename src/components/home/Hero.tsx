@@ -3,17 +3,17 @@ import bannerBlur from "@images/banner-blur.png";
 
 const Hero = () => (
   <section
-    className="bg-ax-red-a relative z-1 -mt-[--spacing(var(--header-gap))] grid min-h-svh place-content-center pt-[calc(--spacing(var(--header-gap))+--spacing(5))] pb-10 text-white sm:block sm:place-content-start"
+    className="bg-ax-red-a relative z-1 -mt-[--spacing(var(--header-gap))] grid min-h-svh place-content-start pt-[calc(--spacing(var(--header-gap))+--spacing(10))] pb-10 text-white sm:block"
     aria-label="home"
     id="home"
   >
     <div
-      className="absolute inset-0 -z-1 bg-cover bg-center bg-no-repeat sm:brightness-65"
+      className="absolute inset-0 -z-1 bg-cover bg-center bg-no-repeat brightness-65"
       style={{ backgroundImage: `url(${bannerBlur})` }}
     />
     <div className="container not-lg:mx-0">
-      <div className="bg-ax-black-a/60 text-shadow-ax-black-a p-7.5 text-start sm:bg-transparent">
-        <h2 className="text-ax-white-a text-4xl uppercase sm:text-start sm:text-5xl/[1.2] sm:text-shadow-lg lg:text-6xl/[1.2]">
+      <div className="text-shadow-ax-black-a text-start sm:p-7.5">
+        <h2 className="text-ax-white-a text-start text-3xl uppercase text-shadow-lg sm:text-5xl/[1.2] lg:text-6xl/[1.2]">
           <span className="text-ax-yellow-a block text-[3rem] font-bold sm:text-6xl/[1.2] lg:text-7xl/[1.2]">
             Logistics Made Easy
           </span>

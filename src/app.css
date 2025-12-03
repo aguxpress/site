@@ -89,7 +89,7 @@
   }
 
   .hero-btn {
-    @apply sm:drop-shadow-ax-black-d hover:bg-ax-yellow-a hover:border-ax-yellow-a mx-auto block max-w-max border border-white px-5 py-2 text-sm font-medium uppercase transition-colors duration-400 hover:drop-shadow-none sm:mx-0 sm:drop-shadow-[0_0_4px] md:px-10 md:py-4 md:text-base;
+    @apply drop-shadow-ax-black-d hover:bg-ax-yellow-a hover:border-ax-yellow-a mx-0 block max-w-max border border-white px-5 py-2 text-sm font-medium uppercase transition-colors duration-400 hover:drop-shadow-none sm:drop-shadow-[0_0_4px] md:px-10 md:py-4 md:text-base;
   }
 
   .input-shadow {
