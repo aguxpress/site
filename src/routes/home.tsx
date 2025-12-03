@@ -12,7 +12,7 @@ import { getAllArticles } from "@utils/graphql.server";
 
 export async function loader({}: Route.LoaderArgs) {
   const articles = await getAllArticles(2);
-  return { articles };
+  return articles;
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -27,20 +27,23 @@ export async function action({ request }: Route.ActionArgs) {
   try {
     const formData = await request.formData();
     const data = contactSchema.parse(Object.fromEntries(formData.entries()));
+
     if (!data.recaptcha_token) throw new Error("No token available");
-    console.log("reached here");
+
     const url = new URL("https://www.google.com/recaptcha/api/siteverify");
+
     const ip =
       request.headers.get("x-forwarded-for")?.split(",")[0] ??
       request.headers.get("cf-connecting-ip") ??
       request.headers.get("x-real-ip");
-    console.log("did not reach here");
+
     url.searchParams.append("secret", env.CAPTCHA_SECRET);
     url.searchParams.append("response", data.recaptcha_token);
     url.searchParams.append("remoteip", ip ?? "");
+
     const res = await fetch(url, { method: "POST" });
     const captcha: { success: boolean; score: number } = await res.json();
-    console.log(captcha);
+
     if (!captcha.success || captcha.score < 0.65)
       throw new Error("Something went wrong");
     const result = await sendContactMail(data);
@@ -54,7 +57,7 @@ export async function action({ request }: Route.ActionArgs) {
   }
 }
 
-export default function Home({}: Route.ComponentProps) {
+export default function Home() {
   return (
     <article>
       <Hero />
