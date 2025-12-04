@@ -57,7 +57,7 @@ const Header = () => {
   return (
     <header
       className={cn([
-        "drop-shadow-ax-black-d fixed top-0 z-4 flex h-[--spacing(var(--header-gap))] w-full items-center justify-between gap-7.5 px-4 py-4 transition-colors duration-300",
+        "drop-shadow-ax-black-d fixed top-0 z-4 flex h-[--spacing(var(--header-gap))] w-full items-center justify-between gap-6 px-4 py-4 transition-colors duration-300 sm:gap-7.5",
         isShadow ? "bg-transparent" : "bg-ax-red-a",
       ])}
     >
@@ -168,13 +168,13 @@ const Header = () => {
 
       <div
         className={cn([
-          "lg:text-shadow-ax-black-d/50 ms-auto hidden items-center gap-5 text-right sm:flex lg:ms-0",
+          "lg:text-shadow-ax-black-d/50 ms-auto flex items-center gap-5 text-right lg:ms-0",
           isShadow
             ? "text-white lg:text-shadow-2xs"
             : "text-ax-yellow-a lg:text-shadow-none",
         ])}
       >
-        <div className="flex flex-col justify-center">
+        <div className="hidden flex-col justify-center sm:flex">
           <p className="text-sm leading-[1.2] uppercase">Reach Out Now</p>
 
           <a
@@ -191,7 +191,7 @@ const Header = () => {
           className={cn([
             "block p-0 text-[35px] duration-200 lg:text-4xl",
             isShadow &&
-              "rounded-md bg-[#4FCE5D] p-1.5 shadow-xs hover:bg-[#128C7E]",
+              "rounded-md bg-[#4FCE5D] p-1.5 text-2xl shadow-xs hover:bg-[#128C7E]",
           ])}
         >
           <IoLogoWhatsapp />

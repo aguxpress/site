@@ -73,7 +73,7 @@ export default function Quote({ actionData }: Route.ComponentProps) {
 
             return [
               {
-                title: "Personal Details",
+                title: "Personal",
                 subsection: (
                   <PersonData
                     value={{
