@@ -102,7 +102,7 @@ export default function Relocation({ actionData }: Route.ComponentProps) {
 
             return [
               {
-                title: "Personal Details",
+                title: "Personal",
                 subsection: (
                   <PersonData
                     onChange={handleChange}
@@ -133,7 +133,7 @@ export default function Relocation({ actionData }: Route.ComponentProps) {
                     <Destination
                       onChange={handleChange}
                       value={{
-                        city,
+                        // city,
                         destination_city,
                         street_address,
                         destination_state,

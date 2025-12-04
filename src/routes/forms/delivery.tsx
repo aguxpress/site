@@ -93,7 +93,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
 
             return [
               {
-                title: "Personal Details",
+                title: "Personal",
                 // To validate, give each forms-component a validation function, import and pass it into the steps that the button eventually calls. Use toaster to tell user problems arising
                 subsection: (
                   <PersonData
