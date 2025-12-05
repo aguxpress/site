@@ -77,6 +77,13 @@ const GET_ARTICLE_BY_ID: TypedDocumentNode<
         }
       }
     }
+    page(id: $postId, idType: URI) {
+      id
+      slug
+      modified
+      title
+      content
+    }
   }
 `;
 
@@ -94,7 +101,7 @@ async function getArticleById(slug: string) {
     variables: { postId: slug },
   });
 
-  return data;
+  return data?.page || data?.post;
 }
 
 export { getAllArticles, getArticleById };

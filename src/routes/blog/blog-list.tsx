@@ -1,6 +1,6 @@
 import { Link } from "react-router";
 import { getAllArticles } from "@utils/graphql.server";
-import type { Route } from "./+types";
+import type { Route } from "./+types/blog-list";
 
 export async function loader({}: Route.LoaderArgs) {
   const articles = await getAllArticles();
@@ -30,7 +30,7 @@ export default function Blog({
                     className="block"
                     prefetch="viewport"
                   >
-                    <figure className="shadow-ax-black-d/20 aspect-[770/500] shadow-sm duration-150 group-hover:scale-102 group-active:scale-102">
+                    <figure className="shadow-ax-black-d/20 aspect-770/500 shadow-sm duration-150 group-hover:scale-102 group-active:scale-102">
                       <img
                         src={
                           featuredImage?.node.sourceUrl ||
