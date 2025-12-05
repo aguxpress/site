@@ -82,8 +82,9 @@ const footerLinks: FooterLinkSection[] = [
     links: [
       { name: "FAQ" },
       { name: "Testimonials" },
-      { name: "Privacy Policy" },
-      { name: "Terms & Conditions" },
+      { name: "Privacy Policy", url: "/legal/privacy-policy" },
+      { name: "Terms & Conditions", url: "/legal/terms-and-conditions" },
+      { name: "Cookie Policy", url: "/legal/cookies" },
     ],
   },
 ];
