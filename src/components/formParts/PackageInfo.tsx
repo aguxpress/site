@@ -1,11 +1,15 @@
 import Label from "@components/ui/Label";
 import Select from "@components/ui/Select";
 import Input from "@components/ui/Input";
+import Choice, { type ChoiceProps } from "@components/ui/Choice";
+import openTruck from "@images/open-medium-truck.jpg";
+import closedTruck from "@images/closed-medium-truck.jpg";
 
 export interface SinglePackageOpts {
   category: string;
   weight: number;
   size: "Parcel" | "Haulage";
+  truck_type: "Open" | "Closed";
 }
 
 const categories = [
@@ -19,6 +23,11 @@ const categories = [
   "Cosmetics and Beauty Care",
   "Chemicals (paint etc)",
   "Others",
+];
+
+const trucks: ChoiceProps["options"] = [
+  { id: "Open", image: openTruck, title: "Open Truck", value: "Open" },
+  { id: "Closed", image: closedTruck, title: "Closed Truck", value: "Closed" },
 ];
 
 export default function SinglePackage({
@@ -84,12 +93,12 @@ export default function SinglePackage({
         </>
       ) : (
         <>
-          <Label>Type of Truck</Label>
-          <Select
-            options={["Open", "Closed"].map((value) => ({
-              value,
-              label: value,
-            }))}
+          <Label htmlFor="truck_type">Request Truck Type</Label>
+          <Choice
+            name="truck_type"
+            selected={value.truck_type}
+            onChange={onChange}
+            options={trucks}
           />
         </>
       )}

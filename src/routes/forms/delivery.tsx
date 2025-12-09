@@ -50,6 +50,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
     category: "",
     weight: 0,
     size: "Parcel",
+    truck_type: "Open",
     pickup: false,
     pickup_address: "",
     insurance: false,
@@ -80,6 +81,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
               category,
               weight,
               size,
+              truck_type,
               pickup,
               pickup_address,
               insurance,
@@ -115,7 +117,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
                   <>
                     <SinglePackage
                       onChange={handleChange}
-                      value={{ category, weight, size }}
+                      value={{ category, truck_type, weight, size }}
                     />
                     <Addons
                       onChange={handleChange}

@@ -50,13 +50,13 @@ export const Toggle = ({
             id={id}
             name={id}
             checked={isOpen}
-            className="w-6 cursor-pointer"
+            className="accent-ax-red-d w-6 cursor-pointer"
             {...(readOnly
               ? { readOnly }
               : { onChange: onChange ?? (() => setOpen?.(!isOpen)) })}
           />
           <span className="inline" onClick={(event) => event.stopPropagation()}>
-            <Label info={info} htmlFor={id} className="cursor-pointer">
+            <Label info={info} htmlFor={id}>
               {name}
             </Label>
           </span>

@@ -2,21 +2,31 @@ import { useState } from "react";
 import Label from "@components/ui/Label";
 import { Toggle } from "./Addons";
 import Input from "@components/ui/Input";
-import Select from "@components/ui/Select";
+import Choice from "@components/ui/Choice";
+import openSmall from "@images/open-small-truck.jpg";
+import closedSmall from "@images/closed-small-truck.jpg";
+import openMedium from "@images/open-medium-truck.jpg";
+import closedMedium from "@images/closed-medium-truck.jpg";
+import openLarge from "@images/open-large-truck.jpg";
+import closedLarge from "@images/closed-large-truck.jpg";
 // Budget
-// Comments'
-// type of truck (open/covered)
-// Size of truck (small/medium/large)
+// Comments
 
 export interface MovingInstructionsOpts {
   insurance: boolean;
   covered_items: string;
   labourers: boolean;
-  truck_size: string;
-  truck_type: string;
+  truck_size: "Small" | "Medium" | "Large";
+  truck_type: "Open" | "Closed";
   budget?: number;
   comments: string;
 }
+
+const truckImages = {
+  Small: [openSmall, closedSmall],
+  Medium: [openMedium, closedMedium],
+  Large: [openLarge, closedLarge],
+};
 
 export default function MovingInstructions({
   value,
@@ -33,6 +43,73 @@ export default function MovingInstructions({
 
   return (
     <>
+      {/* Use pictures to show types of trucks */}
+      <Label htmlFor="truck_size">Size of Truck</Label>
+      {/* <Select
+        id="truck_size"
+        name="truck_size"
+        value={value.truck_size}
+        onChange={onChange}
+        options={["Small", "Medium", "Large"].map((value) => ({
+          label: value,
+          value,
+        }))}
+      /> */}
+      <Choice
+        name="truck_size"
+        onChange={onChange}
+        selected={value.truck_size}
+        options={[
+          {
+            id: "small",
+            image: openSmall,
+            title: "Small",
+            value: "Small",
+          },
+          {
+            id: "medium",
+            image: openMedium,
+            title: "Medium",
+            value: "Medium",
+          },
+          {
+            id: "large",
+            image: openLarge,
+            title: "Large",
+            value: "Large",
+          },
+        ]}
+      />
+      <Label htmlFor="truck_type">Type of Truck</Label>
+      {/* <Select
+        id="truck_type"
+        name="truck_type"
+        value={value.truck_type}
+        onChange={onChange}
+        options={["Open", "Closed"].map((value) => ({
+          label: value,
+          value,
+          }))}
+          /> */}
+      <Choice
+        name="truck_type"
+        onChange={onChange}
+        selected={value.truck_type}
+        options={[
+          {
+            id: "open",
+            image: truckImages[value.truck_size][0],
+            title: "Open",
+            value: "Open",
+          },
+          {
+            id: "closed",
+            image: truckImages[value.truck_size][1],
+            title: "Closed",
+            value: "Closed",
+          },
+        ]}
+      />
       <Toggle
         id="insurance"
         name="Insurance"
@@ -51,35 +128,6 @@ export default function MovingInstructions({
           onChange={onChange}
         />
       </Toggle>
-      <div className="gap-5 md:grid md:grid-cols-2">
-        <span>
-          {/* Use pictures to show types of trucks */}
-          <Label htmlFor="truck_size">Size of Truck</Label>
-          <Select
-            id="truck_size"
-            name="truck_size"
-            value={value.truck_size}
-            onChange={onChange}
-            options={["Small", "Medium", "Large"].map((value) => ({
-              label: value,
-              value,
-            }))}
-          />
-        </span>
-        <span>
-          <Label htmlFor="truck_type">Type of Truck</Label>
-          <Select
-            id="truck_type"
-            name="truck_type"
-            value={value.truck_type}
-            onChange={onChange}
-            options={["Open", "Closed"].map((value) => ({
-              label: value,
-              value,
-            }))}
-          />
-        </span>
-      </div>
       <Toggle
         id="labourers"
         name="Labourers for Packing"

@@ -55,8 +55,8 @@ export default function Relocation({ actionData }: Route.ComponentProps) {
     insurance: false,
     covered_items: "",
     labourers: false,
-    truck_size: "",
-    truck_type: "",
+    truck_size: "Small",
+    truck_type: "Open",
     budget: undefined,
     comments: "",
   });
