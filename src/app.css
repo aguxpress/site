@@ -68,6 +68,10 @@
     }
   }
 
+  label {
+    @apply cursor-pointer;
+  }
+
   label,
   span,
   img {

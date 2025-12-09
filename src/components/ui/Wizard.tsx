@@ -127,7 +127,7 @@ export default function Wizard<T>({
           <Button
             type="button"
             onClick={() => {
-              navigate("#");
+              navigate("#", { replace: true });
               setPhase((value) => Math.max(0, value - 1));
             }}
             className={cn([phase === 0 && "invisible"])}
@@ -138,7 +138,7 @@ export default function Wizard<T>({
             type="button"
             disabled={isSubmitting}
             onClick={() => {
-              navigate("#");
+              navigate("#", { replace: true });
               if (!isLastFormStep) {
                 return setPhase((value) =>
                   Math.min(displaySteps.length - 1, value + 1),

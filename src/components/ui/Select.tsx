@@ -19,6 +19,7 @@ function Select({
     className,
   );
 
+  // Used useeffect because something has to set the first value of the dropdown. Sidenote, why not just use the first value when declaring state?
   useEffect(() => {
     if (!value) {
       onChange?.({

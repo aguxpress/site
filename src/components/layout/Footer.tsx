@@ -103,8 +103,8 @@ const Footer = () => (
             Awka, Anambra State, Nigeria
             <br />
             {/* Reserved for official contact email */}
-            {/* <a href="">contact@aguxpress.com</a>
-            <br /> */}
+            <a href="mailto:services@aguxpress.com">services@aguxpress.com</a>
+            <br />
             <a href="tel:+2347087673400">+234 708 767 3400</a>
           </address>
 
