@@ -27,8 +27,8 @@ const Hero = () => (
           move smarter and worry less - anywhere in Nigeria.
         </p>
 
-        <Link to="/start" className="hero-btn">
-          Get Started
+        <Link to="/track" className="hero-btn">
+          Track Package
         </Link>
         <br />
         <a href="tel:+2347087673400" className="hero-btn">

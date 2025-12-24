@@ -29,7 +29,10 @@ export default [
     route("cookies", "routes/blog/blog-post.tsx", { id: "cookies" }),
   ]),
 
-  route("g", "routes/grist.tsx"),
+  route("track", "routes/track.tsx"),
+
+  route("grist", "routes/grist.tsx"),
+  route("g", "routes/grist.tsx", { id: "g" }),
 
   ...prefix("api", [route("contact", "routes/api/contact.ts")]),
 ] satisfies RouteConfig;
