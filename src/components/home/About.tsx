@@ -1,5 +1,6 @@
 import { Link } from "react-router";
 import { IoChevronForward } from "react-icons/io5";
+import Button from "@components/ui/Button";
 import primaryLogo from "@logos/primary.png";
 import truck from "@images/truck-banner.jpg";
 import redSquare from "@images/red-square.jpg";
@@ -76,8 +77,11 @@ const About = () => (
           </li>
         </ul>
 
-        <Link to="#" className="btn text-ax-yellow-a px-[15px_50px] py-2.5">
-          Learn More
+        <Link
+          to="/start"
+          className="hero-btn bg-ax-red-c hover:bg-ax-red-a text-ax-white-d shadow-ax-black-a/40 border-none shadow-sm drop-shadow-none hover:shadow-md"
+        >
+          Get Started
         </Link>
       </div>
     </div>
