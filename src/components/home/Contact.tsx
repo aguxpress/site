@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useFetcher } from "react-router";
 import toast from "react-hot-toast";
-import ReCaptcha, { getReCaptchaToken } from "@components/formParts/ReCaptcha";
+import ReCaptcha, { getReCaptchaToken } from "@components/home/ReCaptcha";
 import Button from "@components/ui/Button";
 import Input from "@components/ui/Input";
 import Label from "@components/ui/Label";
