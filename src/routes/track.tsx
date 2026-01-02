@@ -5,12 +5,7 @@ import Input from "@components/ui/Input";
 import Button from "@components/ui/Button";
 import { env } from "@utils/env.server";
 
-const orderStatuses = [
-  "Confirmed",
-  "In Transit",
-  "Delivered",
-  "Cancelled",
-] as const;
+const orderStatuses = ["Confirmed", "In Transit", "Delivered"] as const;
 const services = ["Dispatch", "Haulage"] as const;
 
 interface GristRes {
@@ -18,9 +13,7 @@ interface GristRes {
     id: number;
     fields: {
       dev_sender: string;
-      del_name: string;
-      del_phone: string;
-      Service_Type: typeof services;
+      Service_Type: (typeof services)[number];
       Order_Status: (typeof orderStatuses)[number];
       Tracking_ID: string;
     };
@@ -35,7 +28,6 @@ export async function loader({ request }: Route.LoaderArgs) {
     if (!trackingId) throw new Error("No Table ID");
 
     // maybe change to a const object in the future
-    // this can instead become a function that maps an id to a table
     const tableId = trackingId.startsWith("AXD-")
       ? "Domestic"
       : trackingId.startsWith("AXS-")
@@ -48,25 +40,20 @@ export async function loader({ request }: Route.LoaderArgs) {
       JSON.stringify({
         Tracking_ID: [trackingId],
         Order_Status: orderStatuses,
+        Service_Type: services,
       }),
     );
     tableURL.searchParams.append("hidden", "true");
-    tableURL.searchParams.append("limit", "1");
     const res = await fetch(tableURL, {
       headers: {
         Authorization: `Bearer ${env.GRIST_KEY}`,
-        // No need for content type here
         "Content-Type": "application/json",
       },
     });
     if (!res.ok) throw Error("Something went wrong");
 
     const data: GristRes = await res.json();
-    console.log(data.records[0].fields);
-    const isCancelled =
-      data.records[0].fields.Order_Status === orderStatuses[3];
-    if (!data.records.length || isCancelled)
-      throw Error("No available records");
+    if (!data.records.length) throw Error("No available records");
 
     return data.records[0].fields;
   } catch {
@@ -117,26 +104,21 @@ export default function Track({ loaderData }: Route.ComponentProps) {
             <Button disabled={state !== "idle"}>Track</Button>
           </span>
           {hasId && (
-            <div className="bg-ax-white-d input-shadow my-10 rounded-xs p-5 [&>div>span]:inline [&>div>span]:font-medium">
+            <div className="bg-ax-white-d input-shadow my-10 rounded-xs p-5">
               {loaderData ? (
                 <>
-                  <div>
-                    Sender: <span>{loaderData.dev_sender}</span>
-                  </div>
-                  <div>
+                  <span>
+                    Sender:{" "}
+                    <span className="inline font-medium">
+                      {loaderData.dev_sender}
+                    </span>
+                  </span>
+                  <span>
                     Service Type:{" "}
-                    <span>{loaderData.Service_Type.slice(1).join(", ")}</span>
-                  </div>
-                  {trackingId.startsWith("AXD") && (
-                    <>
-                      <div className="mt-2">
-                        Delivery Handler: <span>{loaderData.del_name}</span>
-                      </div>
-                      <div>
-                        Handler's Contact: <span>{loaderData.del_phone}</span>
-                      </div>
-                    </>
-                  )}
+                    <span className="inline font-medium">
+                      {loaderData.Service_Type}
+                    </span>
+                  </span>
                   <span className="mt-2 mb-8 text-xs">
                     Tracking ID: {loaderData.Tracking_ID}
                   </span>
