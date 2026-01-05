@@ -39,8 +39,8 @@ export async function loader({ request }: Route.LoaderArgs) {
       "filter",
       JSON.stringify({
         Tracking_ID: [trackingId],
-        Order_Status: orderStatuses,
-        Service_Type: services,
+        // Order_Status: orderStatuses,
+        // Service_Type: services,
       }),
     );
     tableURL.searchParams.append("hidden", "true");
