@@ -28,7 +28,7 @@ const Hero = () => (
         </p>
 
         <Link to="/track" className="hero-btn">
-          Track Package
+          Track A Shipment
         </Link>
         <br />
         <a href="tel:+2347087673400" className="hero-btn">
