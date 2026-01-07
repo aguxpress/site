@@ -21,7 +21,7 @@ type HeaderMenu = Array<
 const headerMenu: HeaderMenu = [
   { item: "Home", url: "/#home" },
   { item: "Start", url: "/start" },
-  { item: "Track Package", url: "/track" },
+  { item: "Track A Shipment", url: "/track" },
   {
     item: "Services",
     children: [
