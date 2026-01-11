@@ -1,4 +1,4 @@
-import { cn } from "@utils/display.utils";
+import { cn } from "@utils/tailwind.utils";
 
 export const getReCaptchaToken = () => {
   return new Promise<string | null>((resolve) => {

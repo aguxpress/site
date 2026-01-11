@@ -9,10 +9,10 @@ import {
 import { useState } from "react";
 import { Toaster } from "react-hot-toast";
 import type { Route } from "./+types/root";
-import Header from "@components/layout/Header";
-import Footer from "@components/layout/Footer";
-import BackToTop from "@components/layout/BackToTop";
-import { ScrollContext } from "@utils/context.utils";
+import Header from "@components/shared/Header";
+import Footer from "@components/shared/Footer";
+import BackToTop from "@components/shared/BackToTop";
+import { ScrollContext } from "src/context/ScrollContext";
 import "./app.css";
 
 export const links: Route.LinksFunction = () => [
@@ -47,7 +47,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
         <script
-          async
           defer
           src="https://www.google.com/recaptcha/api.js?render=6Lc6Ww0sAAAAAHJkl4w6EUBB_4FZ9ks9yC6SzPvM"
         />

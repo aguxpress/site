@@ -106,7 +106,7 @@
 }
 
 * {
-  /* border: 1px solid red; */
+  border: 1px solid red;
 }
 
 .ion-icon path {
@@ -116,3 +116,6 @@
 .grecaptcha-badge {
   @apply hidden;
 }
+
+/* Suspected cause of this change is Google Chrome's new version */
+@custom-variant hover (&:hover);
