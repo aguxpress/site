@@ -9,30 +9,28 @@ export default [
   index("routes/home.tsx"),
 
   ...prefix("start", [
-    index("routes/start.tsx"),
-    route("delivery", "routes/forms/delivery.tsx"),
-    route("relocation", "routes/forms/relocation.tsx"),
-    route("business", "routes/forms/business.tsx"),
-    route("quote", "routes/forms/quote.tsx"),
+    index("routes/start/index.tsx"),
+    route("delivery", "routes/start/delivery.tsx"),
+    route("relocation", "routes/start/relocation.tsx"),
+    route("business", "routes/start/business.tsx"),
+    route("quote", "routes/start/quote.tsx"),
   ]),
 
   ...prefix("blog", [
-    index("routes/blog/blog-list.tsx"),
-    route(":postSlug", "routes/blog/blog-post.tsx"),
+    index("routes/blog/index.tsx"),
+    route(":postSlug", "routes/blog/post.tsx"),
   ]),
 
   ...prefix("legal", [
-    route("privacy-policy", "routes/blog/blog-post.tsx", { id: "privacy" }),
-    route("terms-and-conditions", "routes/blog/blog-post.tsx", {
+    route("privacy-policy", "routes/blog/post.tsx", { id: "privacy" }),
+    route("terms-and-conditions", "routes/blog/post.tsx", {
       id: "terms",
     }),
-    route("cookies", "routes/blog/blog-post.tsx", { id: "cookies" }),
+    route("cookies", "routes/blog/post.tsx", { id: "cookies" }),
   ]),
 
   route("track", "routes/track.tsx"),
 
   route("grist", "routes/grist.tsx"),
   route("g", "routes/grist.tsx", { id: "g" }),
-
-  ...prefix("api", [route("contact", "routes/api/contact.ts")]),
 ] satisfies RouteConfig;

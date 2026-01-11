@@ -20,8 +20,11 @@
       "@logos/*": ["src/assets/logos/*"],
       "@images/*": ["src/assets/images/*"],
       "@components/*": ["src/components/*"],
+      "@shared/*": ["src/components/shared/*"],
+      "@services/*": ["src/services/*"],
       "@utils/*": ["src/utils/*"],
-      "@hooks/*": ["src/hooks/*"]
+      "@hooks/*": ["src/hooks/*"],
+      "@data/*": ["src/data/*"]
     },
     "esModuleInterop": true,
     "verbatimModuleSyntax": true,

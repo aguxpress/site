@@ -1,10 +1,13 @@
-import { Link, useLoaderData } from "react-router";
+import { Suspense } from "react";
+import { Link, useLoaderData, Await } from "react-router";
 import { IoChevronForward } from "react-icons/io5";
 import type { GetArticlesQuery } from "@/types/__generated__/graphql";
+import Spinner from "@components/shared/Spinner";
 
 const HomeBlog = () => {
-  const articles: GetArticlesQuery = useLoaderData();
-  const posts = articles?.posts?.nodes || [];
+  const { articles } = useLoaderData<{
+    articles: Promise<GetArticlesQuery | undefined>;
+  }>();
 
   return (
     <section aria-label="blog" id="blog">
@@ -14,65 +17,92 @@ const HomeBlog = () => {
         <h2>What's New in the World of Logistics</h2>
         <br />
 
-        <ul className="grid gap-7.5 md:grid-cols-2">
-          {posts.map(({ featuredImage, title, date, slug, excerpt }, key) => {
-            const postDate = date ? new Date(date) : new Date();
+        <Suspense fallback={<Spinner />}>
+          <Await
+            resolve={articles}
+            errorElement={
+              <p className="text-center text-xl">
+                Could not load blog articles
+              </p>
+            }
+          >
+            {(resolvedData) => {
+              const posts = resolvedData?.posts?.nodes || [];
 
-            return (
-              <li key={key}>
-                <div>
-                  <figure className="bg-ax-yellow-d aspect-770/500">
-                    <img
-                      src={
-                        featuredImage?.node.sourceUrl || /* DEFAULT IMAGE */ ""
-                      }
-                      loading="lazy"
-                      alt={
-                        featuredImage?.node.sourceUrl ||
-                        `Cover Image for ${slug}`
-                      }
-                      className="h-full w-full object-cover"
-                    />
-                  </figure>
+              return (
+                <ul className="grid gap-7.5 md:grid-cols-2">
+                  {posts.map(
+                    ({ featuredImage, title, date, slug, excerpt }, key) => {
+                      const postDate = date ? new Date(date) : new Date();
 
-                  <div className="relative">
-                    <time
-                      className="bg-ax-red-a font-oswald my-[--spacing(-20)_--spacing(5)] ms-auto me-5 block max-w-max px-6 py-5 text-center text-[length:--spacing(5.5)] leading-normal font-semibold text-white"
-                      dateTime={postDate.toISOString().split("T")[0]}
-                    >
-                      <span className="text-ax-yellow-a text-4xl leading-[0.75] font-bold">
-                        {postDate.getDate().toString().padStart(2, "0")}
-                      </span>
-                      {postDate.toLocaleString("en-GB", { month: "long" })}
-                    </time>
+                      return (
+                        <li key={key}>
+                          <div>
+                            <figure className="bg-ax-yellow-d aspect-770/500">
+                              <img
+                                src={
+                                  featuredImage?.node.sourceUrl ||
+                                  /* DEFAULT IMAGE */ ""
+                                }
+                                loading="lazy"
+                                alt={
+                                  featuredImage?.node.sourceUrl ||
+                                  `Cover Image for ${slug}`
+                                }
+                                className="h-full w-full object-cover"
+                              />
+                            </figure>
 
-                    <h3 className="text-[1.375rem]">
-                      <Link to={`/blog/${slug}`} className="block">
-                        {title}
-                      </Link>
-                    </h3>
-                    <div
-                      className="my-6 line-clamp-4 text-[hsl(0,0%,24%)]"
-                      dangerouslySetInnerHTML={{ __html: excerpt || "" }}
-                    />
+                            <div className="relative">
+                              <time
+                                className="bg-ax-red-a font-oswald my-[--spacing(-20)_--spacing(5)] ms-auto me-5 block max-w-max px-6 py-5 text-center text-[length:--spacing(5.5)] leading-normal font-semibold text-white"
+                                dateTime={postDate.toISOString().split("T")[0]}
+                              >
+                                <span className="text-ax-yellow-a text-4xl leading-[0.75] font-bold">
+                                  {postDate
+                                    .getDate()
+                                    .toString()
+                                    .padStart(2, "0")}
+                                </span>
+                                {postDate.toLocaleString("en-GB", {
+                                  month: "long",
+                                })}
+                              </time>
 
-                    <Link
-                      to={`/blog/${slug}`}
-                      prefetch="viewport"
-                      className="text-ax-yellow-a flex items-center gap-1.5 overflow-hidden text-lg uppercase *:-translate-x-5.5 *:transition-transform *:duration-250 hover:*:translate-x-0"
-                    >
-                      <IoChevronForward
-                        aria-hidden
-                        className="delay-100 duration-150"
-                      />
-                      <span className="span">Read More</span>
-                    </Link>
-                  </div>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+                              <h3 className="text-[1.375rem]">
+                                <Link to={`/blog/${slug}`} className="block">
+                                  {title}
+                                </Link>
+                              </h3>
+                              <div
+                                className="my-6 line-clamp-4 text-[hsl(0,0%,24%)]"
+                                dangerouslySetInnerHTML={{
+                                  __html: excerpt || "",
+                                }}
+                              />
+
+                              <Link
+                                to={`/blog/${slug}`}
+                                prefetch="viewport"
+                                className="text-ax-yellow-a flex items-center gap-1.5 overflow-hidden text-lg uppercase *:-translate-x-5.5 *:transition-transform *:duration-250 hover:*:translate-x-0"
+                              >
+                                <IoChevronForward
+                                  aria-hidden
+                                  className="delay-100 duration-150"
+                                />
+                                <span className="span">Read More</span>
+                              </Link>
+                            </div>
+                          </div>
+                        </li>
+                      );
+                    },
+                  )}
+                </ul>
+              );
+            }}
+          </Await>
+        </Suspense>
       </div>
     </section>
   );

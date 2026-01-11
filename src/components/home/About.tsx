@@ -1,6 +1,5 @@
 import { Link } from "react-router";
 import { IoChevronForward } from "react-icons/io5";
-import Button from "@components/ui/Button";
 import primaryLogo from "@logos/primary.png";
 import truck from "@images/truck-banner.jpg";
 import redSquare from "@images/red-square.jpg";
@@ -9,7 +8,7 @@ const About = () => (
   <section id="about" aria-label="about">
     <div className="container lg:grid lg:grid-cols-2">
       <figure
-        className="relative mb-15 aspect-400/720 max-w-[300px] shadow-[0px_40px_60px_hsla(202,75%,47%,0.7)]"
+        className="relative mb-15 aspect-400/720 max-w-75 shadow-[0px_40px_60px_hsla(202,75%,47%,0.7)]"
         // style={{--width: 400 --height: 720}}
       >
         <img
@@ -27,14 +26,14 @@ const About = () => (
           height={170}
           loading="lazy"
           alt=""
-          className="drop-shadow-ax-black-d animate-float absolute right-0 bottom-10 drop-shadow-sm sm:-right-[200px] lg:right-[-100px]"
+          className="drop-shadow-ax-black-d animate-float absolute right-0 bottom-10 drop-shadow-sm sm:-right-50 lg:-right-25"
         />
 
         <img
           src={redSquare}
           loading="lazy"
           alt=""
-          className="absolute bottom-0 left-[50px] -z-1 hidden w-[400px] sm:block"
+          className="absolute bottom-0 left-12.5 -z-1 hidden w-100 sm:block"
         />
       </figure>
 

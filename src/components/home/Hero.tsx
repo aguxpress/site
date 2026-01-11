@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import bannerBlur from "@images/banner-blur.png";
+import bannerBlur from "@images/banner-blur.webp";
 
 const Hero = () => (
   <section
