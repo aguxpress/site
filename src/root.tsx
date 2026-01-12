@@ -55,11 +55,14 @@ export function Layout({ children }: { children: React.ReactNode }) {
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-TQC9PY1W64"
         ></script>
-        <script>
-          window.dataLayer = window.dataLayer || []; function gtag()
-          {window.dataLayer.push(arguments)}
-          gtag('js', new Date()); gtag('config', 'G-TQC9PY1W64');
-        </script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-TQC9PY1W64');`,
+          }}
+        />
       </head>
       <body className="text-ax-black-a bg-ax-white-a">
         {children}
