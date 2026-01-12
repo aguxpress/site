@@ -62,6 +62,11 @@ export default function Track({ loaderData }: Route.ComponentProps) {
                     Service Type:{" "}
                     <span>{results.Service_Type.slice(1).join(", ")}</span>
                   </div>
+                  {results.Country && (
+                    <div>
+                      Destination: <span>{results.Country}</span>
+                    </div>
+                  )}
                   {results.del_name && (
                     <>
                       <div className="mt-2">

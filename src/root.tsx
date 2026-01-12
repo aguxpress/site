@@ -50,6 +50,16 @@ export function Layout({ children }: { children: React.ReactNode }) {
           defer
           src="https://www.google.com/recaptcha/api.js?render=6Lc6Ww0sAAAAAHJkl4w6EUBB_4FZ9ks9yC6SzPvM"
         />
+        {/* Google tag (gtag.js) */}
+        <script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-TQC9PY1W64"
+        ></script>
+        <script>
+          window.dataLayer = window.dataLayer || []; function gtag()
+          {window.dataLayer.push(arguments)}
+          gtag('js', new Date()); gtag('config', 'G-TQC9PY1W64');
+        </script>
       </head>
       <body className="text-ax-black-a bg-ax-white-a">
         {children}
