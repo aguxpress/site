@@ -36,6 +36,16 @@ export const meta: Route.MetaFunction = ({}: Route.MetaArgs) => [
     content:
       "AguXpress delivers more than just packages — we deliver peace of mind.",
   },
+  { property: "og:title", content: "AguXpress | Logistics Made Easy" },
+  { property: "og:type", content: "website" },
+  { property: "og:image", content: "https://www.aguxpress.com/ogimage.png" },
+  { property: "og:url", content: "https://www.aguxpress.com" },
+  {
+    property: "og:description",
+    content:
+      "AguXpress delivers more than just packages — we deliver peace of mind.",
+  },
+  { property: "og:site_name", content: "AguXpress" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -58,13 +68,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <script
           dangerouslySetInnerHTML={{
             __html: `window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);};
+            function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-TQC9PY1W64');`,
           }}
         />
       </head>
-      <body className="text-ax-black-a bg-ax-white-a">
+      <body className="text-ax-black-a bg-ax-white-a dark:bg-ax-black-a">
         {children}
         <ScrollRestoration />
         <Scripts />
@@ -80,7 +90,7 @@ export default function Apps() {
     <ScrollContext value={{ isPastTop, setIsPastTop }}>
       <Header />
       <Toaster />
-      <main className="pt-[--spacing(var(--header-gap))]">
+      <main className="bg-ax-white-a pt-[--spacing(var(--header-gap))]">
         <Outlet />
       </main>
       <Footer />
