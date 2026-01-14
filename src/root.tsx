@@ -37,15 +37,16 @@ export const meta: Route.MetaFunction = ({}: Route.MetaArgs) => [
       "AguXpress delivers more than just packages — we deliver peace of mind.",
   },
   { property: "og:title", content: "AguXpress | Logistics Made Easy" },
-  { property: "og:type", content: "website" },
-  { property: "og:image", content: "https://www.aguxpress.com/ogimage.png" },
-  { property: "og:url", content: "https://www.aguxpress.com" },
   {
     property: "og:description",
     content:
       "AguXpress delivers more than just packages — we deliver peace of mind.",
   },
+  { property: "og:url", content: "https://www.aguxpress.com" },
+  { property: "og:image", content: "https://www.aguxpress.com/ogimage.png" },
   { property: "og:site_name", content: "AguXpress" },
+  { property: "og:type", content: "website" },
+  { name: "twitter:card", content: "summary_large_image" },
 ];
 
 export function Layout({ children }: { children: React.ReactNode }) {
