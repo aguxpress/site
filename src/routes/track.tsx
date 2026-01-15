@@ -11,6 +11,7 @@ import Input from "@shared/Input";
 import Button from "@shared/Button";
 import { fetchOrderByTrackingId } from "@services/grist.services";
 import { orderSteps } from "@data/tracking.data";
+import { seo } from "@data/seo.data";
 
 export async function loader({ request }: Route.LoaderArgs) {
   const { searchParams } = new URL(request.url);
@@ -19,6 +20,15 @@ export async function loader({ request }: Route.LoaderArgs) {
   const record = await fetchOrderByTrackingId(trackingId);
   return record;
 }
+
+export const meta: Route.MetaFunction = ({
+  location: { pathname },
+}: Route.MetaArgs) =>
+  seo({
+    title: "Track A Shipment",
+    description: "Track your AguXpress Order here",
+    pathname,
+  });
 
 export default function Track({ loaderData }: Route.ComponentProps) {
   const { state } = useNavigation();

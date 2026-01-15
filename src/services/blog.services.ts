@@ -75,6 +75,7 @@ const GET_ARTICLE_BY_ID: TypedDocumentNode<
       slug
       date
       title
+      excerpt
       content
       author {
         node {

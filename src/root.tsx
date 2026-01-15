@@ -14,6 +14,7 @@ import Footer from "@components/shared/Footer";
 import BackToTop from "@components/shared/BackToTop";
 import { ScrollContext } from "src/context/ScrollContext";
 import "./app.css";
+import { seo } from "@data/seo.data";
 
 export const links: Route.LinksFunction = () => [
   { rel: "shortcut icon", href: "/icon.svg", type: "image/svg+xml" },
@@ -29,24 +30,16 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
-export const meta: Route.MetaFunction = ({}: Route.MetaArgs) => [
-  { title: "AguXpress | Logistics Made Easy" },
-  {
-    name: "description",
-    content:
+export const meta: Route.MetaFunction = ({
+  location: { pathname },
+}: Route.MetaArgs) =>
+  seo({
+    title: "AguXpress | Logistics Made Easy",
+    description:
       "AguXpress delivers more than just packages — we deliver peace of mind.",
-  },
-  { property: "og:title", content: "AguXpress | Logistics Made Easy" },
-  { property: "og:type", content: "website" },
-  { property: "og:image", content: "https://www.aguxpress.com/ogimage.png" },
-  { property: "og:url", content: "https://www.aguxpress.com" },
-  {
-    property: "og:description",
-    content:
-      "AguXpress delivers more than just packages — we deliver peace of mind.",
-  },
-  { property: "og:site_name", content: "AguXpress" },
-];
+    pathname,
+    suffix: false,
+  });
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
