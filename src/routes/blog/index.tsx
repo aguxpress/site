@@ -1,11 +1,21 @@
 import { Link } from "react-router";
 import { getPublishedArticles } from "@services/blog.services";
 import type { Route } from "./+types/index";
+import { seo } from "@data/seo.data";
 
 export async function loader({}: Route.LoaderArgs) {
   const articles = await getPublishedArticles();
   return { articles };
 }
+
+export const meta: Route.MetaFunction = ({
+  location: { pathname },
+}: Route.MetaArgs) =>
+  seo({
+    pathname,
+    title: "Blog",
+    description: "News, Insights, and Innovations from AguXpress",
+  });
 
 export default function Blog({
   loaderData: { articles },

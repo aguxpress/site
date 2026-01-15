@@ -2,6 +2,8 @@ import { data } from "react-router";
 import { getArticleById } from "@services/blog.services";
 import type { Route } from "./+types/post";
 import Subscribe from "@components/shared/Subscribe";
+import { seo } from "@data/seo.data";
+import { legalSlugs } from "@data/legal.data";
 
 export async function loader({ params, request }: Route.LoaderArgs) {
   const postId = params.postSlug || new URL(request.url).pathname;
@@ -9,6 +11,22 @@ export async function loader({ params, request }: Route.LoaderArgs) {
   if (!article) throw data("Blog Post Not Found", { status: 404 });
   return { article };
 }
+
+export const meta: Route.MetaFunction = ({
+  loaderData: { article },
+  location: { pathname },
+}: Route.MetaArgs) => {
+  const isPost = article.__typename === "Post";
+
+  return seo({
+    pathname,
+    title: article.title || "",
+    description:
+      (isPost && article.excerpt) || legalSlugs[article.slug || ""].seoDesc,
+    type: "article",
+    image: (isPost && article.featuredImage?.node.sourceUrl) || undefined,
+  });
+};
 
 export default function Post({
   loaderData: { article },

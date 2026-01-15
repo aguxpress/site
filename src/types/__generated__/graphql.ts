@@ -3377,7 +3377,7 @@ export enum MenuItemNodeIdTypeEnum {
 }
 
 /** Deprecated in favor of MenuItemLinkable Interface */
-export type MenuItemObjectUnion = Category | Page | Post | PostFormat | Tag;
+export type MenuItemObjectUnion = Category | Page | Post | Tag;
 
 /** Connection between the MenuItem type and the Menu type */
 export type MenuItemToMenuConnectionEdge = Edge & MenuConnectionEdge & OneToOneConnection & {
@@ -3444,8 +3444,8 @@ export type MenuItemToMenuItemLinkableConnectionEdge = Edge & MenuItemLinkableCo
 
 /** Designated areas where navigation menus can be displayed. Represents the named regions in the interface where menus can be assigned. */
 export enum MenuLocationEnum {
-  /** Empty menu location */
-  Empty = 'EMPTY'
+  /** Put the menu in the primary_menu location */
+  PrimaryMenu = 'PRIMARY_MENU'
 }
 
 /** Identifier types for retrieving a specific navigation menu. Specifies which property (ID, name, location) is used to locate a particular menu. */
@@ -4685,7 +4685,7 @@ export type PostConnectionPageInfo = {
 };
 
 /** A standardized classification system for content presentation styles. These formats can be used to display content differently based on type, such as &quot;standard&quot;, &quot;gallery&quot;, &quot;video&quot;, etc. */
-export type PostFormat = DatabaseIdentifier & MenuItemLinkable & Node & TermNode & UniformResourceIdentifiable & {
+export type PostFormat = DatabaseIdentifier & Node & TermNode & UniformResourceIdentifiable & {
   __typename: 'PostFormat';
   /** Connection between the PostFormat type and the ContentNode type */
   contentNodes: Maybe<PostFormatToContentNodeConnection>;
@@ -8387,13 +8387,6 @@ export type TaxonomyToTermNodeConnectionPageInfo = PageInfo & TermNodeConnection
   startCursor: Maybe<Scalars['String']['output']>;
 };
 
-/** The template assigned to the node */
-export type Template_PageNoTitle = ContentTemplate & {
-  __typename: 'Template_PageNoTitle';
-  /** The name of the template */
-  templateName: Maybe<Scalars['String']['output']>;
-};
-
 /** Base interface for taxonomy terms such as categories and tags. Terms are used to organize and classify content. */
 export type TermNode = {
   /** The number of objects connected to the object */
@@ -9924,4 +9917,4 @@ export type GetArticleByIdQueryVariables = Exact<{
 }>;
 
 
-export type GetArticleByIdQuery = { post: { __typename: 'Post', id: string, slug: string | null, date: string | null, title: string | null, content: string | null, author: { __typename: 'NodeWithAuthorToUserConnectionEdge', node: { __typename: 'User', description: string | null, slug: string | null, name: string | null, id: string, avatar: { __typename: 'Avatar', url: string | null } | null } } | null, featuredImage: { __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename: 'MediaItem', sourceUrl: string | null, altText: string | null, id: string } } | null } | null, page: { __typename: 'Page', id: string, slug: string | null, modified: string | null, title: string | null, content: string | null } | null };
+export type GetArticleByIdQuery = { post: { __typename: 'Post', id: string, slug: string | null, date: string | null, title: string | null, excerpt: string | null, content: string | null, author: { __typename: 'NodeWithAuthorToUserConnectionEdge', node: { __typename: 'User', description: string | null, slug: string | null, name: string | null, id: string, avatar: { __typename: 'Avatar', url: string | null } | null } } | null, featuredImage: { __typename: 'NodeWithFeaturedImageToMediaItemConnectionEdge', node: { __typename: 'MediaItem', sourceUrl: string | null, altText: string | null, id: string } } | null } | null, page: { __typename: 'Page', id: string, slug: string | null, modified: string | null, title: string | null, content: string | null } | null };

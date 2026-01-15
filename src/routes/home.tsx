@@ -22,7 +22,7 @@ export async function action({ request }: Route.ActionArgs) {
   return mailRes;
 }
 
-export default function Home() {
+export default function Home({}: Route.ComponentProps) {
   return (
     <article>
       <Hero />
