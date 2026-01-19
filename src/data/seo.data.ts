@@ -4,11 +4,12 @@ interface RouteSeoData {
   pathname: string;
   image?: string;
   type?: "website" | "article";
-  suffix?: boolean;
+  isSuffix?: boolean;
 }
 
 const WEBSITE = "https://www.aguxpress.com";
-const suff = (text: string) => `${text} | AguXpress`;
+const suff = (isSuffix: boolean, text: string) =>
+  isSuffix ? `${text} | AguXpress` : text;
 
 export const seo = ({
   title,
@@ -16,12 +17,12 @@ export const seo = ({
   pathname,
   image = `${WEBSITE}/ogimage.png`,
   type = "website",
-  suffix = true,
+  isSuffix = true,
 }: RouteSeoData) => [
-  { title: suffix ? title : suff(title) },
+  { title: suff(isSuffix, title) },
   {
     property: "og:title",
-    content: suffix ? title : suff(title),
+    content: suff(isSuffix, title),
   },
   { name: "description", content: description },
   { property: "og:description", content: description },

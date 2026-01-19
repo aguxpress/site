@@ -38,7 +38,7 @@ export const meta: Route.MetaFunction = ({
     description:
       "AguXpress delivers more than just packages — we deliver peace of mind.",
     pathname,
-    suffix: false,
+    isSuffix: false,
   });
 
 export function Layout({ children }: { children: React.ReactNode }) {

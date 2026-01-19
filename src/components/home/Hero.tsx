@@ -21,10 +21,10 @@ const Hero = () => (
         </h2>
 
         <p className="text-ax-white-a relative z-10 my-4 max-w-lg text-shadow-inherit sm:text-shadow-[0px_8px_50px]">
-          AguXpress delivers more than just packages — we deliver peace of mind.
-          Whether you need fast dispatch, safe pickup, reliable haulage, secure
-          escrow, or insurance for your goods in transit, we're here to help you
-          move smarter and worry less - anywhere in Nigeria.
+          AguXpress provides reliable logistics services in Nigeria, including
+          local delivery, interstate transport, and overseas shipping, with
+          secure pickup, dispatch, insurance, and escrow services for
+          individuals and businesses.
         </p>
 
         <Link to="/track" className="hero-btn">
