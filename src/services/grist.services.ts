@@ -21,7 +21,7 @@ function validateId(prefix: string): prefix is keyof typeof orderTables {
   return Object.keys(orderTables).includes(prefix);
 }
 
-export async function fetchOrderByTrackingId(trackingId: string) {
+async function fetchOrderByTrackingId(trackingId: string) {
   let prefix = trackingId.slice(0, 3);
   if (!validateId(prefix)) return dataError("Invalid Tracking ID");
   const tableID = orderTables[prefix];
@@ -51,3 +51,5 @@ export async function fetchOrderByTrackingId(trackingId: string) {
 
   return result;
 }
+
+export { fetchOrderByTrackingId };

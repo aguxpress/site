@@ -1,9 +1,27 @@
 import { useEffect, useMemo, useState } from "react";
+import { useFetcher } from "react-router";
+import toast from "react-hot-toast";
 import Button from "@shared/Button";
 import Input from "@shared/Input";
+import type { AppLoaderData, ZohoResponse } from "@/types/utils.types";
 
 const Subscribe = () => {
   const [patternAccent, setPatternAccent] = useState("f2c200");
+  const [fk, setFk] = useState(0);
+  const { Form, state, data } = useFetcher<AppLoaderData<ZohoResponse>>();
+
+  // Turn this into a custom hook
+  useEffect(() => {
+    if (state === "submitting") toast.loading("Submitting Email");
+    if (state !== "idle" || !data) return;
+    toast.dismiss();
+    if ("error" in data) {
+      toast.error(data.error);
+    } else {
+      toast.success("Email Added Successfully");
+      setFk((fk) => ++fk);
+    }
+  }, [data, state]);
 
   useEffect(() => {
     let styles = getComputedStyle(document.documentElement);
@@ -29,17 +47,20 @@ const Subscribe = () => {
             Subscribe for Tips, Promos and Service Updates
           </h2>
 
-          <form action="" className="">
+          <Form action="/api/mail-list" method="POST" className="" key={fk}>
             <Input
-              type="email"
+              // type="email"
               name="email_address"
               placeholder="Enter Your Email"
+              required
               aria-label="email"
               className="bg-ax-white-a mt-0 mb-2.5 h-16 px-4 text-sm shadow-none"
             />
 
-            <Button type="submit">Subscribe Now</Button>
-          </form>
+            <Button type="submit" disabled={state === "submitting"}>
+              Subscribe Now
+            </Button>
+          </Form>
         </div>
       </div>
     </section>

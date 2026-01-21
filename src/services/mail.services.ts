@@ -1,6 +1,6 @@
 import { env } from "@utils/env.server";
 import nodemailer from "nodemailer";
-import type { ContactMessageData } from "@/types/contact.types";
+import type { ContactMessageData } from "@/types/utils.types";
 import { shortId } from "@utils/helpers.server";
 
 const transporter = nodemailer.createTransport({
@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-export async function sendContactMessage({
+async function sendContactMessage({
   name,
   email,
   phone,
@@ -27,3 +27,5 @@ export async function sendContactMessage({
   });
   return res;
 }
+
+export { sendContactMessage };

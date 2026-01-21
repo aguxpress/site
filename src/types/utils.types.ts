@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export type AppLoaderData<T> = T | { error: string } | null;
+
 export const contactSchema = z.object({
   name: z.string().min(1),
   email: z.email(),
@@ -9,3 +11,8 @@ export const contactSchema = z.object({
 });
 
 export type ContactMessageData = z.infer<typeof contactSchema>;
+
+export interface ZohoResponse {
+  message: string;
+  status: "success" | "error";
+}
