@@ -7,6 +7,7 @@ import {
 
 export default [
   index("routes/home.tsx"),
+  route("track", "routes/track.tsx"),
 
   ...prefix("start", [
     index("routes/start/index.tsx"),
@@ -29,7 +30,7 @@ export default [
     route("cookies", "routes/blog/post.tsx", { id: "cookies" }),
   ]),
 
-  route("track", "routes/track.tsx"),
+  ...prefix("api", [route("mail-list", "routes/api/mail-list.tsx")]),
 
   route("grist", "routes/grist.tsx"),
   route("g", "routes/grist.tsx", { id: "g" }),
