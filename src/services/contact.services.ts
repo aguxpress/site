@@ -1,5 +1,5 @@
 import { env } from "@utils/env.server";
-import { contactSchema } from "@/types/utils.types";
+import { contactSchema } from "@/types/helpers.types";
 
 interface VisitorMessage {
   headers: Headers;
@@ -7,7 +7,7 @@ interface VisitorMessage {
 }
 
 async function handleVisitorMessage({ headers, formData }: VisitorMessage) {
-  const data = contactSchema.parse(Object.fromEntries(formData.entries()));
+  const data = contactSchema.parse(formData.entries());
 
   const url = new URL("https://www.google.com/recaptcha/api/siteverify");
   const ip =

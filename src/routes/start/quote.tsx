@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useFetcher } from "react-router";
 import type { Route } from "./+types/quote";
 import Wizard from "@components/start-forms/Wizard";
-import { handleUserData } from "@utils/forms.server";
+import { sendFormDetails } from "@services/mail.services";
 import PersonData, { type UserProps } from "@components/start-forms/PersonData";
 import SinglePackage, {
   type SinglePackageOpts,
@@ -12,22 +12,25 @@ import Destination, {
   type DestinationOpts,
 } from "@components/start-forms/Destination";
 
-type QuoteData = UserProps & SinglePackageOpts & AddonsOpts & DestinationOpts;
+export type QuoteData = UserProps &
+  SinglePackageOpts &
+  AddonsOpts &
+  DestinationOpts & { __formtype: "quote" };
 
 export async function action({ request }: Route.ActionArgs) {
-  const data: QuoteData = await request.json();
-  const result = await handleUserData(
-    "quote",
-    { ...data, type: "user" },
-    "Quote Request",
-  );
+  const body = await request.json();
+  const data: QuoteData = { ...body, __formtype: "quote" };
+  const result = await sendFormDetails<QuoteData>({
+    title: "Quote Request",
+    submittedData: data,
+  });
 
   return result;
 }
 
 export default function Quote({ actionData }: Route.ComponentProps) {
   const fetcher = useFetcher<typeof actionData>();
-  const [quoteData, setQuoteData] = useState<QuoteData>({
+  const [quoteData, setQuoteData] = useState<Omit<QuoteData, "__formtype">>({
     fullname: "",
     email: "",
     phone: "",

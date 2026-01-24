@@ -13,28 +13,30 @@ import MovingInstructions, {
 import Destination, {
   type DestinationOpts,
 } from "@components/start-forms/Destination";
-import { handleUserData } from "@utils/forms.server";
+import { sendFormDetails } from "@services/mail.services";
 
-type Relocation = DestinationOpts &
+export type Relocation = DestinationOpts &
   UserProps &
   HomeInfoOpts &
   HomeItemsOpts &
-  MovingInstructionsOpts;
+  MovingInstructionsOpts & { __formtype: "relocation" };
 
 export async function action({ request }: Route.ActionArgs) {
-  const data: Relocation = await request.json();
-  const result = await handleUserData(
-    "relocation",
-    { ...data, type: "user" },
-    "Relocation Request",
-  );
+  const body = await request.json();
+  const data: Relocation = { ...body, __formtype: "relocation" };
+  const result = await sendFormDetails<Relocation>({
+    title: "Relocation Request",
+    submittedData: data,
+  });
 
   return result;
 }
 
 export default function Relocation({ actionData }: Route.ComponentProps) {
   const fetcher = useFetcher<typeof actionData>();
-  const [relocationData, setRelocationData] = useState<Relocation>({
+  const [relocationData, setRelocationData] = useState<
+    Omit<Relocation, "__formtype">
+  >({
     fullname: "",
     email: "",
     phone: "",

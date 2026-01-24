@@ -1,4 +1,4 @@
-import type { ZohoResponse } from "@/types/utils.types";
+import type { ZohoResponse } from "@/types/helpers.types";
 import { env } from "@utils/env.server";
 import { dataError } from "@utils/helpers.server";
 
@@ -9,12 +9,13 @@ interface TokenDetails {
 }
 
 let tokenData: TokenDetails | null = null;
+const TOKEN_EXPIRY_SEC = 60 * 5;
 
 // Check if it takes less than 5 minutes for token to expire
 const isTokenExpired = (created_at: number, expires_in: number) => {
   const ageInSec =
     Math.floor(Date.now() / 1000) - Math.floor(created_at / 1000);
-  return ageInSec > expires_in - 60 * 5;
+  return ageInSec > expires_in - TOKEN_EXPIRY_SEC;
 };
 
 async function getAccessToken() {
@@ -42,6 +43,7 @@ async function getAccessToken() {
     };
     return tokenData.access_token;
   }
+
   return tokenData.access_token;
 }
 

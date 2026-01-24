@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export type AppLoaderData<T> = T | { error: string } | null;
+export type AppFetchedData<T> = T | { error: string } | null;
 
 export const contactSchema = z.object({
   name: z.string().min(1),

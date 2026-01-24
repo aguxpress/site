@@ -13,35 +13,29 @@ import Destination, {
   type DestinationOpts,
 } from "@components/start-forms/Destination";
 import Addons, { type AddonsOpts } from "@components/start-forms/Addons";
-import { handleUserData } from "@utils/forms.server";
+import { sendFormDetails } from "@services/mail.services";
 
-type DeliveryData = UserProps &
+export type DeliveryData = UserProps &
   RecipientProps &
   SinglePackageOpts &
   AddonsOpts &
-  DestinationOpts;
+  DestinationOpts & { __formtype: "delivery" };
 
 export async function action({ request }: Route.ActionArgs) {
-  const data: DeliveryData = await request.json();
-  const result = await handleUserData(
-    "delivery",
-    { ...data, type: "user" },
-    `Delivery Request from ${data.fullname} on ${new Date().toLocaleDateString(
-      "en-GB",
-      {
-        day: "numeric",
-        month: "short",
-        year: "numeric",
-      },
-    )}`,
-  );
+  const body = await request.json();
+  const data: DeliveryData = { ...body, __formtype: "delivery" };
+  const result = await sendFormDetails<DeliveryData>({
+    title: "Delivery Request",
+    submittedData: data,
+  });
+
   return result;
 }
 
 export default function Delivery({ actionData }: Route.ComponentProps) {
   // Done here for typechecking purposes
   const fetcher = useFetcher<typeof actionData>();
-  const [delivery, setDelivery] = useState<DeliveryData>({
+  const [delivery, setDelivery] = useState<Omit<DeliveryData, "__formtype">>({
     fullname: "",
     email: "",
     phone: "",

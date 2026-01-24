@@ -11,26 +11,28 @@ import BusinessInfo, {
 import BusinessRequest, {
   type BusinessRequestOpts,
 } from "@components/start-forms/BusinessRequest";
-import { handleUserData } from "@utils/forms.server";
+import { sendFormDetails } from "@services/mail.services";
 
-type BusinessData = BusinessContactProps &
+export type BusinessData = BusinessContactProps &
   BusinessInfoOpts &
-  BusinessRequestOpts;
+  BusinessRequestOpts & { __formtype: "business" };
 
 export async function action({ request }: Route.ActionArgs) {
-  const data: BusinessData = await request.json();
-  const result = await handleUserData(
-    "business",
-    { ...data, type: "business" },
-    "Business Partnership Enquiry",
-  );
+  const body = await request.json();
+  const data: BusinessData = { ...body, __formtype: "business" };
+  const result = await sendFormDetails<BusinessData>({
+    title: "Business Enquiry",
+    submittedData: data,
+  });
 
   return result;
 }
 
 export default function Business({ actionData }: Route.ComponentProps) {
   const fetcher = useFetcher<typeof actionData>();
-  const [businessInfo, setBusinessInfo] = useState<BusinessData>({
+  const [businessInfo, setBusinessInfo] = useState<
+    Omit<BusinessData, "__formtype">
+  >({
     contact_fullname: "",
     contact_email: "",
     contact_phone: "",

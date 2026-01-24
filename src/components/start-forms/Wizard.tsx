@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router";
 import { cn } from "@utils/tailwind.utils";
 import Button from "@shared/Button";
+import type { AppFetchedData } from "@/types/helpers.types";
+import type SMTPTransport from "nodemailer/lib/smtp-transport";
 
 const FinalStep = () => (
   <div className="bg-ax-white-d rounded-sm py-10 shadow-md">
@@ -20,10 +22,7 @@ const FinalStep = () => (
   </div>
 );
 
-interface FetcherData {
-  data?: { id: number };
-  error?: string;
-}
+type FetcherData = AppFetchedData<SMTPTransport.SentMessageInfo>;
 
 interface WizardProps<T> {
   formState: T;
@@ -41,7 +40,7 @@ interface WizardProps<T> {
 export default function Wizard<T>({
   formState,
   setFormState,
-  fetcher,
+  fetcher: { submit, state, data },
   steps,
 }: WizardProps<T>) {
   const [phase, setPhase] = useState(0);
@@ -58,17 +57,14 @@ export default function Wizard<T>({
   };
 
   async function handleSubmit(formState: T) {
-    await fetcher.submit(
-      formState as Record<string, string | boolean | number>,
-      {
-        method: "post",
-        encType: "application/json",
-      },
-    );
+    await submit(formState as Record<string, string | boolean | number>, {
+      method: "post",
+      encType: "application/json",
+    });
   }
 
-  const isSubmitting = fetcher.state === "submitting";
-  const isError = Boolean(fetcher.data?.error);
+  const isSubmitting = state === "submitting";
+  const isError = data ? "error" in data : false;
 
   const displaySteps = [
     ...steps(handleChange, formState),
@@ -81,7 +77,7 @@ export default function Wizard<T>({
       if (isError) {
         toast.dismiss();
         toast.error("Something went wrong, Try again");
-      } else if (fetcher.data?.data?.id) {
+      } else if (data) {
         toast.dismiss();
         toast.success("Submitted!");
         setPhase((prev) => prev + 1);

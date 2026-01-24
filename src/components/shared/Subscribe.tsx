@@ -3,12 +3,12 @@ import { useFetcher } from "react-router";
 import toast from "react-hot-toast";
 import Button from "@shared/Button";
 import Input from "@shared/Input";
-import type { AppLoaderData, ZohoResponse } from "@/types/utils.types";
+import type { AppFetchedData, ZohoResponse } from "@/types/helpers.types";
 
 const Subscribe = () => {
   const [patternAccent, setPatternAccent] = useState("f2c200");
   const [fk, setFk] = useState(0);
-  const { Form, state, data } = useFetcher<AppLoaderData<ZohoResponse>>();
+  const { Form, state, data } = useFetcher<AppFetchedData<ZohoResponse>>();
 
   // Turn this into a custom hook
   useEffect(() => {
