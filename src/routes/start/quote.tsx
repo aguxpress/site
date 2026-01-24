@@ -11,11 +11,21 @@ import Addons, { type AddonsOpts } from "@components/start-forms/Addons";
 import Destination, {
   type DestinationOpts,
 } from "@components/start-forms/Destination";
+import { seo } from "@data/seo.data";
 
 export type QuoteData = UserProps &
   SinglePackageOpts &
   AddonsOpts &
   DestinationOpts & { __formtype: "quote" };
+
+export const meta: Route.MetaFunction = ({
+  location: { pathname },
+}: Route.MetaArgs) =>
+  seo({
+    pathname,
+    title: "Get A Quote",
+    description: "Get instant price estimates for your delivery needs.",
+  });
 
 export async function action({ request }: Route.ActionArgs) {
   const body = await request.json();
@@ -43,6 +53,7 @@ export default function Quote({ actionData }: Route.ComponentProps) {
     truck_type: "Open",
     pickup_address: "",
     insurance: false,
+    insurance_value: "",
     destination_state: "",
     destination_city: "",
     street_address: "",
@@ -71,6 +82,7 @@ export default function Quote({ actionData }: Route.ComponentProps) {
               pickup,
               pickup_address,
               insurance,
+              insurance_value,
               destination_state,
               destination_city,
               street_address,
@@ -103,7 +115,13 @@ export default function Quote({ actionData }: Route.ComponentProps) {
                     />
                     <Addons
                       onChange={handleChange}
-                      value={{ pickup, pickup_address, insurance, city }}
+                      value={{
+                        pickup,
+                        pickup_address,
+                        insurance,
+                        insurance_value,
+                        city,
+                      }}
                     />
                   </>
                 ),

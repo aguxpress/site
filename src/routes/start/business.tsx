@@ -12,10 +12,20 @@ import BusinessRequest, {
   type BusinessRequestOpts,
 } from "@components/start-forms/BusinessRequest";
 import { sendFormDetails } from "@services/mail.services";
+import { seo } from "@data/seo.data";
 
 export type BusinessData = BusinessContactProps &
   BusinessInfoOpts &
   BusinessRequestOpts & { __formtype: "business" };
+
+export const meta: Route.MetaFunction = ({
+  location: { pathname },
+}: Route.MetaArgs) =>
+  seo({
+    pathname,
+    title: "Business Partnership",
+    description: "Partner with AguXpress for logistics solutions",
+  });
 
 export async function action({ request }: Route.ActionArgs) {
   const body = await request.json();

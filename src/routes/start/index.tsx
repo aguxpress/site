@@ -1,6 +1,17 @@
 import { Link } from "react-router";
 import type { Route } from "./+types/index";
 import { services } from "@data/start.data";
+import { seo } from "@data/seo.data";
+
+export const meta: Route.MetaFunction = ({
+  location: { pathname },
+}: Route.MetaArgs) =>
+  seo({
+    pathname,
+    title: "Get Started",
+    description:
+      "Choose between delivery, relocation, quotes, or business partnership services. Start your journey with AguXpress.",
+  });
 
 export default function Start({}: Route.ComponentProps) {
   return (

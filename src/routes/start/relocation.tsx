@@ -14,12 +14,22 @@ import Destination, {
   type DestinationOpts,
 } from "@components/start-forms/Destination";
 import { sendFormDetails } from "@services/mail.services";
+import { seo } from "@data/seo.data";
 
 export type Relocation = DestinationOpts &
   UserProps &
   HomeInfoOpts &
   HomeItemsOpts &
   MovingInstructionsOpts & { __formtype: "relocation" };
+
+export const meta: Route.MetaFunction = ({
+  location: { pathname },
+}: Route.MetaArgs) =>
+  seo({
+    pathname,
+    title: "Relocation Service",
+    description: "Secure relocation services for homes and offices",
+  });
 
 export async function action({ request }: Route.ActionArgs) {
   const body = await request.json();

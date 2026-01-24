@@ -14,12 +14,22 @@ import Destination, {
 } from "@components/start-forms/Destination";
 import Addons, { type AddonsOpts } from "@components/start-forms/Addons";
 import { sendFormDetails } from "@services/mail.services";
+import { seo } from "@data/seo.data";
 
 export type DeliveryData = UserProps &
   RecipientProps &
   SinglePackageOpts &
   AddonsOpts &
   DestinationOpts & { __formtype: "delivery" };
+
+export const meta: Route.MetaFunction = ({
+  location: { pathname },
+}: Route.MetaArgs) =>
+  seo({
+    pathname,
+    title: "Delivery Service",
+    description: "Fast and reliable parcel/haulage delivery to any location",
+  });
 
 export async function action({ request }: Route.ActionArgs) {
   const body = await request.json();
