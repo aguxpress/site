@@ -8,7 +8,7 @@ const Hero = () => (
     id="home"
   >
     <div
-      className="absolute inset-0 -z-1 bg-cover bg-center bg-no-repeat brightness-65"
+      className="absolute inset-0 -z-1 bg-cover bg-center bg-no-repeat brightness-50"
       style={{ backgroundImage: `url(${bannerBlur})` }}
     />
     <div className="container not-lg:mx-0">
@@ -21,10 +21,10 @@ const Hero = () => (
         </h2>
 
         <p className="text-ax-white-a relative z-10 my-4 max-w-lg text-shadow-inherit sm:text-shadow-[0px_8px_50px]">
-          AguXpress provides reliable logistics services in Nigeria, including
-          local delivery, interstate transport, and overseas shipping, with
-          secure pickup, dispatch, insurance, and escrow services for
-          individuals and businesses.
+          AguXpress provides reliable and secure logistics services across
+          Nigeria. We handle local, interstate and international deliveries. We
+          also offer escrow and insurance services to businesses and
+          individuals. Move anything, anywhere, safely.
         </p>
 
         <Link to="/track" className="hero-btn">

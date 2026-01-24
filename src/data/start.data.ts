@@ -67,6 +67,7 @@ export const startFormFieldsDesc: Record<keyof StartFormFields, string> = {
   pickup: "Pickup",
   pickup_address: "Pickup Address",
   insurance: "Insurance",
+  insurance_value: "Value for Insurance",
 
   // DestinationOpts
   destination_state: "Destination State",

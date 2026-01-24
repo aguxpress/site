@@ -123,7 +123,7 @@ const generateHTML = async <
   }
 
   if (data.__formtype === "delivery" || data.__formtype === "quote") {
-    const { pickup, pickup_address, insurance } = data;
+    const { pickup, pickup_address, insurance, insurance_value } = data;
     groups.push(
       <Group
         title="Additional Services"
@@ -131,6 +131,8 @@ const generateHTML = async <
           pickup,
           ...(pickup && { pickup_address }),
           insurance,
+          // Eventually prettify this when you get the chance to
+          insurance_value: Number(insurance_value).toLocaleString(),
         }}
         block={["pickup_address"]}
       />,

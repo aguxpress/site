@@ -48,6 +48,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
     pickup: false,
     pickup_address: "",
     insurance: false,
+    insurance_value: "",
     recipient_fullname: "",
     recipient_email: "",
     recipient_phone: "",
@@ -79,6 +80,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
               pickup,
               pickup_address,
               insurance,
+              insurance_value,
               recipient_fullname,
               recipient_email,
               recipient_phone,
@@ -115,7 +117,13 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
                     />
                     <Addons
                       onChange={handleChange}
-                      value={{ pickup, city, pickup_address, insurance }}
+                      value={{
+                        pickup,
+                        city,
+                        pickup_address,
+                        insurance,
+                        insurance_value,
+                      }}
                     />
                   </>
                 ),

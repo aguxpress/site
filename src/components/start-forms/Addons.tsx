@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { FaAngleDown } from "react-icons/fa";
 import Label from "@shared/Label";
 import Input from "@shared/Input";
@@ -8,6 +7,7 @@ export interface AddonsOpts {
   pickup: boolean;
   pickup_address: string;
   insurance: boolean;
+  insurance_value: number | string;
   city: string;
 }
 
@@ -110,13 +110,24 @@ export default function Addons({
         />
       </Toggle>
       <Toggle
-        name="Insurance"
-        info="Recommended"
+        name="Insurance (Recommended)"
         id="insurance"
         isOpen={value.insurance}
         onChange={onChange}
       >
-        Thank you for insuring your package
+        <Label
+          htmlFor="insurance_value"
+          info={`Please declare the actual value of your package as Insurance payouts are based on the declared value. Value should be in Naira (NGN).`}
+        >
+          Package Value
+        </Label>
+        <Input
+          id="insurance_value"
+          name="insurance_value"
+          type="number"
+          value={value.insurance_value}
+          onChange={onChange}
+        />
       </Toggle>
     </>
   );
