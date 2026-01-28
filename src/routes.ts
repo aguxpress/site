@@ -32,6 +32,5 @@ export default [
 
   ...prefix("api", [route("mail-list", "routes/api/mail-list.tsx")]),
 
-  route("grist", "routes/grist.tsx"),
-  route("g", "routes/grist.tsx", { id: "g" }),
+  route("*", "routes/catchall.tsx"),
 ] satisfies RouteConfig;
