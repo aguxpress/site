@@ -83,7 +83,7 @@ export default function Apps() {
     <ScrollContext value={{ isPastTop, setIsPastTop }}>
       <Header />
       <Toaster />
-      <main className="bg-ax-white-a pt-[--spacing(var(--header-gap))]">
+      <main className="pt-[--spacing(var(--header-gap))]">
         <Outlet />
       </main>
       <Footer />

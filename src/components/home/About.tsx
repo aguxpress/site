@@ -33,7 +33,8 @@ const About = () => (
           src={redSquare}
           loading="lazy"
           alt=""
-          className="absolute bottom-0 left-12.5 -z-1 hidden w-100 sm:block"
+          className="absolute bottom-0 left-12.5 hidden w-100 sm:block"
+          style={{ zIndex: -1 }}
         />
       </figure>
 
