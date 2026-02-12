@@ -16,7 +16,7 @@ function Contact() {
       if (fetcher.data.accepted.length) {
         toast.success("Message sent successfully");
         setFk((fk) => ++fk);
-      } else if (!fetcher.data.rejected.length) {
+      } else if (fetcher.data.rejected.length) {
         toast.error("Something went wrong, try again");
       }
     }
@@ -24,11 +24,10 @@ function Contact() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.currentTarget;
+    const formData = new FormData(event.currentTarget);
     const token = await getReCaptchaToken();
-    const formData = new FormData(form);
     formData.append("recaptcha_token", token ?? "");
-    await fetcher.submit(formData, { method: "POST" });
+    fetcher.submit(formData, { method: "POST" });
   };
 
   return (

@@ -18,6 +18,8 @@ export async function action({ request }: Route.ActionArgs) {
   const headers = request.headers;
   const formData = await request.formData();
   const result = await handleVisitorMessage({ headers, formData });
+  if (!("name" in result)) return result;
+
   const mailRes = await sendContactMessage(result);
   return mailRes;
 }

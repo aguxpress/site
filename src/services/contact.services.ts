@@ -1,5 +1,6 @@
 import { env } from "@utils/env.server";
 import { contactSchema } from "@/types/helpers.types";
+import { dataError } from "@utils/helpers.server";
 
 interface VisitorMessage {
   headers: Headers;
@@ -7,7 +8,8 @@ interface VisitorMessage {
 }
 
 async function handleVisitorMessage({ headers, formData }: VisitorMessage) {
-  const data = contactSchema.parse(formData.entries());
+  const info = contactSchema.safeParse(Object.fromEntries(formData));
+  if (info.error) return dataError("Invalid Form Input");
 
   const url = new URL("https://www.google.com/recaptcha/api/siteverify");
   const ip =
@@ -16,7 +18,7 @@ async function handleVisitorMessage({ headers, formData }: VisitorMessage) {
     headers.get("x-real-ip") ??
     "";
   url.searchParams.append("secret", env.CAPTCHA_SECRET);
-  url.searchParams.append("response", data.recaptcha_token);
+  url.searchParams.append("response", info.data.recaptcha_token);
   url.searchParams.append("remoteip", ip);
 
   const res = await fetch(url, { method: "POST" });
@@ -26,7 +28,7 @@ async function handleVisitorMessage({ headers, formData }: VisitorMessage) {
     throw new Error("Something went wrong");
   }
 
-  return data;
+  return info.data;
 }
 
 export { handleVisitorMessage };
