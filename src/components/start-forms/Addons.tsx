@@ -2,14 +2,15 @@ import { FaAngleDown } from "react-icons/fa";
 import Label from "@shared/Label";
 import Input from "@shared/Input";
 import { cn } from "@utils/tailwind.utils";
+import * as z from "zod/mini";
 
-export interface AddonsOpts {
-  pickup: boolean;
-  pickup_address: string;
-  insurance: boolean;
-  insurance_value: number | string;
-  city: string;
-}
+export const AddonsSchema = z.object({
+  pickup: z.boolean(),
+  pickup_address: z.string().check(z.minLength(5)),
+  insurance: z.boolean(),
+  insurance_value: z.coerce.number().check(z.gt(1)),
+  city: z.string().check(z.minLength(1)),
+});
 
 interface ToggleProps {
   children: React.ReactNode;
@@ -81,7 +82,7 @@ export default function Addons({
   value,
   onChange,
 }: {
-  value: AddonsOpts;
+  value: z.infer<typeof AddonsSchema>;
   onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ): void;

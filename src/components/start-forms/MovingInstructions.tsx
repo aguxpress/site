@@ -1,4 +1,5 @@
 import { useState } from "react";
+import * as z from "zod/mini";
 import Label from "@shared/Label";
 import { Toggle } from "./Addons";
 import Input from "@shared/Input";
@@ -11,6 +12,16 @@ import openLarge from "@images/open-large-truck.jpg";
 import closedLarge from "@images/closed-large-truck.jpg";
 // Budget
 // Comments
+
+export const MovingInstructionsSchema = z.object({
+  insurance: z.boolean(),
+  covered_items: z.string(),
+  labourers: z.boolean(),
+  truck_size: z.enum(["Small", "Medium", "Large"]),
+  truck_type: z.enum(["Open", "Closed"]),
+  budget: z.optional(z.number()),
+  comments: z.string(),
+});
 
 export interface MovingInstructionsOpts {
   insurance: boolean;

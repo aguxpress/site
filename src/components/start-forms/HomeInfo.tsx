@@ -1,3 +1,4 @@
+import * as z from "zod/mini";
 import Label from "@shared/Label";
 // import { Toggle } from "./Addons";
 import Input from "@shared/Input";
@@ -9,18 +10,18 @@ const getNextDay = (date = new Date()) => {
   return nextDay.toISOString().split("T")[0];
 };
 
-export interface HomeInfoOpts {
-  home_size: string;
-  home_floor: string;
-  relocation_date: string;
-  pickup_address: string;
-}
+export const HomeInfoSchema = z.object({
+  home_size: z.string().check(z.minLength(2)),
+  home_floor: z.string().check(z.minLength(2)),
+  relocation_date: z.string(),
+  pickup_address: z.string().check(z.minLength(2)),
+});
 
 export default function HomeInfo({
   value,
   onChange,
 }: {
-  value: HomeInfoOpts;
+  value: z.infer<typeof HomeInfoSchema>;
   onChange(
     event: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement

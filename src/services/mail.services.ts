@@ -2,7 +2,6 @@ import nodemailer from "nodemailer";
 import { env } from "@utils/env.server";
 import type { ContactMessageData } from "@/types/helpers.types";
 import { dataError, shortId } from "@utils/helpers.server";
-import type { StartFormFields } from "@/types/start.types";
 import { generateHTML } from "@components/email/startForms";
 import type { QuoteData } from "src/routes/start/quote";
 import type { Relocation } from "src/routes/start/relocation";
@@ -48,7 +47,7 @@ async function sendFormDetails<
     submittedData.__formtype === "business"
       ? submittedData.contact_email
       : submittedData.email;
-  const htmlPayload = await generateHTML<T>(submittedData);
+  const htmlPayload = await generateHTML(submittedData);
 
   const res = await transporter.sendMail({
     from: CONFIGURED_SENDER,

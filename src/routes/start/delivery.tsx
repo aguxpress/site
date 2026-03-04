@@ -1,26 +1,33 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
+import * as z from "zod/mini";
 import type { Route } from "./+types/delivery";
 import Wizard from "@components/start-forms/Wizard";
 import PersonData, {
-  type UserProps,
-  type RecipientProps,
+  UserSchema,
+  RecipientSchema,
 } from "@components/start-forms/PersonData";
 import SinglePackage, {
-  type SinglePackageOpts,
+  SinglePackageSchema,
 } from "@components/start-forms/PackageInfo";
 import Destination, {
-  type DestinationOpts,
+  DestinationSchema,
 } from "@components/start-forms/Destination";
-import Addons, { type AddonsOpts } from "@components/start-forms/Addons";
+import Addons, { AddonsSchema } from "@components/start-forms/Addons";
 import { sendFormDetails } from "@services/mail.services";
 import { seo } from "@data/seo.data";
+import { dataError } from "@utils/helpers.server";
 
-export type DeliveryData = UserProps &
-  RecipientProps &
-  SinglePackageOpts &
-  AddonsOpts &
-  DestinationOpts & { __formtype: "delivery" };
+export const DeliverySchema = z.object({
+  ...UserSchema.shape,
+  ...RecipientSchema.shape,
+  ...SinglePackageSchema.shape,
+  ...AddonsSchema.shape,
+  ...DestinationSchema.shape,
+});
+export type DeliveryData = z.infer<typeof DeliverySchema> & {
+  __formtype: "delivery";
+};
 
 export const meta: Route.MetaFunction = ({
   location: { pathname },
@@ -33,8 +40,10 @@ export const meta: Route.MetaFunction = ({
 
 export async function action({ request }: Route.ActionArgs) {
   const body = await request.json();
-  const data: DeliveryData = { ...body, __formtype: "delivery" };
-  const result = await sendFormDetails<DeliveryData>({
+  const parse = DeliverySchema.safeParse(body);
+  if (!parse.success) return dataError("Please fill all the required fields");
+  const data = { ...body, __formtype: "delivery" };
+  const result = await sendFormDetails({
     title: "Delivery Request",
     submittedData: data,
   });
@@ -58,7 +67,7 @@ export default function Delivery({ actionData }: Route.ComponentProps) {
     pickup: false,
     pickup_address: "",
     insurance: false,
-    insurance_value: "",
+    insurance_value: 0,
     recipient_fullname: "",
     recipient_email: "",
     recipient_phone: "",

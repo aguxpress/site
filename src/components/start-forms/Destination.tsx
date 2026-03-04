@@ -1,13 +1,14 @@
+import * as z from "zod/mini";
 import Label from "@shared/Label";
 import Input from "@shared/Input";
 
-export interface DestinationOpts {
-  state: string;
-  destination_state: string;
-  destination_city: string;
-  street_address: string;
-  size?: "Haulage" | "Parcel";
-}
+export const DestinationSchema = z.object({
+  state: z.string(),
+  destination_state: z.string(),
+  destination_city: z.string().check(z.minLength(2)),
+  street_address: z.string().check(z.minLength(2)),
+  size: z.optional(z.enum(["Haulage", "Parcel"])),
+});
 
 export default function Destination({
   onChange,
@@ -16,7 +17,7 @@ export default function Destination({
   onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ): void;
-  value: DestinationOpts;
+  value: z.infer<typeof DestinationSchema>;
 }) {
   const isParcel = size === "Parcel";
 

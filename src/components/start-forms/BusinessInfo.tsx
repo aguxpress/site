@@ -1,16 +1,17 @@
+import * as z from "zod/mini";
 import Label from "@shared/Label";
 import Input from "@shared/Input";
 
-export interface BusinessInfoOpts {
-  business_name: string;
-  business_description: string;
-}
+export const BusinessInfoSchema = z.object({
+  business_name: z.string().check(z.minLength(2)),
+  business_description: z.string().check(z.minLength(2)),
+});
 
 export default function BusinessInfo({
   value,
   onChange,
 }: {
-  value: BusinessInfoOpts;
+  value: z.infer<typeof BusinessInfoSchema>;
   onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ): void;

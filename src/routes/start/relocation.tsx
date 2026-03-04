@@ -1,26 +1,31 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
+import * as z from "zod/mini";
 import type { Route } from "./+types/relocation";
 import Wizard from "@components/start-forms/Wizard";
-import PersonData, { type UserProps } from "@components/start-forms/PersonData";
-import HomeInfo, { type HomeInfoOpts } from "@components/start-forms/HomeInfo";
-import HomeItems, {
-  type HomeItemsOpts,
-} from "@components/start-forms/HomeItems";
+import PersonData, { UserSchema } from "@components/start-forms/PersonData";
+import HomeInfo, { HomeInfoSchema } from "@components/start-forms/HomeInfo";
+import HomeItems, { HomeItemsSchema } from "@components/start-forms/HomeItems";
 import MovingInstructions, {
-  type MovingInstructionsOpts,
+  MovingInstructionsSchema,
 } from "@components/start-forms/MovingInstructions";
 import Destination, {
-  type DestinationOpts,
+  DestinationSchema,
 } from "@components/start-forms/Destination";
 import { sendFormDetails } from "@services/mail.services";
 import { seo } from "@data/seo.data";
 
-export type Relocation = DestinationOpts &
-  UserProps &
-  HomeInfoOpts &
-  HomeItemsOpts &
-  MovingInstructionsOpts & { __formtype: "relocation" };
+export const RelocationSchema = z.object({
+  ...UserSchema.shape,
+  ...DestinationSchema.shape,
+  ...HomeInfoSchema.shape,
+  ...HomeItemsSchema.shape,
+  ...MovingInstructionsSchema.shape,
+});
+
+export type Relocation = z.infer<typeof RelocationSchema> & {
+  __formtype: "relocation";
+};
 
 export const meta: Route.MetaFunction = ({
   location: { pathname },
@@ -34,7 +39,7 @@ export const meta: Route.MetaFunction = ({
 export async function action({ request }: Route.ActionArgs) {
   const body = await request.json();
   const data: Relocation = { ...body, __formtype: "relocation" };
-  const result = await sendFormDetails<Relocation>({
+  const result = await sendFormDetails({
     title: "Relocation Request",
     submittedData: data,
   });

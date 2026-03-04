@@ -1,12 +1,12 @@
-import { z } from "zod";
+import * as z from "zod/mini";
 
 export type AppFetchedData<T> = T | { error: string } | null;
 
 export const contactSchema = z.object({
-  name: z.string().min(1),
+  name: z.string().check(z.minLength(1)),
   email: z.email(),
   phone: z.string(),
-  message: z.string().min(1),
+  message: z.string().check(z.minLength(1)),
   recaptcha_token: z.string(),
 });
 

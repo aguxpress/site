@@ -1,22 +1,29 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
+import * as z from "zod/mini";
 import type { Route } from "./+types/business";
 import Wizard from "@components/start-forms/Wizard";
 import PersonData, {
-  type BusinessContactProps,
+  BusinessContactSchema,
 } from "@components/start-forms/PersonData";
 import BusinessInfo, {
-  type BusinessInfoOpts,
+  BusinessInfoSchema,
 } from "@components/start-forms/BusinessInfo";
 import BusinessRequest, {
-  type BusinessRequestOpts,
+  BusinessRequestSchema,
 } from "@components/start-forms/BusinessRequest";
 import { sendFormDetails } from "@services/mail.services";
 import { seo } from "@data/seo.data";
+import { dataError } from "@utils/helpers.server";
 
-export type BusinessData = BusinessContactProps &
-  BusinessInfoOpts &
-  BusinessRequestOpts & { __formtype: "business" };
+export const BusinessSchema = z.object({
+  ...BusinessContactSchema.shape,
+  ...BusinessInfoSchema.shape,
+  ...BusinessRequestSchema.shape,
+});
+export type BusinessData = z.infer<typeof BusinessSchema> & {
+  __formtype: "business";
+};
 
 export const meta: Route.MetaFunction = ({
   location: { pathname },
@@ -29,7 +36,9 @@ export const meta: Route.MetaFunction = ({
 
 export async function action({ request }: Route.ActionArgs) {
   const body = await request.json();
-  const data: BusinessData = { ...body, __formtype: "business" };
+  const parse = BusinessSchema.safeParse(body);
+  if (!parse.success) return dataError("Please fill all the required fields");
+  const data = { ...body, __formtype: "business" };
   const result = await sendFormDetails<BusinessData>({
     title: "Business Enquiry",
     submittedData: data,

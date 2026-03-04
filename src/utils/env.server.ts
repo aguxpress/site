@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as z from "zod/mini";
 import "dotenv/config";
 
 const envSchema = z.object({

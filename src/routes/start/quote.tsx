@@ -1,22 +1,28 @@
 import { useState } from "react";
 import { useFetcher } from "react-router";
+import * as z from "zod/mini";
 import type { Route } from "./+types/quote";
 import Wizard from "@components/start-forms/Wizard";
 import { sendFormDetails } from "@services/mail.services";
-import PersonData, { type UserProps } from "@components/start-forms/PersonData";
+import PersonData, { UserSchema } from "@components/start-forms/PersonData";
 import SinglePackage, {
-  type SinglePackageOpts,
+  SinglePackageSchema,
 } from "@components/start-forms/PackageInfo";
-import Addons, { type AddonsOpts } from "@components/start-forms/Addons";
+import Addons, { AddonsSchema } from "@components/start-forms/Addons";
 import Destination, {
-  type DestinationOpts,
+  DestinationSchema,
 } from "@components/start-forms/Destination";
 import { seo } from "@data/seo.data";
+import { dataError } from "@utils/helpers.server";
 
-export type QuoteData = UserProps &
-  SinglePackageOpts &
-  AddonsOpts &
-  DestinationOpts & { __formtype: "quote" };
+const QuoteSchema = z.object({
+  ...UserSchema.shape,
+  ...SinglePackageSchema.shape,
+  ...AddonsSchema.shape,
+  ...DestinationSchema.shape,
+});
+
+export type QuoteData = z.infer<typeof QuoteSchema> & { __formtype: "quote" };
 
 export const meta: Route.MetaFunction = ({
   location: { pathname },
@@ -29,6 +35,8 @@ export const meta: Route.MetaFunction = ({
 
 export async function action({ request }: Route.ActionArgs) {
   const body = await request.json();
+  const parse = QuoteSchema.safeParse(body);
+  if (!parse.success) return dataError("Please fill all the required fields");
   const data: QuoteData = { ...body, __formtype: "quote" };
   const result = await sendFormDetails<QuoteData>({
     title: "Quote Request",
@@ -53,7 +61,7 @@ export default function Quote({ actionData }: Route.ComponentProps) {
     truck_type: "Open",
     pickup_address: "",
     insurance: false,
-    insurance_value: "",
+    insurance_value: 0,
     destination_state: "",
     destination_city: "",
     street_address: "",
@@ -135,6 +143,7 @@ export default function Quote({ actionData }: Route.ComponentProps) {
                       destination_state,
                       destination_city,
                       street_address,
+                      size,
                       state,
                     }}
                   />

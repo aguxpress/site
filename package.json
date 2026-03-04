@@ -9,12 +9,16 @@
     "typecheck": "tsc --noEmit",
     "codegen": "react-router typegen && graphql-codegen --config codegen.ts",
     "prettier": "prettier",
+    "lint": "oxlint",
     "prepare": "husky"
   },
   "prettier": {
     "plugins": [
       "prettier-plugin-tailwindcss"
     ]
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "npm run lint"
   },
   "dependencies": {
     "@apollo/client": "^4.0.3",
@@ -48,6 +52,7 @@
     "clsx": "^2.1.1",
     "husky": "^9.1.7",
     "lint-staged": "^16.2.7",
+    "oxlint": "^1.51.0",
     "prettier": "3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwind-merge": "^3.3.1",

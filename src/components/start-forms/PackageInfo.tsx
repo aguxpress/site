@@ -1,3 +1,4 @@
+import * as z from "zod/mini";
 import Label from "@shared/Label";
 import Select from "@shared/Select";
 import Input from "@shared/Input";
@@ -5,12 +6,12 @@ import Choice, { type ChoiceProps } from "@shared/Choice";
 import openTruck from "@images/open-medium-truck.jpg";
 import closedTruck from "@images/closed-medium-truck.jpg";
 
-export interface SinglePackageOpts {
-  category: string;
-  weight: number;
-  size: "Parcel" | "Haulage";
-  truck_type: "Open" | "Closed";
-}
+export const SinglePackageSchema = z.object({
+  category: z.string(),
+  weight: z.number(),
+  size: z.optional(z.enum(["Parcel", "Haulage"])),
+  truck_type: z.enum(["Open", "Closed"]),
+});
 
 const categories = [
   "Documents",
@@ -34,13 +35,13 @@ export default function SinglePackage({
   value,
   onChange,
 }: {
-  value: SinglePackageOpts;
+  value: z.infer<typeof SinglePackageSchema>;
   onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ): void;
 }) {
   // Here so that it can be typechecked
-  const sizes: (typeof value.size)[] = ["Parcel", "Haulage"];
+  const sizes: NonNullable<typeof value.size>[] = ["Parcel", "Haulage"];
 
   return (
     <>

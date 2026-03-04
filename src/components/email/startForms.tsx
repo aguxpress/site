@@ -15,7 +15,7 @@ interface GroupProps<T> {
 function Group<T extends Partial<StartFormFields>>({
   title,
   fields,
-  block,
+  // block,
 }: GroupProps<T>) {
   return (
     <>
@@ -132,7 +132,7 @@ const generateHTML = async <
           ...(pickup && { pickup_address }),
           insurance,
           // Eventually prettify this when you get the chance to
-          insurance_value: Number(insurance_value).toLocaleString(),
+          insurance_value,
         }}
         block={["pickup_address"]}
       />,

@@ -1,21 +1,22 @@
+import * as z from "zod/mini";
 import Label from "@shared/Label";
 import Input from "@shared/Input";
 
-export interface HomeItemsOpts {
-  beds: number;
-  sofas: number;
-  tables: number;
-  fridges: number;
-  washing_machines: number;
-  big_drums: number;
-  large_items: string;
-}
+export const HomeItemsSchema = z.object({
+  beds: z.number(),
+  sofas: z.number(),
+  tables: z.number(),
+  fridges: z.number(),
+  washing_machines: z.number(),
+  big_drums: z.number(),
+  large_items: z.string(),
+});
 
 export default function HomeItems({
   value,
   onChange,
 }: {
-  value: HomeItemsOpts;
+  value: z.infer<typeof HomeItemsSchema>;
   onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ): void;

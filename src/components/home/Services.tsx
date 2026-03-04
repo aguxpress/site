@@ -1,4 +1,3 @@
-import { IoChevronForward } from "react-icons/io5";
 import homeGarden from "@assets/icons/home-garden.svg";
 import building from "@assets/icons/building.svg";
 import delivery from "@assets/icons/delivery.svg";

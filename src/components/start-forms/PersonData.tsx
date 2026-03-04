@@ -1,29 +1,30 @@
 import { useRef, useState } from "react";
+import * as z from "zod/mini";
 import Label from "@shared/Label";
 import Input from "@shared/Input";
 import Select from "@shared/Select";
 
-export interface UserProps {
-  fullname: string;
-  email: string;
-  phone: string;
-  state: string;
-  city: string;
-}
+export const UserSchema = z.object({
+  fullname: z.string().check(z.minLength(2)),
+  email: z.email(),
+  phone: z.string().check(z.minLength(10)),
+  state: z.string(),
+  city: z.string(),
+});
 
-export interface RecipientProps {
-  recipient_fullname: string;
-  recipient_email: string;
-  recipient_phone: string;
-}
+export const RecipientSchema = z.object({
+  recipient_fullname: z.string().check(z.minLength(2)),
+  recipient_email: z.email(),
+  recipient_phone: z.string().check(z.minLength(10)),
+});
 
-export interface BusinessContactProps {
-  contact_fullname: string;
-  contact_email: string;
-  contact_phone: string;
-  business_state: string;
-  business_city: string;
-}
+export const BusinessContactSchema = z.object({
+  contact_fullname: z.string().check(z.minLength(2)),
+  contact_email: z.email(),
+  contact_phone: z.string().check(z.minLength(10)),
+  business_state: z.string(),
+  business_city: z.string(),
+});
 
 // So that the delivery state can contain all values
 
@@ -49,9 +50,9 @@ export default function PersonData({
   onChange,
 }: {
   value:
-    | ({ type: "recipient" } & RecipientProps)
-    | ({ type: "user" } & UserProps)
-    | ({ type: "business" } & BusinessContactProps);
+    | ({ type: "recipient" } & z.infer<typeof RecipientSchema>)
+    | ({ type: "user" } & z.infer<typeof UserSchema>)
+    | ({ type: "business" } & z.infer<typeof BusinessContactSchema>);
   onChange(
     event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ): void;

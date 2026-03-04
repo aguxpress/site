@@ -1,18 +1,18 @@
+import * as z from "zod/mini";
 import Input from "@shared/Input";
 import Label from "@shared/Label";
 import Select from "@shared/Select";
 
-export interface BusinessRequestOpts {
-  service_description: string;
-  frequency: string;
-  comments: string;
-}
-
+export const BusinessRequestSchema = z.object({
+  service_description: z.string().check(z.minLength(2)),
+  frequency: z.string().check(z.minLength(2)),
+  comments: z.string().check(z.minLength(2)),
+});
 export default function BusinessRequest({
   value,
   onChange,
 }: {
-  value: BusinessRequestOpts;
+  value: z.infer<typeof BusinessRequestSchema>;
   onChange(
     event: React.ChangeEvent<
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement

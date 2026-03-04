@@ -64,7 +64,6 @@ export default function Wizard<T>({
   }
 
   const isSubmitting = state === "submitting";
-  const isError = data ? "error" in data : false;
 
   const displaySteps = [
     ...steps(handleChange, formState),
@@ -73,17 +72,17 @@ export default function Wizard<T>({
   const isLastFormStep = phase === displaySteps.length - 2;
 
   useEffect(() => {
-    if (isLastFormStep && !isSubmitting) {
-      if (isError) {
+    if (isLastFormStep && !isSubmitting && data) {
+      if ("error" in data) {
         toast.dismiss();
-        toast.error("Something went wrong, Try again");
-      } else if (data) {
-        toast.dismiss();
-        toast.success("Submitted!");
-        setPhase((prev) => prev + 1);
+        toast.error(data.error);
+        return;
       }
+      toast.dismiss();
+      toast.success("Submitted!");
+      setPhase((prev) => prev + 1);
     }
-  }, [isError, isSubmitting]);
+  }, [isSubmitting, data]);
 
   return (
     <form>
