@@ -7,7 +7,8 @@ interface RowData {
   Tracking_ID: string;
   del_name?: string;
   del_phone?: string;
-  Country?: string;
+  Destination_State?: string;
+  Destination_Country?: string;
 }
 
 export interface GristRecords {

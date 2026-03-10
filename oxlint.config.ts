@@ -4,5 +4,7 @@ export default defineConfig({
   categories: {
     correctness: "warn",
   },
-  rules: {},
+  rules: {
+    "no-console": "error",
+  },
 });

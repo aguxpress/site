@@ -35,6 +35,7 @@ export default function Track({ loaderData }: Route.ComponentProps) {
   const [searchParams] = useSearchParams();
   const trackingId = searchParams.get("id");
   const results = loaderData && !("error" in loaderData) ? loaderData : null;
+
   let activeIndex = Object.keys(orderSteps).findIndex(
     (status) => status === results?.Order_Status,
   );
@@ -72,9 +73,17 @@ export default function Track({ loaderData }: Route.ComponentProps) {
                     Service Type:{" "}
                     <span>{results.Service_Type.slice(1).join(", ")}</span>
                   </div>
-                  {results.Country && (
+                  {results.Destination_State && (
                     <div>
-                      Destination: <span>{results.Country}</span>
+                      Destination:{" "}
+                      <span>
+                        {[
+                          results.Destination_State,
+                          results.Destination_Country,
+                        ]
+                          .filter(Boolean)
+                          .join(", ")}
+                      </span>
                     </div>
                   )}
                   {results.del_name && (
