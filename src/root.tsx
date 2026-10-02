@@ -47,7 +47,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        // Facebook Meta tag
+        {/*  Facebook Meta tag */}
         <meta name="facebook-domain-verification" content="plnlfzbfplp7qrvzd8yydadcsh52vb" />
         <Meta />
         <Links />
