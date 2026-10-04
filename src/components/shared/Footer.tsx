@@ -143,7 +143,7 @@ const Footer = () => (
       </div>
 
       <div className="border-ax-white-a border-t py-10 text-sm lg:text-center">
-        <p>&copy; {new Date().getFullYear()} AguXpress. All Rights Reserved.</p>
+        <p>&copy; {new Date().getFullYear()} AguXpress Limited. All Rights Reserved.</p>
       </div>
     </div>
   </footer>
